@@ -61,7 +61,6 @@ return [
         'provider'=>[
             'paystack'=>'paystack',
             'flutterwave'=>'flutterwave',
-            'ogwugopay'=>'ogwugopay',
         ],
         'type'=>[
             'standard'=>'standard',

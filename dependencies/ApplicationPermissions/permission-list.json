@@ -1,0 +1,14 @@
+{
+    "CacheController":[
+        {
+            "name":"index_cache",
+            "display_name":"View cached data",
+            "description":"See all available data in application cache"
+        },
+        {
+            "name":"clear_cache",
+            "display_name":"Clear cached data",
+            "description":"Clear all available data in application cache"
+        }
+    ]
+}

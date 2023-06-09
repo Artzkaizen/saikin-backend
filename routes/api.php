@@ -14,6 +14,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['api'], 'prefix' => 'auth'], function ($router) {
+
+    // Auth Routes
+    Route::post('register', 'AuthController@register');
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('forgot', 'AuthController@forgotPassword');
+    Route::post('reset', 'AuthController@resetPassword');
+    Route::post('change', 'AuthController@changePassword');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+    Route::get('verify', 'AuthController@verifyEmail');
+    Route::get('test', 'AuthController@test');
+
+    // Socialite Routes
+    Route::get('socialite/facebook', 'SocialiteController@redirectToFacebookProvider');
+    Route::get('socialite/facebook/callback', 'SocialiteController@handleFacebookProviderCallback');
+    Route::get('socialite/linkedin', 'SocialiteController@redirectToLinkedinProvider');
+    Route::get('socialite/linkedin/callback', 'SocialiteController@handleLinkedinProviderCallback');
+    Route::get('socialite/google', 'SocialiteController@redirectToGoogleProvider');
+    Route::get('socialite/google/callback', 'SocialiteController@handleGoogleProviderCallback');
+    Route::get('socialite/apple', 'SocialiteController@redirectToAppleProvider');
+    Route::get('socialite/apple/callback', 'SocialiteController@handleAppleProviderCallback');
+    Route::get('socialite/test', 'SocialiteController@test');
+});
+
+Route::group(['middleware' => ['api'], 'prefix' => 'misc'], function ($router) {
+
+    // Miscellaneous Routes
+    Route::post('response', 'MiscellaneousController@responseTypes');
+    Route::post('patcher', 'MiscellaneousController@applicationPatcher');
 });

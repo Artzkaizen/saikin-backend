@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group([], function ($router) {
+
+    // Default Route
+    Route::get('/', function () {return view('pages.welcome');});
+});
+
+Route::group(['prefix' => 'web'], function ($router) {
+
+    // Miscellaneous Routes
+    Route::get('go', 'MiscellaneousController@redirectBasedOnDevice');
 });

@@ -40,6 +40,14 @@ Route::group(['middleware' => ['api'], 'prefix' => 'auth'], function ($router) {
     Route::get('socialite/test', 'SocialiteController@test');
 });
 
+Route::group(['middleware' => ['api'], 'prefix' => 'cache'], function ($router) {
+
+    // Cache Routes
+    Route::get('index', 'CacheController@index');
+    Route::post('clear', 'CacheController@clear');
+    Route::get('test', 'CacheController@test');
+});
+
 Route::group(['middleware' => ['api'], 'prefix' => 'misc'], function ($router) {
 
     // Miscellaneous Routes

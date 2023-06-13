@@ -16,17 +16,11 @@ class AuthSupport
      */
     public static function uniqueName(?string $name)
     {
-        $name = trim(strtolower($name)) ?? rand(1,9);
-        $check = User::where('name',$name)->first();
+        $name = strtolower(str_replace(' ','.',trim($name ?? 'user')));
+        $name = strlen($name) > 50 ? 'user' : $name;
+        $exists = User::where('name',$name)->exists();
 
-        if ($check) {
-
-            return self::uniqueName($name.rand(1,9));
-
-        } else {
-
-            return $name;
-        }
+        return $exists ? self::uniqueName($name.rand(1,9)) : $name;
     }
 
     /**

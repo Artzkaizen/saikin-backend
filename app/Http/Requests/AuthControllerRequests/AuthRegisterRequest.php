@@ -5,7 +5,6 @@ namespace App\Http\Requests\AuthControllerRequests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\User;
 
-
 class AuthRegisterRequest extends FormRequest
 {
     /**
@@ -26,7 +25,8 @@ class AuthRegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:50|unique:users,name',
+            'first_name' => 'required|string|max:50',
+            'last_name' => 'required|string|max:50',
             'email' => 'required|email|max:100|unique:users,email',
             'password' => 'required|min:6|max:24|confirmed',
             'password_confirmation' => 'required|same:password',
@@ -46,10 +46,13 @@ class AuthRegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'A name is required',
-            'name.string' => 'Name characters are not valid',
-            'name.max' => 'A name can not have more than 50 characters',
-            'name.unique' => 'The name has already been taken',
+            'first_name.required' => 'A name is required',
+            'first_name.string' => 'Name characters are not valid',
+            'first_name.max' => 'A name can not have more than 50 characters',
+
+            'last_name.required' => 'A last name is required',
+            'last_name.string' => 'Last name characters are not valid',
+            'last_name.max' => 'A last name can not have more than 50 characters',
 
             'email.required' => 'An email is required',
             'email.email' => 'Email is not valid',

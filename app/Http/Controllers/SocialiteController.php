@@ -11,6 +11,7 @@ use App\Http\Requests\SocialiteControllerRequests\SocialiteFacebookCallBackReque
 use App\Http\Requests\SocialiteControllerRequests\SocialiteLinkedinCallBackRequest;
 use App\Http\Requests\SocialiteControllerRequests\SocialiteGoogleCallBackRequest;
 use App\Http\Requests\SocialiteControllerRequests\SocialiteAppleCallBackRequest;
+use App\Http\Support\AuthSupport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -24,24 +25,6 @@ class SocialiteController extends AuthController
     public function __construct()
     {
         $this->middleware('auth:api')->only('test');
-    }
-
-    /**
-     * Generate a unique name
-     * 
-     * @param string $name
-     * @return string $name
-     */
-    public function uniqueName($name)
-    {
-        $name = $name ?? rand(1,9);
-        $check = User::where('name',$name)->first();
-        if ($check) {
-            $name = $name.rand(1,9);
-            return $this->uniqueName($name);
-        } else {
-            return $name;
-        }
     }
 
     /**
@@ -336,7 +319,7 @@ class SocialiteController extends AuthController
         $request = new AuthRegisterRequest;
         $request->setMethod('POST');
         $request->replace([
-            'name' => $this->uniqueName($provider['user_name']),
+            'name' => AuthSupport::uniqueName($provider['user_name']),
             'email' =>  $provider['user_email'],
             'password' => $user_password = Str::random(18),
             'password_confirmation' => $user_password,
@@ -344,7 +327,7 @@ class SocialiteController extends AuthController
 
         // register user
         $register = $this->register($request);
-        
+
         // Update user provider details
         if ($register->status() === self::$HTTP_CREATED) {
 

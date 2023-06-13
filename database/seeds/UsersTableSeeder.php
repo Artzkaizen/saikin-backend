@@ -18,7 +18,8 @@ class UsersTableSeeder extends Seeder
                 'email' => 'blue@gmail.com'
             ],
             [
-                'name' => 'blue',
+                'first_name' => 'blue',
+                'last_name' => 'blue',
                 'email_verified_at' => now(),
                 'password' => bcrypt('blueblue'),
             ]
@@ -29,7 +30,8 @@ class UsersTableSeeder extends Seeder
                 'email' => 'green@gmail.com'
             ],
             [
-                'name' => 'green',
+                'first_name' => 'green',
+                'last_name' => 'green',
                 'email_verified_at' => now(),
                 'password' => bcrypt('greengreen'),
             ]

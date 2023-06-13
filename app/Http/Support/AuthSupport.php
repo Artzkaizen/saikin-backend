@@ -9,6 +9,27 @@ class AuthSupport
     protected static $error_bag = [];
 
     /**
+     * Generate a unique name
+     * 
+     * @param string|null $name
+     * @return string $name
+     */
+    public static function uniqueName(?string $name)
+    {
+        $name = trim(strtolower($name)) ?? rand(1,9);
+        $check = User::where('name',$name)->first();
+
+        if ($check) {
+
+            return self::uniqueName($name.rand(1,9));
+
+        } else {
+
+            return $name;
+        }
+    }
+
+    /**
      * Creates an email verification token.
      * 
      * @param string $email

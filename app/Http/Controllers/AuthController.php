@@ -125,7 +125,9 @@ class AuthController extends Controller
         $user->fill($request->toArray());
 
         // Additional params
-        $user->name = $request->input('name');
+        $user->name = AuthSupport::uniqueName($request->input('first_name'));
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
         $user->referrer_code = $request->input('referrer_code');
@@ -136,7 +138,7 @@ class AuthController extends Controller
         }
 
         // Send a welcome email to the user
-        Mail::to($user->email)->queue(new RegistrationMail($user->name));
+        Mail::to($user->email)->queue(new RegistrationMail($user->first_name.' '.$user->last_name));
 
         // Send a verification email to the user
         Mail::to($user->email)->queue(new AccountVerificationMail(AuthSupport::createVerificationLink($user->email)));

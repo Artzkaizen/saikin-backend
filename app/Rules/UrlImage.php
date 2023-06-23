@@ -23,7 +23,7 @@ use Illuminate\Contracts\Validation\Rule;
  *     ])]
  * ]);
  */
-class Base64Image implements Rule
+class UrlImage implements Rule
 {
     /**
      * Holds the constraints
@@ -80,23 +80,24 @@ class Base64Image implements Rule
      */
     public function passes($attribute, $value)
     {
-        // Check if string is a valid base64 image string
-        if (!preg_match('/^data:image\/(\w+);base64,/', $value)) {
-            $this->appendToMessageBag([':attribute is not a valid base 64 image file.']);
+        // Download given url as base64 images
+        if (!filter_var($value, FILTER_VALIDATE_URL)) {
+            $this->appendToMessageBag([':input is not a valid url for an image file.']);
             return false;
         }
 
         // Check if string is a valid base64 image string
         try {
 
-            $image_info = getimagesize($value);
+            $base64_image = 'data:image/png;base64,'.base64_encode(file_get_contents($value));
+            $image_info = getimagesize($base64_image);
             $image_width = (int) $image_info[0];
             $image_height = (int) $image_info[1];
             $image_ratio = $image_width / $image_height;
             $image_bits = $image_info[4] ?? null;
-            $image_mine = $image_info[5] ?? mime_content_type($value);
+            $image_mine = $image_info[5] ?? mime_content_type($base64_image);
             $image_ext = explode('/',$image_mine)[1];
-            $image_size = (int) (strlen(rtrim($value, '=')) * 3 / 4)/1024;
+            $image_size = (int) (strlen(rtrim($base64_image, '=')) * 3 / 4)/1024;
 
         } catch (\Throwable $th) {
 

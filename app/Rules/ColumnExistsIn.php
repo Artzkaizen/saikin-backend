@@ -3,29 +3,31 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Support\Facades\Schema;
 
 /**
- * The field under validation can not be present if another_field is present.
+ * The file under validation must be a string 
+ * having matched the given constrains. 
  * 
- * $request->validate([ 'field' => [new FailIfPresent('another_field')] ])
+ * $request->validate([ 'field' => [new ColumnExistsIn('table')] ]);
  */
-class FailIfPresent implements Rule
+class ColumnExistsIn implements Rule
 {
     /**
-     *  Holds the name of another field
+     * Table
      *
      * @var string
-    */
-    protected string $another_field = '';
+     */
+    protected string $table;
 
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct($field)
+    public function __construct(string $table)
     {
-        $this->another_field = $field;
+        $this->table = $table;
     }
 
     /**
@@ -37,7 +39,7 @@ class FailIfPresent implements Rule
      */
     public function passes($attribute, $value)
     {
-        return !request()->exists($this->another_field);
+        return Schema::hasColumn($this->table, $value);
     }
 
     /**
@@ -47,6 +49,6 @@ class FailIfPresent implements Rule
      */
     public function message()
     {
-        return 'The :attribute field and '.$this->another_field.' field can not both be present.';
+        return 'The column :input does not exist in the :attribute table.';
     }
 }

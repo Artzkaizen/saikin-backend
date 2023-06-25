@@ -47,5 +47,79 @@
             "display_name":"Delete contact",
             "description":"Delete a specific contact"
         }
+    ],
+    "PermissionController":[
+        {
+            "name":"index_permission",
+            "display_name":"View all permissions",
+            "description":"See all available permissions"
+        },
+        {
+            "name":"store_permission",
+            "display_name":"Create permission",
+            "description":"Create a permission"
+        },
+        {
+            "name":"show_permission",
+            "display_name":"View permission",
+            "description":"See a specific permission"
+        },
+        {
+            "name":"update_permission",
+            "display_name":"Edit a permission",
+            "description":"Edit the details of a specific permission"
+        },
+        {
+            "name":"assign_permission",
+            "display_name":"Assign permission",
+            "description":"Assign a specific permission to a role"
+        },
+        {
+            "name":"retract_permission",
+            "display_name":"Retract permission",
+            "description":"Retract a specific permission from a role"
+        },
+        {
+            "name":"delete_permission",
+            "display_name":"Delete permission",
+            "description":"Delete a specific permission"
+        }
+    ],
+    "RoleController":[
+        {
+            "name":"index_role",
+            "display_name":"View all roles",
+            "description":"See all available roles"
+        },
+        {
+            "name":"store_role",
+            "display_name":"Create role",
+            "description":"Create a role"
+        },
+        {
+            "name":"show_role",
+            "display_name":"View role",
+            "description":"See a specific role"
+        },
+        {
+            "name":"update_role",
+            "display_name":"Edit a role",
+            "description":"Edit the details of a specific role"
+        },
+        {
+            "name":"assign_role",
+            "display_name":"Assign role",
+            "description":"Assign a specific role to a user"
+        },
+        {
+            "name":"retract_role",
+            "display_name":"Retract role",
+            "description":"Retract a specific role from a user"
+        },
+        {
+            "name":"delete_role",
+            "display_name":"Delete role",
+            "description":"Delete a specific role"
+        }
     ]
 }

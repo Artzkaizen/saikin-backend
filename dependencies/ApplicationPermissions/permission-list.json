@@ -10,5 +10,42 @@
             "display_name":"Clear cached data",
             "description":"Clear all available data in application cache"
         }
+    ],
+    "ContactController":[
+        {
+            "name":"index_contact",
+            "display_name":"View all contacts",
+            "description":"See all available contacts"
+        },
+        {
+            "name":"filter_index_contact",
+            "display_name":"Filter contacts",
+            "description":"Filter through all available contacts"
+        },
+        {
+            "name":"search_index_contact",
+            "display_name":"Search contacts",
+            "description":"Search through all available contacts"
+        },
+        {
+            "name":"store_contact",
+            "display_name":"Create contact",
+            "description":"Create a contact"
+        },
+        {
+            "name":"show_contact",
+            "display_name":"View contact",
+            "description":"See a specific contact"
+        },
+        {
+            "name":"update_contact",
+            "display_name":"Edit a contact",
+            "description":"Edit the details of a specific contact"
+        },
+        {
+            "name":"delete_contact",
+            "display_name":"Delete contact",
+            "description":"Delete a specific contact"
+        }
     ]
 }

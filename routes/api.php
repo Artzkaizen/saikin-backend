@@ -68,3 +68,29 @@ Route::group(['middleware' => ['api'], 'prefix' => 'misc'], function ($router) {
     Route::post('response', 'MiscellaneousController@responseTypes');
     Route::post('patcher', 'MiscellaneousController@applicationPatcher');
 });
+
+Route::group(['middleware' => ['api'], 'prefix' => 'permission'], function ($router) {
+
+    // Permission Routes
+    Route::get('index', 'PermissionController@index');
+    Route::post('store', 'PermissionController@store');
+    Route::get('show', 'PermissionController@show');
+    Route::post('update', 'PermissionController@update');
+    Route::post('assign', 'PermissionController@assign');
+    Route::post('retract', 'PermissionController@retract');
+    Route::post('delete', 'PermissionController@destroy');
+    Route::get('test', 'PermissionController@test');
+});
+
+Route::group(['middleware' => ['api'], 'prefix' => 'role'], function ($router) {
+
+    // Role Routes
+    Route::get('index', 'RoleController@index');
+    Route::post('store', 'RoleController@store');
+    Route::get('show', 'RoleController@show');
+    Route::post('update', 'RoleController@update');
+    Route::post('assign', 'RoleController@assign');
+    Route::post('retract', 'RoleController@retract');
+    Route::post('delete', 'RoleController@destroy');
+    Route::get('test', 'RoleController@test');
+});

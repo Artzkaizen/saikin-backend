@@ -48,6 +48,20 @@ Route::group(['middleware' => ['api'], 'prefix' => 'cache'], function ($router) 
     Route::get('test', 'CacheController@test');
 });
 
+Route::group(['middleware' => ['api'], 'prefix' => 'contact'], function ($router) {
+
+    // Contact Routes
+    Route::get('index', 'ContactController@index');
+    Route::post('filter/index', 'ContactController@filterIndex');
+    Route::post('search/index', 'ContactController@searchIndex');
+    Route::post('store', 'ContactController@store');
+    Route::get('show', 'ContactController@show');
+    Route::get('me', 'ContactController@me');
+    Route::post('update', 'ContactController@update');
+    Route::post('delete', 'ContactController@destroy');
+    Route::get('test', 'ContactController@test');
+});
+
 Route::group(['middleware' => ['api'], 'prefix' => 'misc'], function ($router) {
 
     // Miscellaneous Routes

@@ -279,7 +279,10 @@ class ContactController extends Controller
     public function me(ContactMeRequest $request)
     {
         // Get all user contact
-        $contacts = Contact::where('user_id', auth()->user()->id)>orderBy('created_at', 'desc')->paginate(25);
+        $contacts = Contact::where('user_id', auth()->user()->id)
+        ->orderBy('created_at', 'desc')
+        ->take(1000)
+        ->paginate(25);
 
         // Return success
         if ($contacts) {

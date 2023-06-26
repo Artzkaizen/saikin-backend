@@ -4,7 +4,7 @@ namespace App\Http\Requests\ContactControllerRequests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddressFilterRequest extends FormRequest
+class ContactFilterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

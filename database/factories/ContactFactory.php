@@ -20,7 +20,7 @@ $factory->define(Contact::class, function (Faker $faker) {
 
     return [
         'user_id' => $this->user->id,
-        'title' => $faker->sentence(2),
+        'title' => $faker->title,
         'first_name' => $this->user->name,
         'last_name' => $this->user->name,
         'email' => $this->user->email,

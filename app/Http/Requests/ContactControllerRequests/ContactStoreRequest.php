@@ -6,7 +6,7 @@ use App\Models\Contact;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class AddressStoreRequest extends FormRequest
+class ContactStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

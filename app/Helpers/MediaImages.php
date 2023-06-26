@@ -113,7 +113,7 @@ class MediaImages
 
         foreach ($image_urls as $image_url) {
             if (filter_var($image_url, FILTER_VALIDATE_URL)) {
-                $this->base64_images[] = base64_encode(file_get_contents($image_url));
+                $this->base64_images[] = 'data:image/png;base64,'.base64_encode(file_get_contents($image_url));
             }
         }
 

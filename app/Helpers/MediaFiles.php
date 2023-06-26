@@ -113,7 +113,7 @@ class MediaFiles
 
         foreach ($file_urls as $file_url) {
             if (filter_var($file_url, FILTER_VALIDATE_URL)) {
-                $this->base64_files[] = base64_encode(file_get_contents($file_url));
+                $this->base64_files[] = 'data:@file/octet-stream;base64,'.base64_encode(file_get_contents($file_url));
             }
         }
 

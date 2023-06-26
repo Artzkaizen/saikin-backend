@@ -303,15 +303,17 @@ class AuthController extends Controller
      */
     public function refresh(AuthRefreshRequest $request)
     {
-        if (auth()) {
+        try {
 
             // Return a new token to request sender and invalidate original token
             $refreshed_token = auth(false)->refresh();
             return $this->success($this->respondWithToken($refreshed_token));
-        }
 
-        // Return failure
-        return $this->badRequest('Token is already invalid');
+        } catch (\Throwable $th) {
+
+            // Return failure
+            return $this->badRequest('Token is already invalid');
+        }
     }
 
     /**

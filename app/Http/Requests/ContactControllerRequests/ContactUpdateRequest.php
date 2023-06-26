@@ -59,8 +59,9 @@ class ContactUpdateRequest extends FormRequest
     {
         return [
             'id' => 'required|integer|min:1',
-            'title' => 'sometimes|required|string|min:4|max:50',
-            'name' => 'sometimes|required|string|max:100',
+            'title' => 'sometimes|required|string|max:20',
+            'first_name' => 'sometimes|required|string|max:100',
+            'last_name' => 'sometimes|required|string|max:100',
             'email' => 'sometimes|required|email|max:100',
             'phone' => 'sometimes|required|numeric|digits_between:1,25',
             'address' => 'sometimes|required|string|max:250|min:1',
@@ -88,13 +89,17 @@ class ContactUpdateRequest extends FormRequest
             'title.sometimes' => 'A title field should be present, else entirely exclude the field',
             'title.required' => 'A title field maybe required',
             'title.string'  => 'Title field characters are not valid',
-            'title.max'  => 'Title characters can not be more than 50',
-            'title.min'  => 'Title characters can not be less than 4',
+            'title.max'  => 'Title characters can not be more than 20',
 
-            'name.sometimes' => 'A name field should be present, else entirely exclude the field',
-            'name.required' => 'A name maybe required',
-            'name.string' => 'Name characters are not valid',
-            'name.max' => 'A name can not have more than 100 characters',
+            'first_name.sometimes' => 'A first name field should be present, else entirely exclude the field',
+            'first_name.required' => 'A first name maybe required',
+            'first_name.string' => 'First name characters are not valid',
+            'first_name.max' => 'A first name can not have more than 100 characters',
+
+            'last_name.sometimes' => 'A last name field should be present, else entirely exclude the field',
+            'last_name.required' => 'A last name maybe required',
+            'last_name.string' => 'Last name characters are not valid',
+            'last_name.max' => 'A last name can not have more than 100 characters',
 
             'email.sometimes' => 'An email field should be present, else entirely exclude the field',
             'email.required' => 'An email maybe required',

@@ -184,7 +184,7 @@ class ContactController extends Controller
             ->orWhere('last_name', 'like', '%'.$search_string.'%')
             ->orWhere('email', 'like', '%'.$search_string.'%')
             ->orWhere('phone', 'like', '%'.$search_string.'%')
-            ->orWhere('contact', 'like', '%'.$search_string.'%')
+            ->orWhere('address', 'like', '%'.$search_string.'%')
             ->orWhere('city', 'like', '%'.$search_string.'%')
             ->orWhere('state', 'like', '%'.$search_string.'%')
             ->orWhere('country', 'like', '%'.$search_string.'%')

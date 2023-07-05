@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 /**
  * Whatsapp Login
  * Class path 'App\Whatsapp\WhatsAppLogin'
+ * Test call (new App\Whatsapp\WhatsAppLogin())->LoginWithQRCode()->sendMessageToSpecificContact();
  */
 class WhatsAppLogin
 {
@@ -27,6 +28,13 @@ class WhatsAppLogin
      * @var string $screenshot_directory
      */
     protected string $screenshot_directory;
+
+    /**
+     * The instance of Facebook\WebDriver\Remote\RemoteWebDriver
+     * 
+     * @var Facebook\WebDriver\Remote\RemoteWebDriver $driver
+     */
+    protected $driver;
 
     /**
      * Create a new WhatsAppLogin instance.
@@ -79,8 +87,43 @@ class WhatsAppLogin
             // Save the cropped image to a file
             imagepng($croppedImage, $this->screenshot_directory.'/'.$filename);
 
+            // Wait for 9 second before continuing
+            sleep(9);
+
         } while ( !empty($driver->findElements(WebDriverBy::cssSelector('[data-testid="qrcode"]'))) );
 
+        // Store driver instance
+        $this->driver = $driver;
+
+        // Return class instance
+        return $this;
+    }
+
+    /**
+     * Send a message to a specific contact
+     * @param string $contact
+     * @return void
+     */
+    public function sendMessageToSpecificContact(string $contact = "tom")
+    {
+        // Retrieve driver instance
+        $driver = $this->driver;
+
+        // Wait until new chat is visible
+        $driver->wait()->until(
+            WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::cssSelector('[data-testid="chat"]'))
+        );
+
+        // Find and click on new chat
+        $driver->findElement(WebDriverBy::cssSelector('[data-testid="chat"]'))->click();
+
+        // Find all user contacts
+        $contacts = $driver->findElements(WebDriverBy::cssSelector('[data-testid^="list-item-"]'));
+
+        // Iterate over the contacts and do something
+        // foreach ($contacts as $contact) {
+        //     echo $contact->getText() . "\n";
+        // }
     }
 }
 

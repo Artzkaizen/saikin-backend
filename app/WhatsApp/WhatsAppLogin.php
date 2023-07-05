@@ -8,6 +8,10 @@ use Facebook\WebDriver\WebDriverExpectedCondition;
 use Facebook\WebDriver\WebDriverBy;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Whatsapp Login
+ * Class path 'App\Whatsapp\WhatsAppLogin'
+ */
 class WhatsAppLogin
 {
     /**
@@ -18,17 +22,30 @@ class WhatsAppLogin
     protected string $server_url;
 
     /**
+     * The path where browser screen shots will be saved
+     * 
+     * @var string $screenshot_directory
+     */
+    protected string $screenshot_directory;
+
+    /**
      * Create a new WhatsAppLogin instance.
      * @param void
      * @return void
      */
     public function __construct(string $server_url = 'http://localhost:9515') {
 
-        $class_path = 'App\\\Whatsapp\\\WhatsAppLogin';
         $this->server_url = $server_url;
+        $this->screenshot_directory = storage_path('app/public/images/screenshots');
+        if (!is_dir($this->screenshot_directory)) { mkdir($this->screenshot_directory, 0777, true); }
     }
 
-    public function LoginWithQRCode()
+    /**
+     * Login to whatsapp with QR code
+     * @param string $unique_identifier
+     * @return void
+     */
+    public function LoginWithQRCode(string $unique_identifier = "01b61787-d976-4136-8ca4-1678af5664b2")
     {
         // Chrome
         $driver = RemoteWebDriver::create($this->server_url, DesiredCapabilities::chrome());
@@ -42,31 +59,28 @@ class WhatsAppLogin
         );
 
         // Find QR code
-        $element = $driver->findElement(WebDriverBy::cssSelector('[data-testid="qrcode"]'));
+        $driver->findElement(WebDriverBy::cssSelector('[data-testid="qrcode"]'));
 
-        // Take a screenshot of the entire page
-        $screenshot = $driver->takeScreenshot();
+        // Continually snapshot
+        do {
 
-        // Create a new image resource from the screenshot
-        $image = imagecreatefromstring($screenshot);
+            // Take a screenshot of the entire page
+            $screenshot = $driver->takeScreenshot();
 
-        // Crop the image to the element's location and size
-        $croppedImage = imagecrop($image, ['x' => 1510, 'y' => 280, 'width' => 600, 'height' => 600]);
+            // Create a new image resource from the screenshot
+            $image = imagecreatefromstring($screenshot);
 
-        // Generate a unique filename
-        $filename = 'screenshot_'.uniqid().'.png';
+            // Crop the image to the element's location and size
+            $croppedImage = imagecrop($image, ['x' => 1510, 'y' => 280, 'width' => 600, 'height' => 600]);
 
-        // Save the cropped image to a file
-        imagepng($croppedImage, public_path('assets/images/screenshots/'.$filename));
+            // Generate a unique filename
+            $filename = $unique_identifier.'.png';
 
-        // Save the cropped image to the storage disk using Laravel's Storage facade
-		$storage = Storage::put('public/screenshots/'.$filename, fopen(public_path('assets/images/screenshots/'.$filename),'r'));
+            // Save the cropped image to a file
+            imagepng($croppedImage, $this->screenshot_directory.'/'.$filename);
 
-        // Delete the cropped image file
-        @unlink(public_path('assets/images/screenshots/'.$filename));
+        } while ( !empty($driver->findElements(WebDriverBy::cssSelector('[data-testid="qrcode"]'))) );
 
-        // Quit
-        $driver->quit();
     }
 }
 

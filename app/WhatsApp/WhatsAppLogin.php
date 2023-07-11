@@ -6,6 +6,8 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\WebDriverExpectedCondition;
 use Facebook\WebDriver\WebDriverBy;
+use Facebook\WebDriver\WebDriverKeys;
+use Facebook\WebDriver\WebDriverWait;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -117,13 +119,49 @@ class WhatsAppLogin
         // Find and click on new chat
         $driver->findElement(WebDriverBy::cssSelector('[data-testid="chat"]'))->click();
 
+        // Wait until new chat is visible
+        $driver->wait()->until(
+            WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::cssSelector('[data-testid="contact-list-key"]'))
+        );
+
+        // Find user contact list
+        $contact_list = $driver->findElement(WebDriverBy::cssSelector('[data-testid="contact-list-key"]'));
+
+        // Click on the scrollable element to ensure it has focus
+        $contact_list->click();
+
+        // Simulate pressing the "End" key to scroll to the bottom
+        $driver->getKeyboard()->sendKeys(WebDriverKeys::END);
+
+        // Wait for 9 secs for the scroll position reaches the bottom
+        $driver->wait(9);
+
         // Find all user contacts
-        $contacts = $driver->findElements(WebDriverBy::cssSelector('[data-testid^="list-item-"]'));
+        // $contacts = $contact_list->findElements(WebDriverBy::cssSelector('[data-testid^="list-item-"]'));
+        $contacts = $driver->executeScript('return document.querySelectorAll("[data-testid^=\'list-item-\']");');
 
         // Iterate over the contacts and do something
-        // foreach ($contacts as $contact) {
-        //     echo $contact->getText() . "\n";
-        // }
+        foreach ($contacts as $contact) {
+
+            try {
+
+                $contactElement = $driver->getWrappedElement($contact);
+
+                // Find the specific element containing the desired text
+                $cellFrameTitle = $contactElement->findElement(WebDriverBy::cssSelector('[data-testid="cell-frame-title"]'));
+
+                // Get the text from the element
+                $text = $cellFrameTitle->getText();
+
+                // Output the text
+                echo $text . "\n";
+
+            } catch (\Throwable $th) {
+
+                echo 'error' .$th->getMessage(). "\n";
+
+            }
+        }
     }
 }
 

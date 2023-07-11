@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Whatsapp;
+namespace App\WhatsApp;
 
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;

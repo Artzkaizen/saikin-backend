@@ -14,6 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(['middleware' => ['api'], 'prefix' => 'account'], function ($router) {
+
+    // Account Routes
+    Route::get('index', 'AccountController@index');
+    Route::post('filter/index', 'AccountController@filterIndex');
+    Route::post('search/index', 'AccountController@searchIndex');
+    Route::post('store', 'AccountController@store');
+    Route::get('show', 'AccountController@show');
+    Route::get('me', 'AccountController@me');
+    Route::post('update', 'AccountController@update');
+    Route::post('delete', 'AccountController@destroy');
+    Route::get('test', 'AccountController@test');
+});
+
 Route::group(['middleware' => ['api'], 'prefix' => 'auth'], function ($router) {
 
     // Auth Routes

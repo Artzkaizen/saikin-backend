@@ -121,5 +121,37 @@
             "display_name":"Delete role",
             "description":"Delete a specific role"
         }
+    ],
+    "AccountController":[
+        {
+            "name":"index_account",
+            "display_name":"View all accounts",
+            "description":"See all available accounts"
+        },
+        {
+            "name":"filter_index_account",
+            "display_name":"Filter accounts",
+            "description":"Filter through all available accounts"
+        },
+        {
+            "name":"search_index_account",
+            "display_name":"Search accounts",
+            "description":"Search through all available accounts"
+        },
+        {
+            "name":"show_account",
+            "display_name":"View account",
+            "description":"See a specific account"
+        },
+        {
+            "name":"update_account",
+            "display_name":"Edit a account",
+            "description":"Edit the details of a specific account"
+        },
+        {
+            "name":"delete_account",
+            "display_name":"Delete account",
+            "description":"Delete a specific account"
+        }
     ]
 }

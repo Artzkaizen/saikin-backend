@@ -203,4 +203,12 @@ class User extends Authenticatable implements JWTSubject
 
         return null;
     }
+
+    /**
+     * Establishes a one to one relationship with accounts table
+     */
+    public function accounts()
+    {
+        return $this->hasMany(Account::class);
+    }
 }

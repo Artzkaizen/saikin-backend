@@ -15,6 +15,22 @@ class PermissionRoleTableSeeder extends Seeder
     {
         // List all permissions
         $admin_permissions = [
+            "index_account",
+            "filter_index_account",
+            "search_index_account",
+            "show_account",
+            "update_account",
+            "delete_account",
+
+            "index_broadcast",
+            "filter_index_broadcast",
+            "search_index_broadcast",
+            "show_broadcast",
+            "update_broadcast",
+            "broadcast_placeholder_index",
+            "broadcast_placeholder_update",
+            "delete_broadcast",
+
             "index_cache",
             "clear_cache",
 

@@ -189,7 +189,7 @@ class AccountController extends Controller
     public function store(AccountStoreRequest $request)
     {
         // Check if user has an existing account and validate user
-        $accounts = Account::where('user_id',auth()->user()->id)->get();
+        $accounts = Account::where('user_id',auth()->user()->id)->count();
         if ($accounts > 9) {
             return $this->requestConflict('Account limit exceeded, please delete or edit existing addresses');
         }

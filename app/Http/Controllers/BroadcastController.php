@@ -16,6 +16,7 @@ use App\Http\Requests\BroadcastControllerRequests\BroadcastUpdateRequest;
 use App\Http\Requests\BroadcastControllerRequests\BroadcastPlaceHolderIndexRequest;
 use App\Http\Requests\BroadcastControllerRequests\BroadcastPlaceHolderUpdateRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class BroadcastController extends Controller
 {

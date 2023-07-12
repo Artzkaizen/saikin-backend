@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\BroadcastControllerRequests;
 
+use App\Models\Broadcast;
 use Illuminate\Foundation\Http\FormRequest;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BroadcastDestroyRequest extends FormRequest
 {
@@ -13,20 +15,26 @@ class BroadcastDestroyRequest extends FormRequest
      */
     public function authorize()
     {
-        /**
-         * Check if the user is logged in and is part of a team through group
-         */
-        $group = auth()->user()->group($this->header('Team'));
+        // Find the supplied broadcast by id
+        $this->broadcast = Broadcast::find($this->input('id'));
 
-        /**
-         * Check if requestor is able to ...
-         * Check if the user is an administrator with permission of delete_broadcast
-         */
-        if (auth()->user()->isAbleTo('delete_broadcast', 'administrator')) {
-            return true;
+        if ($this->broadcast) {
+
+            /**
+             * Check if requestor is able to ...
+             * Check if the user is an administrator with permission of delete_broadcast
+             */
+            if (auth()->user()->isAbleTo('delete_broadcast', 'administrator')) {
+                return true;
+            }
+
+            return false;
+
+        } else {
+
+            // Return failure
+            throw new NotFoundHttpException();
         }
-
-        return false;
     }
 
     /**

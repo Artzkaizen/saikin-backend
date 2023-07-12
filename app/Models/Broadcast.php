@@ -30,6 +30,8 @@ class Broadcast extends Model
         'title',
         'message',
         'preview_phone',
+        'contact_start_date',
+        'contact_end_date'
     ];
 
     /**

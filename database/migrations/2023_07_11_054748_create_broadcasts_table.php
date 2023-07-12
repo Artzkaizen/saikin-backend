@@ -22,8 +22,8 @@ class CreateBroadcastsTable extends Migration
             // Properties - broadcast
             $table->string('title', 50)->nullable();
             $table->longText('message')->nullable();
-            $table->mediumText('pictures', 255)->nullable();
-            $table->mediumText('videos', 255)->nullable();
+            $table->mediumText('pictures')->nullable();
+            $table->mediumText('videos')->nullable();
             $table->string('preview_phone', 25);
             $table->dateTime('contact_start_date',0)->nullable();
             $table->dateTime('contact_end_date',0)->nullable();

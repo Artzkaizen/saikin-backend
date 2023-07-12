@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Casts\BaseUrlCast;
+use App\Casts\BaseUrlArrayCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -47,8 +47,8 @@ class Broadcast extends Model
      * @var array
      */
     protected $casts = [
-        'pictures' => BaseUrlCast::class,
-        'videos' => BaseUrlCast::class,
+        'pictures' => BaseUrlArrayCast::class,
+        'videos' => BaseUrlArrayCast::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];

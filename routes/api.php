@@ -54,6 +54,22 @@ Route::group(['middleware' => ['api'], 'prefix' => 'auth'], function ($router) {
     Route::get('socialite/test', 'SocialiteController@test');
 });
 
+Route::group(['middleware' => ['api'], 'prefix' => 'broadcast'], function ($router) {
+
+    // Broadcast Routes
+    Route::get('index', 'BroadcastController@index');
+    Route::post('filter/index', 'BroadcastController@filterIndex');
+    Route::post('search/index', 'BroadcastController@searchIndex');
+    Route::post('store', 'BroadcastController@store');
+    Route::get('show', 'BroadcastController@show');
+    Route::get('me', 'BroadcastController@me');
+    Route::post('update', 'BroadcastController@update');
+    Route::get('placeholder/index', 'BroadcastController@placeHolderIndex');
+    Route::post('placeholder/update', 'BroadcastController@placeHoldersUpdate');
+    Route::post('delete', 'BroadcastController@destroy');
+    Route::get('test', 'BroadcastController@test');
+});
+
 Route::group(['middleware' => ['api'], 'prefix' => 'cache'], function ($router) {
 
     // Cache Routes

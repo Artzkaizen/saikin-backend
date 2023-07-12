@@ -153,5 +153,47 @@
             "display_name":"Delete account",
             "description":"Delete a specific account"
         }
+    ],
+    "BroadcastController":[
+        {
+            "name":"index_broadcasts",
+            "display_name":"View all broadcasts",
+            "description":"See all available broadcasts"
+        },
+        {
+            "name":"filter_index_broadcasts",
+            "display_name":"Filter broadcasts",
+            "description":"Filter through all available broadcasts"
+        },
+        {
+            "name":"search_index_broadcasts",
+            "display_name":"Search broadcasts",
+            "description":"Search through all available broadcasts"
+        },
+        {
+            "name":"show_broadcasts",
+            "display_name":"View broadcasts",
+            "description":"See a specific broadcasts"
+        },
+        {
+            "name":"update_broadcasts",
+            "display_name":"Edit a broadcasts",
+            "description":"Edit the details of a specific broadcasts"
+        },
+        {
+            "name":"broadcast_placeholder_index",
+            "display_name":"View all broadcast placeholders",
+            "description":"See all available broadcast placeholders"
+        },
+        {
+            "name":"broadcast_placeholder_update",
+            "display_name":"Edit broadcast placeholders",
+            "description":"Edit the details of broadcasts placeholders"
+        },
+        {
+            "name":"delete_broadcasts",
+            "display_name":"Delete broadcasts",
+            "description":"Delete a specific broadcasts"
+        }
     ]
 }

@@ -18,7 +18,7 @@ class CreateAccountsTable extends Migration
             $table->id();
             $table->uuid('user_id')->index();
 
-            // Properties - profile
+            // Properties - account
             $table->string('first_name', 50)->nullable();
             $table->string('last_name', 50)->nullable();
             $table->string('phone',25)->nullable();

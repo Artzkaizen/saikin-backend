@@ -14,7 +14,27 @@ class CreateBroadcastsTable extends Migration
     public function up()
     {
         Schema::create('broadcasts', function (Blueprint $table) {
-            $table->id();
+            // Identifications
+            $table->uuid('id')->primary();
+            $table->uuid('user_id')->index();
+            $table->uuid('account_id')->index();
+
+            // Properties - broadcast
+            $table->string('title', 50)->nullable();
+            $table->longText('message')->nullable();
+            $table->mediumText('pictures', 255)->nullable();
+            $table->mediumText('videos', 255)->nullable();
+            $table->string('preview_phone', 25);
+            $table->dateTime('contact_start_date',0)->nullable();
+            $table->dateTime('contact_end_date',0)->nullable();
+
+            // Status
+            $table->string('status')->default('pending')->comment('pending, queued, delivered, canceled');
+            $table->unsignedSmallInteger('flag')->default(0);
+            $table->uuid('created_by')->nullable();
+            $table->uuid('updated_by')->nullable();
+            $table->uuid('deleted_by')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

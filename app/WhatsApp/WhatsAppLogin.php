@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 /**
  * Whatsapp Login
  * Class path 'App\Whatsapp\WhatsAppLogin'
- * Test call (new App\Whatsapp\WhatsAppLogin())->LoginWithQRCode()->sendMessageToSpecificContact();
+ * Test call ((new App\Whatsapp\WhatsAppLogin())->setRecipients(['234XXXXXXXX'])->setTextMessage('hello world')->LoginWithQRCode()->sendMessageToContacts();
  */
 class WhatsAppLogin
 {
@@ -39,21 +39,104 @@ class WhatsAppLogin
     protected $driver;
 
     /**
+     * The recipients to be sent messages
+     * 
+     * @var string $recipients
+     */
+    protected array $recipients;
+
+    /**
+     * The message to be sent
+     * 
+     * @var object $message
+     */
+    protected object $message;
+
+    /**
      * Create a new WhatsAppLogin instance.
      * @param void
-     * @return void
+     * @return WhatsAppLogin
      */
-    public function __construct(string $server_url = 'http://localhost:9515') {
-
+    public function __construct(string $server_url = 'http://localhost:9515') 
+    {
+        $this->message = new \stdClass();
+        $this->recipients = [];
         $this->server_url = $server_url;
         $this->screenshot_directory = storage_path('app/public/images/screenshots');
         if (!is_dir($this->screenshot_directory)) { mkdir($this->screenshot_directory, 0777, true); }
     }
 
     /**
+     * Set the recipients
+     * @param array $recipients
+     * @return WhatsAppLogin
+     */
+    public function setRecipients(array $recipients) 
+    {
+        $this->recipients = $recipients;
+        return $this;
+    }
+
+    /**
+     * Set the message
+     * @param string $text
+     * @return WhatsAppLogin
+     */
+    public function setTextMessage(string $text) 
+    {
+        $this->message->type = "TEXT";
+        $this->message->text = $text;
+        return $this;
+    }
+
+    /**
+     * Set the message
+     * @param string $text
+     * @param array $media
+     * @return WhatsAppLogin
+     */
+    public function setMediaAndMessage(string $text, array $media) 
+    {
+        $this->message->type = "MEDIA";
+        $this->message->text = $text;
+        $this->message->attributes = $media;
+        return $this;
+    }
+
+    /**
+     * Set the message
+     * @param string $text
+     * @param array $documents
+     * @return WhatsAppLogin
+     */
+    public function setDocumentAndMessage(string $text, array $document) 
+    {
+        $this->message->type = "DOCUMENT";
+        $this->message->text = $text;
+        $this->message->attributes = $document;
+        return $this;
+    }
+
+    /**
+     * Set the message
+     * @param string $text
+     * @param string $question
+     * @param array $options
+     * @return WhatsAppLogin
+     */
+    public function setPollAndMessage(string $text, string $question, array $options) 
+    {
+        $this->message->type = "POLL";
+        $this->message->text = $text;
+        $this->message->question = $question;
+        $this->message->options = $options;
+        return $this;
+    }
+
+    /**
      * Login to whatsapp with QR code
      * @param string $unique_identifier
-     * @return void
+     * @return WhatsAppLogin
      */
     public function LoginWithQRCode(string $unique_identifier = "01b61787-d976-4136-8ca4-1678af5664b2")
     {
@@ -102,11 +185,76 @@ class WhatsAppLogin
     }
 
     /**
-     * Send a message to a specific contact
-     * @param string $contact
+     * Send a message to a whatsapp contacts
      * @return void
+     * @return WhatsAppLogin
      */
-    public function sendMessageToSpecificContact(string $contact = "tom")
+    public function sendMessageToContacts()
+    {
+        // Retrieve driver instance
+        $driver = $this->driver;
+
+        // Wait until new chat is visible
+        $driver->wait()->until(
+            WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::cssSelector('[data-testid="chat"]'))
+        );
+
+        foreach ($this->recipients as $key => $recipient) {
+
+            // Open a new tab
+            $driver->newWindow('tab');
+
+            // Switch to the new tab
+            $driver->switchTo()->window($driver->getWindowHandles()[$key+1]);
+
+            // Navigate to a URL in the new tab
+            $driver->get('https://web.whatsapp.com/send/?phone='.$recipient.'&amp;text&amp;type=phone_number&amp;app_absent=0');
+
+            // Wait until message input is visible
+            $driver->wait()->until(
+                WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::cssSelector('[data-testid="conversation-compose-box-input"]'))
+            );
+
+            switch ($this->message->type) {
+                case 'TEXT':
+
+                    // Find and click on new chat
+                    $driver->findElement(WebDriverBy::cssSelector('[data-testid="conversation-compose-box-input"]'))->click();
+
+                    // Find the input field where you want to paste the text
+                    $inputField = $driver->findElement(WebDriverBy::cssSelector('[data-testid="conversation-compose-box-input"]'));
+
+                    // Clear the input field in case it already has some text
+                    $inputField->clear();
+
+                    // Use sendKeys() to paste the provided text into the input field
+                    $inputField->sendKeys($this->message->text);
+
+                    // Find and click on new chat
+                    $driver->findElement(WebDriverBy::cssSelector('[data-testid="send"]'))->click();
+
+                    // Wait for message to be sent
+                    $driver->wait(6);
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        // Store driver instance
+        $this->driver = $driver;
+
+        // Return class instance
+        return $this;
+    }
+
+    /**
+     * Send a message to a whatsapp contacts
+     * @return WhatsAppLogin
+     */
+    public function sendMessageToWhatsAppContacts()
     {
         // Retrieve driver instance
         $driver = $this->driver;
@@ -162,6 +310,12 @@ class WhatsAppLogin
 
             }
         }
+
+        // Store driver instance
+        $this->driver = $driver;
+
+        // Return class instance
+        return $this;
     }
 }
 

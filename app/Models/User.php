@@ -205,10 +205,18 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * Establishes a one to one relationship with accounts table
+     * Establishes a one to many relationship with accounts table
      */
     public function accounts()
     {
         return $this->hasMany(Account::class);
+    }
+
+    /**
+     * Establishes a one to many relationship with browsers table
+     */
+    public function browsers()
+    {
+        return $this->hasMany(Browser::class);
     }
 }

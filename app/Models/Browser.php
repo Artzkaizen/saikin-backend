@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use App\Casts\BaseUrlCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Account extends Model
+class Browser extends Model
 {
     use Notifiable;
     use SoftDeletes;
@@ -18,10 +17,10 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'phone',
-        'picture',
+        'user_id',
+        'account_id',
+        'session_id',
+        'class_instance',
     ];
 
     /**
@@ -39,8 +38,6 @@ class Account extends Model
      * @var array
      */
     protected $casts = [
-        'picture' => BaseUrlCast::class,
-        'verified' => 'bool',
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];
@@ -77,10 +74,10 @@ class Account extends Model
     }
 
     /**
-     * Establishes a one to one relationship with browser table
+     * Establishes a belongs to relationship with accounts table
      */
-    public function browser()
+    public function account()
     {
-        return $this->hasOne(Browser::class);
+        return $this->belongsTo(Account::class);
     }
 }

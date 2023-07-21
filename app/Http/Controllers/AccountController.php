@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Browser;
 use App\Models\User;
 use App\Helpers\Helper;
 use App\Helpers\MediaImages;
@@ -14,6 +15,9 @@ use App\Http\Requests\AccountControllerRequests\AccountSearchRequest;
 use App\Http\Requests\AccountControllerRequests\AccountShowRequest;
 use App\Http\Requests\AccountControllerRequests\AccountStoreRequest;
 use App\Http\Requests\AccountControllerRequests\AccountUpdateRequest;
+use App\Http\Requests\AccountControllerRequests\AccountLinkWhatsAppQRCodeRequest;
+use App\Http\Requests\AccountControllerRequests\AccountPollWhatsAppQRCodeRequest;
+use App\Whatsapp\WhatsAppLogin;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -26,7 +30,7 @@ class AccountController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api');
-        $this->middleware('team:api')->except('store','me','update','destroy');
+        $this->middleware('team:api')->except('store','me','update','destroy','linkWithWhatsApp');
     }
 
     /**
@@ -304,6 +308,96 @@ class AccountController extends Controller
             }
         } else {
             // Return failure
+            return $this->notFound();
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function linkWhatsAppQRCode(AccountLinkWhatsAppQRCodeRequest $request)
+    {
+        // Use account model passed in from request authorization
+        $account = $request->account;
+
+        if (!$account) {
+            // Return failure
+            return $this->notFound();
+        }
+
+        // Load all account properties
+        $account->load('browser');
+
+        // Dispatch
+        dispatch(function () use ($account) {
+
+            if (!$account->browser) {
+
+                // Deploy browser
+                $unique_identifier = auth()->user()->id.$account->id;
+                $WhatsAppLogin = new WhatsAppLogin();
+                $WhatsAppLogin = $WhatsAppLogin->openBrowserSession()->LoginWithQRCode($unique_identifier);
+
+                // Fill the user browser model
+                $browser = new Browser;
+
+                // Additional params
+                $browser->user_id = auth()->user()->id;
+                $browser->account_id = $account->id;
+                $browser->session_id = $WhatsAppLogin->getBrowserSessionId();
+                $browser->class_instance = $WhatsAppLogin->getBrowserInstance();
+
+                // Save browser
+                $browser->save();
+            }
+
+            if ($account->browser) {
+
+                // Deploy browser
+                $unique_identifier = auth()->user()->id.$account->id;
+                $WhatsAppLogin = new WhatsAppLogin();
+                $WhatsAppLogin = $WhatsAppLogin->continueBrowserSession($account->browser->session_id)->LoginWithQRCode($unique_identifier);
+
+                // Fill the user browser model
+                $browser = Browser::find($account->browser->id);
+
+                // Additional params
+                $browser->session_id = $WhatsAppLogin->getBrowserSessionId();
+                $browser->class_instance = $WhatsAppLogin->getBrowserInstance();
+
+                // Save browser
+                $browser->save();
+            }
+        });
+
+        // Return success
+        return $this->actionSuccess('Browser was created');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function pollWhatsAppQRCode(AccountPollWhatsAppQRCodeRequest $request)
+    {
+        // Use account model passed in from request authorization
+        $account = $request->account;
+
+        // Return success
+        if ($account) {
+
+            // $screenshot_directory = storage_path('app/public/images/screenshots');
+            $file_name = auth()->user()->id.$account->id.'.png';
+            return Storage::download($file_name);
+
+        } else {
+
+            // Return Failure
             return $this->notFound();
         }
     }

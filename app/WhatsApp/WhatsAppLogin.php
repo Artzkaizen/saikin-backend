@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Storage;
 /**
  * Whatsapp Login
  * Class path 'App\Whatsapp\WhatsAppLogin'
- * Test call ((new App\Whatsapp\WhatsAppLogin())->setRecipients(['234XXXXXXXX'])->setTextMessage('hello world')->LoginWithQRCode()->sendMessageToContacts();
  */
 class WhatsAppLogin
 {
@@ -22,39 +21,39 @@ class WhatsAppLogin
      * 
      * @var string $server_url
      */
-    protected string $server_url;
+    public string $server_url;
 
     /**
      * The path where browser screen shots will be saved
      * 
      * @var string $screenshot_directory
      */
-    protected string $screenshot_directory;
+    public string $screenshot_directory;
 
     /**
      * The instance of Facebook\WebDriver\Remote\RemoteWebDriver
      * 
      * @var Facebook\WebDriver\Remote\RemoteWebDriver $driver
      */
-    protected $driver;
+    public $driver;
 
     /**
      * The recipients to be sent messages
      * 
      * @var string $recipients
      */
-    protected array $recipients;
+    public array $recipients;
 
     /**
      * The message to be sent
      * 
      * @var object $message
      */
-    protected object $message;
+    public object $message;
 
     /**
      * Create a new WhatsAppLogin instance.
-     * @param void
+     * @param void|string $server_url
      * @return WhatsAppLogin
      */
     public function __construct(string $server_url = 'http://localhost:9515') 
@@ -134,14 +133,75 @@ class WhatsAppLogin
     }
 
     /**
-     * Login to whatsapp with QR code
-     * @param string $unique_identifier
+     * Open browser browser
+     * @param void
      * @return WhatsAppLogin
      */
-    public function LoginWithQRCode(string $unique_identifier = "01b61787-d976-4136-8ca4-1678af5664b2")
+    public function openBrowserSession()
     {
-        // Chrome
-        $driver = RemoteWebDriver::create($this->server_url, DesiredCapabilities::chrome());
+        // Set up the desired capabilities (e.g., for Chrome)
+        $capabilities = DesiredCapabilities::chrome();
+
+        // Open an existing session
+        $driver = RemoteWebDriver::create($this->server_url,$capabilities);
+
+        // Store driver instance
+        $this->driver = $driver;
+
+        // Return class instance
+        return $this;
+    }
+
+    /**
+     * Continue and existing browser session using session id
+     * @param string $session_id
+     * @return WhatsAppLogin
+     */
+    public function continueBrowserSession(string $session_id)
+    {
+        // Set up the desired capabilities (e.g., for Chrome)
+        $capabilities = DesiredCapabilities::chrome();
+
+        // Open an existing session
+        $driver = RemoteWebDriver::createBySessionID($session_id, $this->server_url);
+
+        // Store driver instance
+        $this->driver = $driver;
+
+        // Return class instance
+        return $this;
+    }
+
+    /**
+     * Get the browser session id
+     * @param void
+     * @return string
+     */
+    public function getBrowserSessionId() {
+        return $this->driver->getSessionID();
+    }
+
+    /**
+     * Get the browser instance
+     * @param void
+     * @return string
+     */
+    public function getBrowserInstance() {
+        return $this->driver;
+    }
+
+    /**
+     * Login to whatsapp with QR code
+     * @param string|null $unique_identifier
+     * @return WhatsAppLogin
+     */
+    public function LoginWithQRCode(?string $unique_identifier = null)
+    {
+        // Retrieve driver instance
+        $driver = $this->driver;
+
+        // Unique identifier
+        $unique_identifier = $unique_identifier ?? uniqid();
 
         // Go to URL
         $driver->get('https://web.whatsapp.com/');

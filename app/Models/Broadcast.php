@@ -90,6 +90,7 @@ class Broadcast extends Model
 
         self::creating(function ($model) {
             $model->id = (string) Str::uuid();
+            $model->created_by = auth()->user()->id;
         });
 
         self::updating(function ($model) {

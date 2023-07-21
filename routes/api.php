@@ -22,6 +22,8 @@ Route::group(['middleware' => ['api'], 'prefix' => 'account'], function ($router
     Route::post('search/index', 'AccountController@searchIndex');
     Route::post('store', 'AccountController@store');
     Route::get('show', 'AccountController@show');
+    Route::get('link-qr-code', 'AccountController@linkWhatsAppQRCode');
+    Route::get('poll-qr-code', 'AccountController@pollWhatsAppQRCode');
     Route::get('me', 'AccountController@me');
     Route::post('update', 'AccountController@update');
     Route::post('delete', 'AccountController@destroy');

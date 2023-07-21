@@ -19,6 +19,7 @@ use App\Http\Requests\AccountControllerRequests\AccountLinkWhatsAppQRCodeRequest
 use App\Http\Requests\AccountControllerRequests\AccountPollWhatsAppQRCodeRequest;
 use App\Whatsapp\WhatsAppLogin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AccountController extends Controller
 {
@@ -322,22 +323,20 @@ class AccountController extends Controller
     {
         // Use account model passed in from request authorization
         $account = $request->account;
+        $user_id = auth()->user()->id;
 
         if (!$account) {
             // Return failure
             return $this->notFound();
         }
 
-        // Load all account properties
-        $account->load('browser');
-
         // Dispatch
-        dispatch(function () use ($account) {
+        dispatch(function () use ($account,$user_id) {
 
             if (!$account->browser) {
 
                 // Deploy browser
-                $unique_identifier = auth()->user()->id.$account->id;
+                $unique_identifier = $user_id.$account->id;
                 $WhatsAppLogin = new WhatsAppLogin();
                 $WhatsAppLogin = $WhatsAppLogin->openBrowserSession()->LoginWithQRCode($unique_identifier);
 
@@ -345,7 +344,7 @@ class AccountController extends Controller
                 $browser = new Browser;
 
                 // Additional params
-                $browser->user_id = auth()->user()->id;
+                $browser->user_id = $user_id;
                 $browser->account_id = $account->id;
                 $browser->session_id = $WhatsAppLogin->getBrowserSessionId();
                 $browser->class_instance = $WhatsAppLogin->getBrowserInstance();
@@ -357,7 +356,7 @@ class AccountController extends Controller
             if ($account->browser) {
 
                 // Deploy browser
-                $unique_identifier = auth()->user()->id.$account->id;
+                $unique_identifier = $user_id.$account->id;
                 $WhatsAppLogin = new WhatsAppLogin();
                 $WhatsAppLogin = $WhatsAppLogin->continueBrowserSession($account->browser->session_id)->LoginWithQRCode($unique_identifier);
 
@@ -391,9 +390,9 @@ class AccountController extends Controller
         // Return success
         if ($account) {
 
-            // $screenshot_directory = storage_path('app/public/images/screenshots');
+            $path = 'public/images/screenshots/';
             $file_name = auth()->user()->id.$account->id.'.png';
-            return Storage::download($file_name);
+            return Storage::download( $path.$file_name);
 
         } else {
 

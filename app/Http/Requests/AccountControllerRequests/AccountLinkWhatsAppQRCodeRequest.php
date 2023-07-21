@@ -16,7 +16,7 @@ class AccountLinkWhatsAppQRCodeRequest extends FormRequest
     public function authorize()
     {
         // Find the supplied user by id
-        $this->account = Account::find($this->input('id'));
+        $this->account = Account::with('browser')->find($this->input('id'));
 
         if ($this->account) {
 

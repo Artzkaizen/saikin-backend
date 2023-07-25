@@ -303,6 +303,16 @@ class SocialiteController extends AuthController
             'password' => Str::random(18),
         ]);
 
+        // Update user provider details
+        $providers_details = is_array($user->providers_details[0] ?? null) ? $user->providers_details : [$user->providers_details];
+
+        $user->providers_details = collect($providers_details)->reject(function ($item) use ($provider) {
+            return isset($item['provider_name']) && $item['provider_name'] === $provider['provider_name'];
+        })->filter()->push($provider)->toArray();
+
+        // Save user details
+        $user->save();
+
         // login user
         return $this->withoutPassword()->login($request);
     }

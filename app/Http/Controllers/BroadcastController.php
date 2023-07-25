@@ -28,7 +28,7 @@ class BroadcastController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api');
-        $this->middleware('team:api');
+        $this->middleware('team:api')->only('placeHoldersUpdate');
     }
 
     /**

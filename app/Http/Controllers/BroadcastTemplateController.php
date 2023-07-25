@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Broadcast;
+use App\Models\BroadcastTemplate;
 use App\Helpers\Helper;
 use App\Helpers\MediaImages;
-use App\Http\Requests\BroadcastControllerRequests\BroadcastDestroyRequest;
-use App\Http\Requests\BroadcastControllerRequests\BroadcastFilterRequest;
-use App\Http\Requests\BroadcastControllerRequests\BroadcastIndexRequest;
-use App\Http\Requests\BroadcastControllerRequests\BroadcastMeRequest;
-use App\Http\Requests\BroadcastControllerRequests\BroadcastSearchRequest;
-use App\Http\Requests\BroadcastControllerRequests\BroadcastStoreRequest;
-use App\Http\Requests\BroadcastControllerRequests\BroadcastShowRequest;
-use App\Http\Requests\BroadcastControllerRequests\BroadcastUpdateRequest;
-use App\Http\Requests\BroadcastControllerRequests\BroadcastPlaceHolderIndexRequest;
-use App\Http\Requests\BroadcastControllerRequests\BroadcastPlaceHolderUpdateRequest;
+use App\Http\Requests\BroadcastTemplateControllerRequests\BroadcastTemplateDestroyRequest;
+use App\Http\Requests\BroadcastTemplateControllerRequests\BroadcastTemplateFilterRequest;
+use App\Http\Requests\BroadcastTemplateControllerRequests\BroadcastTemplateIndexRequest;
+use App\Http\Requests\BroadcastTemplateControllerRequests\BroadcastTemplateMeRequest;
+use App\Http\Requests\BroadcastTemplateControllerRequests\BroadcastTemplateSearchRequest;
+use App\Http\Requests\BroadcastTemplateControllerRequests\BroadcastTemplateStoreRequest;
+use App\Http\Requests\BroadcastTemplateControllerRequests\BroadcastTemplateShowRequest;
+use App\Http\Requests\BroadcastTemplateControllerRequests\BroadcastTemplateUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
-class BroadcastController extends Controller
+class BroadcastTemplateController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -37,12 +35,12 @@ class BroadcastController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(BroadcastIndexRequest $request)
+    public function index(BroadcastTemplateIndexRequest $request)
     {
         if ($request->input('properties')){
 
             // Get all broadcasts with all their relations
-            $broadcasts = Broadcast::with([
+            $broadcasts = BroadcastTemplate::with([
                 'user',
                 'account',
             ])->orderBy('created_at', 'desc')
@@ -52,7 +50,7 @@ class BroadcastController extends Controller
         } elseif ($request->input('deleted')){
 
             // Get all deleted broadcasts with all their relations
-            $broadcasts = Broadcast::onlyTrashed()->with([
+            $broadcasts = BroadcastTemplate::onlyTrashed()->with([
                 'user',
                 'account',
             ])->orderBy('created_at', 'desc')
@@ -62,7 +60,7 @@ class BroadcastController extends Controller
         } else {
 
             // Get all broadcasts with out their relations
-            $broadcasts = Broadcast::orderBy('created_at', 'desc')
+            $broadcasts = BroadcastTemplate::orderBy('created_at', 'desc')
             ->take(1000)
             ->paginate(25);
         }
@@ -88,7 +86,7 @@ class BroadcastController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function filterIndex(BroadcastFilterRequest $request)
+    public function filterIndex(BroadcastTemplateFilterRequest $request)
     {
         $user_id = is_null($request->input('user_id'))? false : Helper::escapeForLikeColumnQuery($request->input('user_id'));
         $account_id = is_null($request->input('account_id'))? false : Helper::escapeForLikeColumnQuery($request->input('account_id'));
@@ -100,7 +98,7 @@ class BroadcastController extends Controller
         $pagination = is_null($request->input('pagination'))? true : (boolean) $request->input('pagination');
 
         // Build search query
-        $broadcasts = Broadcast::when($user_id, function ($query, $user_id) {
+        $broadcasts = BroadcastTemplate::when($user_id, function ($query, $user_id) {
             return $query->where('user_id', $user_id);
 
         })->when($account_id, function ($query, $account_id) {
@@ -162,13 +160,13 @@ class BroadcastController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function searchIndex(BroadcastSearchRequest $request)
+    public function searchIndex(BroadcastTemplateSearchRequest $request)
     {
         $search_string = is_null($request->input('search'))? false : Helper::escapeForLikeColumnQuery($request->input('search'));
         $search_date = is_null($request->input('search'))? false : Helper::stringToCarbonDate($request->input('search'));
 
         // Build search query
-        $broadcasts = Broadcast::when($search_string, function ($query) use ($request, $search_string, $search_date) {
+        $broadcasts = BroadcastTemplate::when($search_string, function ($query) use ($request, $search_string, $search_date) {
 
             return $query->when($request->input('user_id'), function($query) use ($request) {
 
@@ -212,15 +210,15 @@ class BroadcastController extends Controller
     }
 
     /**
-     * Broadcast a newly created resource in storage.
+     * BroadcastTemplate a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(BroadcastStoreRequest $request)
+    public function store(BroadcastTemplateStoreRequest $request)
     {
         // Fill the broadcast model
-        $broadcast = new Broadcast;
+        $broadcast = new BroadcastTemplate;
         $broadcast = $broadcast->fill($request->toArray());
 
         // Additional params
@@ -250,7 +248,7 @@ class BroadcastController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(BroadcastShowRequest $request)
+    public function show(BroadcastTemplateShowRequest $request)
     {
         // Use broadcast model passed in from request authorization
         $broadcast = $request->broadcast;
@@ -275,10 +273,10 @@ class BroadcastController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me(BroadcastMeRequest $request)
+    public function me(BroadcastTemplateMeRequest $request)
     {
         // Get a user broadcasts
-        $broadcasts = Broadcast::where('user_id', auth()->user()->id)
+        $broadcasts = BroadcastTemplate::where('user_id', auth()->user()->id)
         ->orderBy('created_at', 'desc')
         ->take(1000)
         ->paginate(25);
@@ -298,17 +296,12 @@ class BroadcastController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(BroadcastUpdateRequest $request)
+    public function update(BroadcastTemplateUpdateRequest $request)
     {
         // Use broadcast model passed in from request authorization
         $broadcast = $request->broadcast;
 
         if ($broadcast) {
-
-            // Check if the broadcast has been canceled
-            if ($broadcast->status !== config('constants.status.canceled')) {
-                return $this->requestConflict('Only canceled broadcast can be edited');
-            }
 
             // Fill requestor input
             $broadcast->fill($request->except('user_id','account_id'));
@@ -324,7 +317,7 @@ class BroadcastController extends Controller
 
             // Update broadcast
             if ($broadcast->update()) {
-                return $this->actionSuccess('Broadcast was updated');
+                return $this->actionSuccess('BroadcastTemplate was updated');
             } else {
                 return $this->unavailableService();
             }
@@ -336,67 +329,21 @@ class BroadcastController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function placeHolderIndex(BroadcastPlaceHolderIndexRequest $request)
-    {
-        // Get cache value if it exists by key
-        $placeholders = Cache::get('BROADCAST_PLACE_HOLDER');
-
-        // Return success
-        if ($placeholders) {
-            return $this->success($placeholders);
-        }
-
-        // Return failure
-        return $this->noContent('No app defined data in cache');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function placeHoldersUpdate(BroadcastPlaceHolderUpdateRequest $request)
-    {
-        // Store application settings in cache
-        $placeholders = Cache::put('BROADCAST_PLACE_HOLDER', $request->input('placeholders'));
-
-        // Return success
-        if ($placeholders) {
-            $placeholders = Cache::get('BROADCAST_PLACE_HOLDER');
-            return $this->entityCreated($placeholders,'Application setting was saved');
-        } else {
-            // Return failure
-            return $this->unavailableService();
-        }
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(BroadcastDestroyRequest $request)
+    public function destroy(BroadcastTemplateDestroyRequest $request)
     {
         // Use broadcast model passed in from request authorization
         $broadcast = $request->broadcast;
 
         if ($broadcast) {
 
-            // Check if the broadcast has been canceled
-            if ($broadcast->status !== config('constants.status.canceled')) {
-                return $this->requestConflict('Only canceled broadcast can be deleted');
-            }
-
             // Delete broadcast
             if ($broadcast->delete()) {
-                return $this->actionSuccess('Broadcast was deleted');
+                return $this->actionSuccess('BroadcastTemplate was deleted');
             } else {
                 return $this->unavailableService();
             }
@@ -413,7 +360,7 @@ class BroadcastController extends Controller
      */
     public function test()
     {
-        $test = Broadcast::first();
+        $test = BroadcastTemplate::first();
         if ($test || $test == null) {
             return $this->actionSuccess('Test was successful');
         } else {

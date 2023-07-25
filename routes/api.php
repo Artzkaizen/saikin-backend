@@ -22,8 +22,9 @@ Route::group(['middleware' => ['api'], 'prefix' => 'account'], function ($router
     Route::post('search/index', 'AccountController@searchIndex');
     Route::post('store', 'AccountController@store');
     Route::get('show', 'AccountController@show');
-    Route::get('link-qr-code', 'AccountController@linkWhatsAppQRCode');
-    Route::get('poll-qr-code', 'AccountController@pollWhatsAppQRCode');
+    Route::get('link-wa-qr-code', 'AccountController@linkWhatsAppQRCode');
+    Route::get('poll-wa-qr-code', 'AccountController@pollWhatsAppQRCode');
+    Route::get('fetch-wa-groups', 'AccountController@fetchWhatsAppGroups');
     Route::get('me', 'AccountController@me');
     Route::post('update', 'AccountController@update');
     Route::post('delete', 'AccountController@destroy');
@@ -70,6 +71,20 @@ Route::group(['middleware' => ['api'], 'prefix' => 'broadcast'], function ($rout
     Route::post('placeholder/update', 'BroadcastController@placeHoldersUpdate');
     Route::post('delete', 'BroadcastController@destroy');
     Route::get('test', 'BroadcastController@test');
+});
+
+Route::group(['middleware' => ['api'], 'prefix' => 'broadcast-template'], function ($router) {
+
+    // Broadcast Template Routes
+    Route::get('index', 'BroadcastTemplateController@index');
+    Route::post('filter/index', 'BroadcastTemplateController@filterIndex');
+    Route::post('search/index', 'BroadcastTemplateController@searchIndex');
+    Route::post('store', 'BroadcastTemplateController@store');
+    Route::get('show', 'BroadcastTemplateController@show');
+    Route::get('me', 'BroadcastTemplateController@me');
+    Route::post('update', 'BroadcastTemplateController@update');
+    Route::post('delete', 'BroadcastTemplateController@destroy');
+    Route::get('test', 'BroadcastTemplateController@test');
 });
 
 Route::group(['middleware' => ['api'], 'prefix' => 'cache'], function ($router) {

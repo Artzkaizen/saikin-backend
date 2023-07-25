@@ -17,6 +17,7 @@ use App\Http\Requests\AccountControllerRequests\AccountStoreRequest;
 use App\Http\Requests\AccountControllerRequests\AccountUpdateRequest;
 use App\Http\Requests\AccountControllerRequests\AccountLinkWhatsAppQRCodeRequest;
 use App\Http\Requests\AccountControllerRequests\AccountPollWhatsAppQRCodeRequest;
+use App\Http\Requests\AccountControllerRequests\AccountFetchWhatsAppGroupsRequest;
 use App\Whatsapp\WhatsAppLogin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -31,7 +32,7 @@ class AccountController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api');
-        $this->middleware('team:api')->except('store','me','update','destroy','linkWithWhatsApp');
+        // $this->middleware('team:api');
     }
 
     /**
@@ -396,6 +397,31 @@ class AccountController extends Controller
 
         } else {
 
+            // Return Failure
+            return $this->notFound();
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function fetchWhatsAppGroups(AccountFetchWhatsAppGroupsRequest $request)
+    {
+        // Use account model passed in from request authorization
+        $account = $request->account;
+
+        // Return success
+        if ($account) {
+
+            if ($request->input('properties')) {
+                $account = $account->load('user');
+            }
+
+            return $this->success($account);
+        } else {
             // Return Failure
             return $this->notFound();
         }

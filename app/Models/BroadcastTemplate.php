@@ -118,12 +118,4 @@ class BroadcastTemplate extends Model
     {
         return $this->belongsTo(Account::class);
     }
-
-    /**
-     * Establishes a one to many relationship with to contacts table
-     */
-    public function contacts()
-    {
-        return $this->hasMany(Contact::class);
-    }
 }

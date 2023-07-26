@@ -1,24 +1,14 @@
 <?php
 
-namespace App\Models;
-
-use App\Casts\BaseUrlArrayCast;
+use App\Casts\BaseUrlCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
 
-class Broadcast extends Model
+class ContactGroup extends Model
 {
     use Notifiable;
     use SoftDeletes;
-
-    /**
-     * The data type of the auto-incrementing ID.
-     *
-     * @var string
-     */
-    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -26,12 +16,7 @@ class Broadcast extends Model
      * @var array
      */
     protected $fillable = [
-        'account_id',
-        'title',
-        'message',
-        'preview_phone',
-        'contact_start_date',
-        'contact_end_date'
+        'contacts',
     ];
 
     /**
@@ -49,35 +34,10 @@ class Broadcast extends Model
      * @var array
      */
     protected $casts = [
-        'pictures' => BaseUrlArrayCast::class,
-        'videos' => BaseUrlArrayCast::class,
+        'contacts' => 'array',
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
-
-    /**
-     * Set the attribute's title.
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setTitleAttribute($value)
-    {
-        $count=0;
-        $title = Str::of($value)->explode(' ')->takeUntil(function ($string) use (&$count) {
-            $count = $count + strlen($string) +1;
-            return $count > 50;
-        });
-
-        $this->attributes['title'] = (string) Str::of($title->join(' '))->trim()->lower()->limit(50);
-    }
 
     /**
      * The "booting" method of the model.
@@ -89,8 +49,7 @@ class Broadcast extends Model
         parent::boot();
 
         self::creating(function ($model) {
-            $model->id = (string) Str::uuid();
-            $model->created_by = auth()->user()->id;
+            $model->created_by = auth()->user()? auth()->user()->id : null;
         });
 
         self::updating(function ($model) {
@@ -112,10 +71,10 @@ class Broadcast extends Model
     }
 
     /**
-     * Establishes a belongs to relationship with accounts table
+     * Establishes a one to many relationship with contacts table
      */
-    public function account()
+    public function contacts()
     {
-        return $this->belongsTo(Account::class);
+        return $this->hasMany(Contact::class);
     }
 }

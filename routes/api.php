@@ -141,3 +141,21 @@ Route::group(['middleware' => ['api'], 'prefix' => 'role'], function ($router) {
     Route::post('delete', 'RoleController@destroy');
     Route::get('test', 'RoleController@test');
 });
+
+Route::group(['middleware' => ['api'], 'prefix' => 'user'], function ($router) {
+
+    // User Routes
+    Route::get('index', 'UserController@index');
+    Route::post('filter/index', 'UserController@filterIndex');
+    Route::post('search/index', 'UserController@searchIndex');
+    Route::post('store', 'UserController@store');
+    Route::get('show', 'UserController@show');
+    Route::get('me', 'UserController@me');
+    Route::get('roles', 'UserController@showRolePermission');
+    Route::post('relation', 'UserController@relation');
+    Route::post('update', 'UserController@update');
+    Route::post('block', 'UserController@block');
+    Route::post('unblock', 'UserController@unblock');
+    Route::post('delete', 'UserController@destroy');
+    Route::get('test', 'UserController@test');
+});

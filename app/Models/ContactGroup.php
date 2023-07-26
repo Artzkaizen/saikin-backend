@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Models;
+
 use App\Casts\BaseUrlCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContactGroupsContactsTable extends Migration
+class CreateContactGroupTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateContactGroupsContactsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contact_groups_contacts', function (Blueprint $table) {
+        Schema::create('contact_group', function (Blueprint $table) {
             $table->unsignedBigInteger('group_id');
             $table->unsignedBigInteger('contact_id');
 
-            $table->foreign('group_id')->references('id')->on('contact_groups')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('group_id')->references('id')->on('groups')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('contact_id')->references('id')->on('contacts')->onUpdate('cascade')->onDelete('cascade');
 
             $table->primary(['group_id', 'contact_id']);
@@ -32,6 +32,6 @@ class CreateContactGroupsContactsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contact_groups_contacts');
+        Schema::dropIfExists('contact_group');
     }
 }

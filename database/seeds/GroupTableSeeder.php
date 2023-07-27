@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\ContactGroup;
+use App\Models\Group;
 use Illuminate\Database\Seeder;
 
-class ContactGroupTableSeeder extends Seeder
+class GroupTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class ContactGroupTableSeeder extends Seeder
     {
         // Run Broadcast factory
         if (config('app.env') === 'local') {
-            factory(ContactGroup::class, 10)->create();
+            factory(Group::class, 10)->create();
         }
     }
 }

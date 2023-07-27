@@ -109,6 +109,20 @@ Route::group(['middleware' => ['api'], 'prefix' => 'contact'], function ($router
     Route::get('test', 'ContactController@test');
 });
 
+Route::group(['middleware' => ['api'], 'prefix' => 'group'], function ($router) {
+
+    // Group Routes
+    Route::get('index', 'GroupController@index');
+    Route::post('filter/index', 'GroupController@filterIndex');
+    Route::post('search/index', 'GroupController@searchIndex');
+    Route::post('store', 'GroupController@store');
+    Route::get('show', 'GroupController@show');
+    Route::get('me', 'GroupController@me');
+    Route::post('update', 'GroupController@update');
+    Route::post('delete', 'GroupController@destroy');
+    Route::get('test', 'GroupController@test');
+});
+
 Route::group(['middleware' => ['api'], 'prefix' => 'misc'], function ($router) {
 
     // Miscellaneous Routes

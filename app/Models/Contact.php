@@ -87,4 +87,12 @@ class Contact extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Establishes a belongs to many relationship with groups table
+     */
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class);
+    }
 }

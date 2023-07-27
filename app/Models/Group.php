@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ContactGroup extends Model
+class Group extends Model
 {
     use Notifiable;
     use SoftDeletes;
@@ -18,6 +18,7 @@ class ContactGroup extends Model
      * @var array
      */
     protected $fillable = [
+        'title',
         'contacts',
     ];
 
@@ -77,6 +78,6 @@ class ContactGroup extends Model
      */
     public function contacts()
     {
-        return $this->hasMany(Contact::class);
+        return $this->belongsToMany(Contact::class);
     }
 }

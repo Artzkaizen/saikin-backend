@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContactGroupsTable extends Migration
+class CreateGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateContactGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contact_groups', function (Blueprint $table) {
+        Schema::create('groups', function (Blueprint $table) {
             // Identification
             $table->id();
             $table->uuid('user_id')->index();
 
-            // Properties - contact group
+            // Properties - group
+            $table->string('title',50)->nullable();
             $table->json('contacts')->nullable();
 
             // Status
@@ -37,6 +38,6 @@ class CreateContactGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contact_groups');
+        Schema::dropIfExists('groups');
     }
 }

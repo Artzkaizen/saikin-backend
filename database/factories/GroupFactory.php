@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\ContactGroup;
+use App\Models\Group;
 use App\Models\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
@@ -13,7 +13,7 @@ if (!Auth::user() && !Auth::attempt(['email' => 'blue@gmail.com', 'password' => 
     exit();
 }
 
-$factory->define(ContactGroup::class, function (Faker $faker) {
+$factory->define(Group::class, function (Faker $faker) {
 
     // Create a user without triggering any associated creation events
     $this->user = User::withoutEvents(function () {
@@ -22,13 +22,14 @@ $factory->define(ContactGroup::class, function (Faker $faker) {
 
     return [
         'user_id' => $this->user->id,
+        'title' => $faker->word,
         'created_at' => now(),
         'updated_at' => now(),
     ];
 });
 
-$factory->afterCreating(ContactGroup::class, function (ContactGroup $contact_group, Faker $faker) {
+$factory->afterCreating(Group::class, function (Group $group, Faker $faker) {
 
-    $contact_group->user = $this->user;
-    return $contact_group;
+    $group->user = $this->user;
+    return $group;
 });

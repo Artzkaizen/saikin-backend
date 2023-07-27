@@ -240,7 +240,7 @@ class AccountController extends Controller
         if ($account) {
 
             if ($request->input('properties')) {
-                $account = $account->load('user');
+                $account = $account->load('user','browser');
             }
 
             return $this->success($account);
@@ -331,9 +331,7 @@ class AccountController extends Controller
             return $this->notFound();
         }
 
-        // Dispatch
-        dispatch(function () use ($account,$user_id) {
-
+            // Dispatch
             if (!$account->browser) {
 
                 // Deploy browser
@@ -348,7 +346,7 @@ class AccountController extends Controller
                 $browser->user_id = $user_id;
                 $browser->account_id = $account->id;
                 $browser->session_id = $WhatsAppLogin->getBrowserSessionId();
-                $browser->class_instance = $WhatsAppLogin->getBrowserInstance();
+                $browser->browser_instance = $WhatsAppLogin->getBrowserInstance();
 
                 // Save browser
                 $browser->save();
@@ -366,12 +364,11 @@ class AccountController extends Controller
 
                 // Additional params
                 $browser->session_id = $WhatsAppLogin->getBrowserSessionId();
-                $browser->class_instance = $WhatsAppLogin->getBrowserInstance();
+                $browser->browser_instance = $WhatsAppLogin->getBrowserInstance();
 
                 // Save browser
                 $browser->save();
             }
-        });
 
         // Return success
         return $this->actionSuccess('Browser was created');

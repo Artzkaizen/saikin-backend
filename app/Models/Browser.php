@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\StringifyCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,8 +20,6 @@ class Browser extends Model
     protected $fillable = [
         'user_id',
         'account_id',
-        'session_id',
-        'class_instance',
     ];
 
     /**
@@ -38,6 +37,7 @@ class Browser extends Model
      * @var array
      */
     protected $casts = [
+        'browser_instance' => StringifyCast::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];

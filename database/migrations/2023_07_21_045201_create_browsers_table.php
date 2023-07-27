@@ -21,7 +21,7 @@ class CreateBrowsersTable extends Migration
 
             // Properties - broadcast
             $table->string('session_id')->nullable();
-            $table->longText('class_instance')->nullable();
+            $table->longText('browser_instance')->nullable();
 
             // Status
             $table->string('status')->default('open')->comment('open, idle, closed');

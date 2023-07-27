@@ -123,6 +123,23 @@ Route::group(['middleware' => ['api'], 'prefix' => 'group'], function ($router) 
     Route::get('test', 'GroupController@test');
 });
 
+Route::group(['middleware' => ['api'], 'prefix' => 'payment'], function ($router) {
+
+    // Payment Routes
+    Route::get('index', 'PaymentController@index');
+    Route::post('filter/index', 'PaymentController@filterIndex');
+    Route::post('search/index', 'PaymentController@searchIndex');
+    Route::post('store', 'PaymentController@store');
+    Route::get('me', 'PaymentController@me');
+    Route::get('show', 'PaymentController@show');
+    Route::get('show/provider', 'PaymentController@providers');
+    Route::post('webhook/{provider}', 'PaymentController@webhook');
+    Route::post('verify/{provider}', 'PaymentController@verify');
+    Route::post('update', 'PaymentController@update');
+    Route::post('delete', 'PaymentController@destroy');
+    Route::get('test', 'PaymentController@test');
+});
+
 Route::group(['middleware' => ['api'], 'prefix' => 'misc'], function ($router) {
 
     // Miscellaneous Routes

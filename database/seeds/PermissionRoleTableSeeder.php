@@ -31,6 +31,13 @@ class PermissionRoleTableSeeder extends Seeder
             "broadcast_placeholder_update",
             "delete_broadcast",
 
+            "index_broadcast_template",
+            "filter_index_broadcast_template",
+            "search_index_broadcast_template",
+            "show_broadcast_template",
+            "update_broadcast_template",
+            "delete_broadcast_template",
+
             "index_cache",
             "clear_cache",
 
@@ -40,6 +47,14 @@ class PermissionRoleTableSeeder extends Seeder
             "show_contact",
             "update_contact",
             "delete_contact",
+
+            "index_group",
+            "filter_index_group",
+            "search_index_group",
+            "show_group",
+            "store_group",
+            "update_group",
+            "delete_group",
 
             "index_permission",
             "store_permission",

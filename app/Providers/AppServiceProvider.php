@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Group;
+use App\Models\Payment;
+use App\Observers\GroupObserver;
+use App\Observers\PaymentObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Group::observe(GroupObserver::class);
+        Payment::observe(PaymentObserver::class);
     }
 }

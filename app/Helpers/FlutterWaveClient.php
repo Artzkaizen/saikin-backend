@@ -21,6 +21,41 @@ class FlutterWaveClient
     protected string $public_key;
 
     /**
+     * @var array $payment_verification_criteria
+     */
+    protected array $payment_verification_criteria;
+
+    /**
+     * @var bool $is_authentic
+     */
+    protected bool $is_authentic;
+
+    /**
+     * @var object $response
+     */
+    protected object $response;
+
+    /**
+     * Return response
+     * @param void
+     * @return object
+     */
+    public function response() 
+    {
+        return $this->response ?? null;
+    }
+
+    /**
+     * Return is_authentic
+     * @param void
+     * @return bool
+     */
+    public function authentic() 
+    {
+        return $this->is_authentic ?? null;
+    }
+
+    /**
      * Set a secret key for flutter wave application programming interface
      * @param string $secret_key
      * @return FlutterWaveClient
@@ -43,37 +78,53 @@ class FlutterWaveClient
     }
 
     /**
-     * Find transactions made on flutter wave
-     * @param string $url
-     * @param string $content
-     * @return array|false
+     * Set payment verification criteria
+     * @param string|null $id
+     * @param float|null $amount
+     * @param string|null $currency
+     * @return FlutterWaveClient
      */
-    public function verifyPayment(string $url, string $content)
+    public function setPaymentVerificationCriteria(?string $id, ?float $amount, ?string $currency): FlutterWaveClient
+    {
+        $this->payment_verification_criteria = [
+            'tx_ref' => $id,
+            'amount' => $amount,
+            'currency' => $currency,
+        ];
+        return $this;
+    }
+
+    /**
+     * Find transactions made on flutter wave and verify
+     * @param string $url
+     * @param string $id
+     * @return FlutterWaveClient
+     */
+    public function verifyPayment(string $url, string $id) : FlutterWaveClient
     {
         try {
 
-            // Parse content
-            $content = json_decode($content,false);
-
             // Parse url
-            $url = Str::replaceFirst(':id',$content->data->id,$url);
+            $url = Str::replaceFirst(':reference',$id,$url);
 
             // Query flutter wave
             $response = Http::withToken($this->secret_key)->get($url)->throw();
 
             // Parse response
-            $response = $response->object();
+            $this->response = $response->object();
 
-            // Compare key-value against key-value
-            $is_authentic = collect(['id','tx_ref','flw_ref','amount','currency','status'])->every(function ($accessor) use ($content, $response) {
-                return $content->data->$accessor === $response->data->$accessor;
+            // Compare verification criteria against response key-value
+            $is_transaction_data_accurate = collect($this->payment_verification_criteria ?? [])->every(function ($value, $accessor) {
+                return $value ? $value === $this->response->data->$accessor : true;
             });
 
-            return $is_authentic ? $response : false;
+            $this->is_authentic = $is_transaction_data_accurate;
 
         } catch (\Throwable $th) {
 
-            return false;
+            $this->is_authentic = false;
         }
+
+        return $this;
     }
 }

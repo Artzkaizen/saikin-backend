@@ -12,15 +12,12 @@ class FlutterWaveSuite
 {
     /**
      * Handle flutter wave webhook response
-     * @param array $header
-     * @param array $body
-     * @param string $content
-     * @param string $ip
+     * @param void
      * @return FlutterWaveWebHook
      */
-    public static function webhook(array $header, array $body, string $content, string $ip)
+    public static function webhook()
     {
-        return new FlutterWaveWebHook($header, $body, $content, $ip);
+        return new FlutterWaveWebHook();
     }
 
     /**

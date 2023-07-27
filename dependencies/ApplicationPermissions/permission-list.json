@@ -50,12 +50,12 @@
         {
             "name":"show_broadcast",
             "display_name":"View broadcast",
-            "description":"See a specific broadcasts"
+            "description":"See a specific broadcast"
         },
         {
             "name":"update_broadcast",
-            "display_name":"Edit a broadcasts",
-            "description":"Edit the details of a specific broadcasts"
+            "display_name":"Edit a broadcast",
+            "description":"Edit the details of a specific broadcast"
         },
         {
             "name":"broadcast_placeholder_index",
@@ -69,8 +69,40 @@
         },
         {
             "name":"delete_broadcast",
-            "display_name":"Delete broadcasts",
-            "description":"Delete a specific broadcasts"
+            "display_name":"Delete broadcast",
+            "description":"Delete a specific broadcast"
+        }
+    ],
+    "BroadcastTemplateController":[
+        {
+            "name":"index_broadcast_template",
+            "display_name":"View all broadcast templates",
+            "description":"See all available broadcast templates"
+        },
+        {
+            "name":"filter_index_broadcast_template",
+            "display_name":"Filter broadcast templates",
+            "description":"Filter through all available broadcast templates"
+        },
+        {
+            "name":"search_index_broadcast_template",
+            "display_name":"Search broadcast templates",
+            "description":"Search through all available broadcast templates"
+        },
+        {
+            "name":"show_broadcast_template",
+            "display_name":"View broadcast",
+            "description":"See a specific broadcast template"
+        },
+        {
+            "name":"update_broadcast_template",
+            "display_name":"Edit a broadcast template",
+            "description":"Edit the details of a specific broadcast template"
+        },
+        {
+            "name":"delete_broadcast_template",
+            "display_name":"Delete broadcast template",
+            "description":"Delete a specific broadcast template"
         }
     ],
     "CacheController":[
@@ -120,6 +152,80 @@
             "name":"delete_contact",
             "display_name":"Delete contact",
             "description":"Delete a specific contact"
+        }
+    ],
+    "GroupController":[
+        {
+            "name":"index_group",
+            "display_name":"View all groups",
+            "description":"See all available groups"
+        },
+        {
+            "name":"filter_index_group",
+            "display_name":"Filter groups",
+            "description":"Filter through all available groups"
+        },
+        {
+            "name":"search_index_group",
+            "display_name":"Search groups",
+            "description":"Search through all available groups"
+        },
+        {
+            "name":"show_group",
+            "display_name":"View group",
+            "description":"See a specific group"
+        },
+        {
+            "name":"store_group",
+            "display_name":"Create group",
+            "description":"Create a group"
+        },
+        {
+            "name":"update_group",
+            "display_name":"Edit a group",
+            "description":"Edit the details of a specific group"
+        },
+        {
+            "name":"delete_group",
+            "display_name":"Delete group",
+            "description":"Delete a specific group"
+        }
+    ],
+    "PaymentController":[
+        {
+            "name":"index_payment",
+            "display_name":"View all payments",
+            "description":"See all available payments"
+        },
+        {
+            "name":"filter_index_payment",
+            "display_name":"Filter payments",
+            "description":"Filter through all available payments"
+        },
+        {
+            "name":"search_index_payment",
+            "display_name":"Search payments",
+            "description":"Search through all available payments"
+        },
+        {
+            "name":"show_payment",
+            "display_name":"View payment",
+            "description":"See a specific payment"
+        },
+        {
+            "name":"store_payment",
+            "display_name":"Create payment",
+            "description":"Create a payment"
+        },
+        {
+            "name":"update_payment",
+            "display_name":"Edit a payment",
+            "description":"Edit the details of a specific payment"
+        },
+        {
+            "name":"delete_payment",
+            "display_name":"Delete payment",
+            "description":"Delete a specific payment"
         }
     ],
     "PermissionController":[

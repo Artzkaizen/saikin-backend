@@ -163,7 +163,7 @@ class WhatsAppLogin
         $capabilities = DesiredCapabilities::chrome();
 
         // Open an existing session
-        $driver = RemoteWebDriver::createBySessionID($session_id, $this->server_url);
+        $driver = RemoteWebDriver::createBySessionID($session_id, $this->server_url, null, null, true, $capabilities);
 
         // Store driver instance
         $this->driver = $driver;
@@ -206,36 +206,50 @@ class WhatsAppLogin
         // Go to URL
         $driver->get('https://web.whatsapp.com/');
 
-        // Wait until QR code is visible
+        // Wait until QR code is visible or chat button is visible
         $driver->wait()->until(
-            WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::cssSelector('[data-testid="qrcode"]'))
+            function () use ($driver) {
+
+                $element1 = $driver->findElements(WebDriverBy::cssSelector('[data-testid="qrcode"]'));
+                $element2 = $driver->findElements(WebDriverBy::cssSelector('[data-testid="chat"]'));
+
+                return (!$element1 && !$element2)? false : true;
+            }
         );
 
-        // Find QR code
-        $driver->findElement(WebDriverBy::cssSelector('[data-testid="qrcode"]'));
+        try {
 
-        // Continually snapshot
-        do {
+            // Find QR code
+            $driver->findElement(WebDriverBy::cssSelector('[data-testid="qrcode"]'));
 
-            // Take a screenshot of the entire page
-            $screenshot = $driver->takeScreenshot();
+            // Continually snapshot
+            do {
 
-            // Create a new image resource from the screenshot
-            $image = imagecreatefromstring($screenshot);
+                // Take a screenshot of the entire page
+                $screenshot = $driver->takeScreenshot();
 
-            // Crop the image to the element's location and size
-            $croppedImage = imagecrop($image, ['x' => 1510, 'y' => 280, 'width' => 600, 'height' => 600]);
+                // Create a new image resource from the screenshot
+                $image = imagecreatefromstring($screenshot);
 
-            // Generate a unique filename
-            $filename = $unique_identifier.'.png';
+                // Crop the image to the element's location and size
+                $croppedImage = imagecrop($image, ['x' => 1510, 'y' => 280, 'width' => 600, 'height' => 600]);
 
-            // Save the cropped image to a file
-            imagepng($croppedImage, $this->screenshot_directory.'/'.$filename);
+                // Generate a unique filename
+                $filename = $unique_identifier.'.png';
 
-            // Wait for 9 second before continuing
-            sleep(9);
+                // Save the cropped image to a file
+                imagepng($croppedImage, $this->screenshot_directory.'/'.$filename);
 
-        } while ( !empty($driver->findElements(WebDriverBy::cssSelector('[data-testid="qrcode"]'))) );
+                // Wait for 9 second before continuing
+                sleep(9);
+
+            } while ( !empty($driver->findElements(WebDriverBy::cssSelector('[data-testid="qrcode"]'))) );
+
+        } catch (\Throwable $th) {
+
+            // Find QR code
+            $driver->findElement(WebDriverBy::cssSelector('[data-testid="chat"]'));
+        }
 
         // Store driver instance
         $this->driver = $driver;

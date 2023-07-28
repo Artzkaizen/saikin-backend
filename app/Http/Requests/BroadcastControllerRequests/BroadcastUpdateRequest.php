@@ -7,7 +7,6 @@ use App\Rules\Maximum;
 use App\Rules\Base64Image;
 use App\Rules\UrlImage;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Auth\Access\AuthorizationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BroadcastUpdateRequest extends FormRequest

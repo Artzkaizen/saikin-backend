@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\BroadcastControllerRequests;
 
+use App\Models\Account;
 use App\Rules\Maximum;
 use App\Rules\Base64Image;
 use App\Rules\UrlImage;
@@ -16,7 +17,21 @@ class BroadcastStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        // Find the supplied account by id
+        $this->account = Account::find($this->input('account_id'));
+
+        if ($this->account) {
+
+            /**
+             * Check if requestor is able to ...
+             * Check if the user is related to the supplied account id
+             */
+            if (auth()->user()->id === $this->account->user_id){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -27,7 +42,7 @@ class BroadcastStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'account_id' => 'required|integer|min:1',
+            'account_id' => 'required|integer|min:1|exists:accounts,id',
             'title' => 'sometimes|required|string|max:50|min:1',
             'preview_phone' => 'sometimes|required|numeric|digits_between:1,25',
             'message' =>'required|string|min:1',
@@ -56,6 +71,7 @@ class BroadcastStoreRequest extends FormRequest
             'account_id.required' => 'An account id is required',
             'account_id.string'  => 'Account id characters are not valid, Integer is required',
             'account_id.min'  => 'Account id characters can not be less than 1',
+            'account_id.exists'  => 'Account id does not exist',
 
             'title.sometimes' => 'A title should be present, else entirely exclude the field',
             'title.required' => 'A title maybe required',

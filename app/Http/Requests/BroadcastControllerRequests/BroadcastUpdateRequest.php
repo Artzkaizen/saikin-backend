@@ -57,12 +57,14 @@ class BroadcastUpdateRequest extends FormRequest
     {
         return [
             'id' => 'required|uuid|max:100|min:1',
-            'account_id' => 'sometimes|required|integer|min:1',
+            'account_id' => 'sometimes|required|integer|min:1|exists:accounts,id,user_id,'.auth()->user()->id,
             'title' => 'sometimes|required|string|max:50|min:1',
             'preview_phone' => 'sometimes|required|numeric|digits_between:1,25',
             'message' =>'sometimes|required|string|min:1',
-            'contact_start_date' => 'sometimes|required|date|max:25|min:1',
-            'contact_end_date' => 'sometimes|required|date|max:25|min:1',
+            'contact_group_start_date' => 'sometimes|required|date|max:25|min:1',
+            'contact_group_end_date' => 'sometimes|required|date|max:25|min:1',
+            'contact_group_id' => 'sometimes|required_if:whats_app_group_name,'.null.'|integer|min:1|exists:groups,id,user_id,'.auth()->user()->id,
+            'whats_app_group_name' => 'sometimes|required_if:contact_group_id,'.null.'|string|min:1',
 
             'photos' => ['sometimes','required', 'array', 'max:9', 'filled', new Maximum(9,'base64_photos','url_photos')],
             'photos.*' => 'required_unless:photos,'.null.'|image|dimensions:min_width=200,min_height=200|mimes:jpg,jpeg,png,gif,bmp|max:1999',
@@ -92,6 +94,7 @@ class BroadcastUpdateRequest extends FormRequest
             'account_id.required' => 'An account id maybe required',
             'account_id.string'  => 'Account id characters are not valid, Integer is required',
             'account_id.min'  => 'Account id characters can not be less than 1',
+            'account_id.exists'  => 'Account id does not exist for this user',
 
             'title.sometimes' => 'A title should be present, else entirely exclude the field',
             'title.required' => 'A title maybe required',
@@ -109,17 +112,26 @@ class BroadcastUpdateRequest extends FormRequest
             'message.string'  => 'Message description field characters are not valid',
             'message.min'  => 'Message description field characters can not be less than 1',
 
-            'contact_start_date.sometimes' => 'A contact start date field should be present, else entirely exclude the field',
-            'contact_start_date.required' => 'A contact start date field maybe required',
-            'contact_start_date.date'  => 'Contact start date field characters are not valid, A valid date string is expected',
-            'contact_start_date.max'  => 'Contact start date field characters can not be more than 25',
-            'contact_start_date.min'  => 'Contact start date field characters can not be less than 1',
+            'contact_group_start_date.sometimes' => 'A contact group start date field should be present, else entirely exclude the field',
+            'contact_group_start_date.required' => 'A contact group start date field maybe required',
+            'contact_group_start_date.date'  => 'Contact group start date field characters are not valid, A valid date string is expected',
+            'contact_group_start_date.max'  => 'Contact group start date field characters can not be more than 25',
+            'contact_group_start_date.min'  => 'Contact group start date field characters can not be less than 1',
 
-            'contact_end_date.sometimes' => 'A contact end date field should be present, else entirely exclude the field',
-            'contact_end_date.required' => 'A contact end date field maybe required',
-            'contact_end_date.date'  => 'Contact end date field characters are not valid, A valid date string is expected',
-            'contact_end_date.max'  => 'Contact end date field characters can not be more than 25',
-            'contact_end_date.min'  => 'Contact end date field characters can not be less than 1',
+            'contact_group_end_date.sometimes' => 'A contact group end date field should be present, else entirely exclude the field',
+            'contact_group_end_date.required' => 'A contact group end date field maybe required',
+            'contact_group_end_date.date'  => 'Contact group end date field characters are not valid, A valid date string is expected',
+            'contact_group_end_date.max'  => 'Contact group end date field characters can not be more than 25',
+            'contact_group_end_date.min'  => 'Contact group end date field characters can not be less than 1',
+
+            'contact_group_id.required_if' => 'A contact group id maybe required if there is no whatsapp group name',
+            'contact_group_id.string'  => 'Contact group id characters are not valid, Integer is required',
+            'contact_group_id.min'  => 'Contact group id characters can not be less than 1',
+            'contact_group_id.exists'  => 'Contact group id does not exist for this user',
+
+            'whats_app_group_name.required_if' => 'A whats app group name maybe required if there is no contact group id',
+            'whats_app_group_name.string'  => 'Whats app group name characters are not valid, String is required',
+            'whats_app_group_name.min'  => 'Whats app group name characters can not be less than 1',
 
             'photos.sometimes' => 'An array of photos should be present, else entirely exclude the field',
             'photos.required' => 'An array photos maybe required',

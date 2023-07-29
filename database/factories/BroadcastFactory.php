@@ -4,6 +4,7 @@
 
 use App\Models\Account;
 use App\Models\Broadcast;
+use App\Models\Group;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,9 @@ $factory->define(Broadcast::class, function (Faker $faker) {
     // Create an account
     $this->account = factory(Account::class)->create();
 
+    // Create a group
+    $this->group = factory(Group::class)->create(['user_id' => $this->account->user_id]);
+
     return [
         'id' => (string) Str::uuid(),
         'user_id' => $this->account->user_id,
@@ -26,6 +30,10 @@ $factory->define(Broadcast::class, function (Faker $faker) {
         'pictures' => [$faker->imageUrl(400, 400, 'food'),$faker->imageUrl(400, 400, 'food')],
         'videos' => [$faker->url(),$faker->url()],
         'preview_phone'=>  $faker->numerify('#############'),
+        'contact_group_start_date' => $faker->dateTimeBetween('-03 days', 'now'),
+        'contact_group_end_date' => $faker->dateTimeBetween('now', '+03 days'),
+        'contact_group_id' => $this->group->id,
+        'whats_app_group_name' => null,
         'created_at' => now(),
         'updated_at' => now(),
     ];
@@ -35,5 +43,6 @@ $factory->afterCreating(Broadcast::class, function (Broadcast $broadcast, Faker 
 
     $broadcast->user = $this->account->user;
     $broadcast->account = $this->account;
+    $broadcast->group = $this->group;
     return $broadcast;
 });

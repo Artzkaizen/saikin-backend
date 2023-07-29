@@ -30,8 +30,10 @@ class Broadcast extends Model
         'title',
         'message',
         'preview_phone',
-        'contact_start_date',
-        'contact_end_date'
+        'contact_group_start_date',
+        'contact_group_end_date',
+        'contact_group_id',
+        'whats_app_group_name'
     ];
 
     /**

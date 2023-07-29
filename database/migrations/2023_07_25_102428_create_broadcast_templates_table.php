@@ -25,8 +25,10 @@ class CreateBroadcastTemplatesTable extends Migration
             $table->mediumText('pictures')->nullable();
             $table->mediumText('videos')->nullable();
             $table->string('preview_phone', 25);
-            $table->dateTime('contact_start_date',0)->nullable();
-            $table->dateTime('contact_end_date',0)->nullable();
+            $table->dateTime('contact_group_start_date',0)->nullable();
+            $table->dateTime('contact_group_end_date',0)->nullable();
+            $table->unsignedBigInteger('contact_group_id')->nullable();
+            $table->string('whats_app_group_name', 100)->nullable();
 
             // Status
             $table->string('status')->default('pending')->comment('pending, queued, delivered, canceled');

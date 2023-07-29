@@ -37,31 +37,31 @@ class GroupController extends Controller
     {
         if ($request->input('properties')){
 
-            // Get all contact with all their relations
-            $contacts = Group::with(['contacts'])->orderBy('created_at', 'desc')
+            // Get all group with all their relations
+            $groups = Group::with(['contacts'])->orderBy('created_at', 'desc')
             ->take(1000)
             ->paginate(25);
 
         } elseif ($request->input('deleted')){
 
-            // Get all deleted contact with all their relations
-            $contacts = Group::onlyTrashed()->with(['contacts'])->orderBy('created_at', 'desc')
+            // Get all deleted group with all their relations
+            $groups = Group::onlyTrashed()->with(['contacts'])->orderBy('created_at', 'desc')
             ->take(1000)
             ->paginate(25);
 
         } else {
 
-            // Get all contact with out their relations
-            $contacts = Group::orderBy('created_at', 'desc')
+            // Get all group with out their relations
+            $groups = Group::orderBy('created_at', 'desc')
             ->take(1000)
             ->paginate(25);
         }
 
         // Return success
-        if ($contacts) {
+        if ($groups) {
 
-            if (count($contacts) > 0) {
-                return $this->success($contacts);
+            if (count($groups) > 0) {
+                return $this->success($groups);
             } else {
                return $this->noContent('Groups were not found');
             }
@@ -88,7 +88,7 @@ class GroupController extends Controller
         $pagination = is_null($request->input('pagination'))? true : (boolean) $request->input('pagination');
 
         // Build search query
-        $contacts = Group::when($user_id, function ($query, $user_id) {
+        $group = Group::when($user_id, function ($query, $user_id) {
             return $query->where('user_id', $user_id);
 
         })->when($title, function ($query, $title) {
@@ -96,8 +96,8 @@ class GroupController extends Controller
 
         })->when($contacts, function ($query, $contacts) {
 
-            foreach($contacts as $contact_attribute) {
-                $query->whereJsonContains('contacts', $contact_attribute);
+            foreach($contacts as $contact) {
+                $query->whereJsonContains('contacts', $contact);
             }
             return $query;
 
@@ -109,30 +109,30 @@ class GroupController extends Controller
         });
 
         // Check if the builder has any where clause
-        if (count($contacts->getQuery()->wheres) < 1){
+        if (count($group->getQuery()->wheres) < 1){
             // Return failure
             return $this->requestConflict('No value to filter by');
         }
 
         // Execute search query
-        $contacts = $contacts->orderBy('created_at', 'desc');
+        $group = $group->orderBy('created_at', 'desc');
 
         // Execute with pagination required
         if ($pagination) {
-            $contacts = $contacts->take(1000)->paginate(25);
+            $group = $group->take(1000)->paginate(25);
         }
 
         // Execute without pagination required
         if (!$pagination) {
-            $contacts = $contacts->take(1000)->get();
+            $group = $group->take(1000)->get();
         }
 
         // Return success
-        if ($contacts) {
-            if (count($contacts) > 0) {
-                return $this->success($contacts);
+        if ($group) {
+            if (count($group) > 0) {
+                return $this->success($group);
             } else {
-               return $this->noContent('No contact was found for this range');
+               return $this->noContent('No group was found for this range');
             }
 
         } else {
@@ -153,7 +153,7 @@ class GroupController extends Controller
         $search_date = is_null($request->input('search'))? false : Helper::stringToCarbonDate($request->input('search'));
 
         // Build search query
-        $contacts = Group::when($search_string, function ($query) use ($request, $search_string, $search_date) {
+        $group = Group::when($search_string, function ($query) use ($request, $search_string, $search_date) {
 
             return $query->when($request->input('user_id'), function($query) use ($request) {
 
@@ -171,20 +171,20 @@ class GroupController extends Controller
         });
 
         // Check if the builder has any where clause
-        if (count($contacts->getQuery()->wheres) < 1){
+        if (count($group->getQuery()->wheres) < 1){
             // Return failure
             return $this->requestConflict('No value to filter by');
         }
 
         // Execute search query
-        $contacts = $contacts->orderBy('created_at', 'desc')->limit(10)->get();
+        $group = $group->orderBy('created_at', 'desc')->limit(10)->get();
 
         // Return success
-        if ($contacts) {
-            if (count($contacts) > 0) {
-                return $this->success($contacts);
+        if ($group) {
+            if (count($group) > 0) {
+                return $this->success($group);
             } else {
-               return $this->noContent('No contact was found for this range');
+               return $this->noContent('No group was found for this range');
             }
         } else {
             // Return failure
@@ -200,16 +200,16 @@ class GroupController extends Controller
      */
     public function store(GroupStoreRequest $request)
     {
-        // Fill the contact model
-        $contact = new Group;
-        $contact = $contact->fill($request->toArray());
+        // Fill the group model
+        $group = new Group;
+        $group = $group->fill($request->toArray());
 
         // Additional params
-        $contact->user_id = auth()->user()->id;
+        $group->user_id = auth()->user()->id;
 
         // Return success
-        if ($contact->save()) {
-            return $this->entityCreated($contact,'Group was saved');
+        if ($group->save()) {
+            return $this->entityCreated($group,'Group was saved');
         } else {
             // Return failure
             return $this->unavailableService();
@@ -224,17 +224,17 @@ class GroupController extends Controller
      */
     public function show(GroupShowRequest $request)
     {
-        // Use contact model passed in from request authorization
-        $contact = $request->contact;
+        // Use group model passed in from request authorization
+        $group = $request->group;
 
         // Return success
-        if ($contact) {
+        if ($group) {
 
             if ($request->input('properties')) {
-                $contact = $contact->load('contacts');
+                $group = $group->load('contacts');
             }
 
-            return $this->success($contact);
+            return $this->success($group);
         } else {
             // Return Failure
             return $this->notFound();
@@ -250,14 +250,14 @@ class GroupController extends Controller
     public function me(GroupMeRequest $request)
     {
         // Get a user groups
-        $contacts = Group::where('user_id', auth()->user()->id)
+        $group = Group::where('user_id', auth()->user()->id)
         ->orderBy('created_at', 'desc')
         ->take(1000)
         ->paginate(25);
 
         // Return success
-        if ($contacts) {
-            return $this->success($contacts);
+        if ($group) {
+            return $this->success($group);
         } else {
             // Return Failure
             return $this->notFound();
@@ -272,16 +272,16 @@ class GroupController extends Controller
      */
     public function update(GroupUpdateRequest $request)
     {
-        // Use contact model passed in from request authorization
-        $contact = $request->contact;
+        // Use group model passed in from request authorization
+        $group = $request->group;
 
-        if ($contact) {
+        if ($group) {
 
             // Fill requestor input
-            $contact->fill($request->toArray());
+            $group->fill($request->toArray());
 
-            // Update contact
-            if ($contact->update()) {
+            // Update group
+            if ($group->update()) {
                 return $this->actionSuccess('Group was updated');
             } else {
                 return $this->unavailableService();
@@ -300,13 +300,13 @@ class GroupController extends Controller
      */
     public function destroy(GroupDestroyRequest $request)
     {
-        // Use contact model passed in from request authorization
-        $contact = $request->contact;
+        // Use group model passed in from request authorization
+        $group = $request->group;
 
-        if ($contact) {
+        if ($group) {
 
-            // Delete contact
-            if ($contact->delete()) {
+            // Delete group
+            if ($group->delete()) {
                 return $this->actionSuccess('Group was deleted');
             } else {
                 return $this->unavailableService();

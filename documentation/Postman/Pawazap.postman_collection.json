@@ -1870,13 +1870,13 @@
 									"disabled": true
 								},
 								{
-									"key": "contact_start_date",
+									"key": "contact_group_start_date",
 									"value": "2023-07-12",
 									"description": "Optional (year-month-date)  (y-m-d)",
 									"type": "text"
 								},
 								{
-									"key": "contact_end_date",
+									"key": "contact_group_end_date",
 									"value": "2022-12-30",
 									"description": "Optional (year-month-date)  (y-m-d)",
 									"type": "text"
@@ -1962,13 +1962,13 @@
 									"disabled": true
 								},
 								{
-									"key": "contact_start_date",
+									"key": "contact_group_start_date",
 									"value": "2023-07-12",
 									"description": "Optional (year-month-date)  (y-m-d)",
 									"type": "text"
 								},
 								{
-									"key": "contact_end_date",
+									"key": "contact_group_end_date",
 									"value": "2022-12-30",
 									"description": "Optional (year-month-date)  (y-m-d)",
 									"type": "text"
@@ -2421,13 +2421,13 @@
 									"disabled": true
 								},
 								{
-									"key": "contact_start_date",
+									"key": "contact_group_start_date",
 									"value": "2023-07-12",
 									"description": "Optional (year-month-date)  (y-m-d)",
 									"type": "text"
 								},
 								{
-									"key": "contact_end_date",
+									"key": "contact_group_end_date",
 									"value": "2022-12-30",
 									"description": "Optional (year-month-date)  (y-m-d)",
 									"type": "text"
@@ -2513,13 +2513,13 @@
 									"disabled": true
 								},
 								{
-									"key": "contact_start_date",
+									"key": "contact_group_start_date",
 									"value": "2023-07-12",
 									"description": "Optional (year-month-date)  (y-m-d)",
 									"type": "text"
 								},
 								{
-									"key": "contact_end_date",
+									"key": "contact_group_end_date",
 									"value": "2022-12-30",
 									"description": "Optional (year-month-date)  (y-m-d)",
 									"type": "text"

@@ -16,10 +16,8 @@ if (!Auth::user() && !Auth::attempt(['email' => 'blue@gmail.com', 'password' => 
 
 $factory->define(Group::class, function (Faker $faker) {
 
-    // Create a user without triggering any associated creation events
-    $this->user = User::withoutEvents(function () {
-        return factory(User::class)->create();
-    });
+    // Create a user
+    $this->user = factory(User::class)->create();
 
     // Create a contacts
     $this->contacts = factory(Contact::class, 6)->create();

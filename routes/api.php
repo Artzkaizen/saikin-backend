@@ -173,6 +173,20 @@ Route::group(['middleware' => ['api'], 'prefix' => 'role'], function ($router) {
     Route::get('test', 'RoleController@test');
 });
 
+Route::group(['middleware' => ['api'], 'prefix' => 'setting'], function ($router) {
+
+    // Setting Routes
+    Route::get('index', 'SettingController@index');
+    Route::post('filter/index', 'SettingController@filterIndex');
+    Route::post('search/index', 'SettingController@searchIndex');
+    Route::post('store', 'SettingController@store');
+    Route::get('show', 'SettingController@show');
+    Route::get('me', 'SettingController@me');
+    Route::post('update', 'SettingController@update');
+    Route::post('delete', 'SettingController@destroy');
+    Route::get('test', 'SettingController@test');
+});
+
 Route::group(['middleware' => ['api'], 'prefix' => 'user'], function ($router) {
 
     // User Routes

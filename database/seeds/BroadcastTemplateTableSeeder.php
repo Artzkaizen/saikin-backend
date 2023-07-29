@@ -12,7 +12,7 @@ class BroadcastTemplateTableSeeder extends Seeder
      */
     public function run()
     {
-        // Run Broadcast factory
+        // Run broadcast template factory
         if (config('app.env') === 'local') {
             factory(BroadcastTemplate::class, 10)->create();
         }

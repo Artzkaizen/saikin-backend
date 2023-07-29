@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Models\Group;
 use App\Models\Payment;
+use App\Models\User;
 use App\Observers\GroupObserver;
 use App\Observers\PaymentObserver;
+use App\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Group::observe(GroupObserver::class);
         Payment::observe(PaymentObserver::class);
+        User::observe(UserObserver::class);
     }
 }

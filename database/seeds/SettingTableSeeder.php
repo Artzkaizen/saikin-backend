@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Broadcast;
+use App\Models\Setting;
 use Illuminate\Database\Seeder;
 
-class BroadcastTableSeeder extends Seeder
+class SettingTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,9 +12,9 @@ class BroadcastTableSeeder extends Seeder
      */
     public function run()
     {
-        // Run broadcast factory
+        // Run setting factory
         if (config('app.env') === 'local') {
-            factory(Broadcast::class, 10)->create();
+            factory(Setting::class, 10)->create();
         }
     }
 }

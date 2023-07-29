@@ -12,7 +12,7 @@ class ContactTableSeeder extends Seeder
      */
     public function run()
     {
-        // Run address factory
+        // Run contact factory
         if (config('app.env') === 'local') {
             factory(Contact::class, 10)->create();
         }

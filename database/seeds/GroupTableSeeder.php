@@ -12,7 +12,7 @@ class GroupTableSeeder extends Seeder
      */
     public function run()
     {
-        // Run Broadcast factory
+        // Run group factory
         if (config('app.env') === 'local') {
             factory(Group::class, 10)->create();
         }

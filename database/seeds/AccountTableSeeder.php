@@ -12,7 +12,7 @@ class AccountTableSeeder extends Seeder
      */
     public function run()
     {
-        // Run Account factory
+        // Run account factory
         if (config('app.env') === 'local') {
             factory(Account::class, 10)->create();
         }

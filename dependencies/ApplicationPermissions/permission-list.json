@@ -301,5 +301,89 @@
             "display_name":"Delete role",
             "description":"Delete a specific role"
         }
+    ],
+    "SettingController":[
+        {
+            "name":"index_setting",
+            "display_name":"View all settings",
+            "description":"See all available settings"
+        },
+        {
+            "name":"filter_index_setting",
+            "display_name":"Filter settings",
+            "description":"Filter through all available settings"
+        },
+        {
+            "name":"search_index_setting",
+            "display_name":"Search settings",
+            "description":"Search through all available settings"
+        },
+        {
+            "name":"show_setting",
+            "display_name":"View setting",
+            "description":"See a specific setting"
+        },
+        {
+            "name":"update_setting",
+            "display_name":"Edit a setting",
+            "description":"Edit the details of a specific setting"
+        },
+        {
+            "name":"delete_setting",
+            "display_name":"Delete setting",
+            "description":"Delete a specific setting"
+        }
+    ],
+    "UserController":[
+        {
+            "name":"index_user",
+            "display_name":"View all users",
+            "description":"See all available users"
+        },
+        {
+            "name":"filter_index_user",
+            "display_name":"Filter users",
+            "description":"Filter through all available users"
+        },
+        {
+            "name":"search_index_user",
+            "display_name":"Search users",
+            "description":"Search through all available users"
+        },
+        {
+            "name":"show_user",
+            "display_name":"View user",
+            "description":"See a specific user details"
+        },
+        {
+            "name":"show_role_permission",
+            "display_name":"View user role",
+            "description":"See a specific user roles and permissions"
+        },
+        {
+            "name":"relation_user",
+            "display_name":"View users with specific relations",
+            "description":"See users with specified relationships"
+        },
+        {
+            "name":"update_user",
+            "display_name":"Edit a user",
+            "description":"Edit the details of a specific user"
+        },
+        {
+            "name":"block_user",
+            "display_name":"Block a user",
+            "description":"Block a specific user from accessing the application"
+        },
+        {
+            "name":"unblock_user",
+            "display_name":"Un-Block a user",
+            "description":"Un-Block a user who has been previously blocked"
+        },
+        {
+            "name":"delete_user",
+            "display_name":"Delete user",
+            "description":"Delete a specific user"
+        }
     ]
 }

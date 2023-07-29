@@ -72,12 +72,12 @@ class PermissionRoleTableSeeder extends Seeder
             "retract_role",
             "delete_role",
 
-            "index_profile",
-            "filter_index_profile",
-            "search_index_profile",
-            "show_profile",
-            "update_profile",
-            "delete_profile",
+            "index_setting",
+            "filter_index_setting",
+            "search_index_setting",
+            "show_setting",
+            "update_setting",
+            "delete_setting",
 
             "index_user",
             "filter_index_user",

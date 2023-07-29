@@ -1827,7 +1827,7 @@
 							"formdata": [
 								{
 									"key": "account_id",
-									"value": "1",
+									"value": "31",
 									"description": "required( Accepts integer value )",
 									"type": "text"
 								},
@@ -1880,6 +1880,19 @@
 									"value": "2022-12-30",
 									"description": "Optional (year-month-date)  (y-m-d)",
 									"type": "text"
+								},
+								{
+									"key": "contact_group_id",
+									"value": "11",
+									"description": "required if no whats_app_group_name ( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "whats_app_group_name",
+									"value": "sharp boys",
+									"description": "required if no contact_group_id ( Accepts integer value )",
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
@@ -1971,6 +1984,18 @@
 									"key": "contact_group_end_date",
 									"value": "2022-12-30",
 									"description": "Optional (year-month-date)  (y-m-d)",
+									"type": "text"
+								},
+								{
+									"key": "contact_group_id",
+									"value": "11",
+									"description": "required if no whats_app_group_name ( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "whats_app_group_name",
+									"value": "sharp boys",
+									"description": "required if no contact_group_id ( Accepts integer value )",
 									"type": "text"
 								}
 							]
@@ -2421,15 +2446,27 @@
 									"disabled": true
 								},
 								{
-									"key": "contact_group_start_date",
+									"key": "contact_start_date",
 									"value": "2023-07-12",
 									"description": "Optional (year-month-date)  (y-m-d)",
 									"type": "text"
 								},
 								{
-									"key": "contact_group_end_date",
+									"key": "contact_end_date",
 									"value": "2022-12-30",
 									"description": "Optional (year-month-date)  (y-m-d)",
+									"type": "text"
+								},
+								{
+									"key": "contact_group_id",
+									"value": "11",
+									"description": "required if no whats_app_group_name ( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "whats_app_group_name",
+									"value": "sharp boys",
+									"description": "required if no contact_group_id ( Accepts integer value )",
 									"type": "text"
 								}
 							]
@@ -2522,6 +2559,18 @@
 									"key": "contact_group_end_date",
 									"value": "2022-12-30",
 									"description": "Optional (year-month-date)  (y-m-d)",
+									"type": "text"
+								},
+								{
+									"key": "contact_group_id",
+									"value": "11",
+									"description": "required if no whats_app_group_name ( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "whats_app_group_name",
+									"value": "sharp boys",
+									"description": "required if no contact_group_id ( Accepts integer value )",
 									"type": "text"
 								}
 							]
@@ -8005,6 +8054,1165 @@
 							"path": [
 								"api",
 								"user",
+								"test"
+							]
+						},
+						"description": "Test if the user model is responsive"
+					},
+					"response": [
+						{
+							"name": "Test Users Model",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/user/test",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"test"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 26 Jan 2022 22:44:47 GMT"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "51"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"status_code\": 200,\n    \"code\": \"F3YW82\",\n    \"message\": \"Test was successful\"\n}"
+						}
+					]
+				}
+			],
+			"description": "Manage Application Users ",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Settings",
+			"item": [
+				{
+					"name": "Get All Settings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/setting/index?properties=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"setting",
+								"index"
+							],
+							"query": [
+								{
+									"key": "properties",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)"
+								},
+								{
+									"key": "deleted",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get all registered users"
+					},
+					"response": [
+						{
+							"name": "Get All Users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "team",
+										"value": "{{team}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/user/index?properties=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"index"
+									],
+									"query": [
+										{
+											"key": "properties",
+											"value": "1",
+											"description": "Optional"
+										},
+										{
+											"key": "deleted",
+											"value": "1",
+											"description": "Optional",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 07 Feb 2022 16:32:29 GMT"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Filter Settings",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "messages_before_pause",
+									"value": "10",
+									"description": "Optional",
+									"type": "text"
+								},
+								{
+									"key": "minutes_before_resume",
+									"value": "09:00:00",
+									"description": "Optional",
+									"type": "text"
+								},
+								{
+									"key": "pagination",
+									"value": "0",
+									"description": "Optional 1 or 0",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/setting/filter/index",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"setting",
+								"filter",
+								"index"
+							]
+						},
+						"description": "Filter users (at least one parameter required)"
+					},
+					"response": [
+						{
+							"name": "Filter Users",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "team",
+										"value": "{{team}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_id",
+											"value": "0f1f47bf-2b18-4403-a191-d955643f64d9",
+											"description": "Optional",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "email",
+											"value": "blue@gmail.com",
+											"description": "Optional",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "blue",
+											"description": "Optional",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "",
+											"description": "Optional",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "description",
+											"value": "",
+											"description": "Optional",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "birth_date",
+											"value": "0000-04-17",
+											"description": "Optional (0000-month-date)  (0000-m-d)",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "birth_year",
+											"value": "1997",
+											"description": "Optional (year) (Y)",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "email_verified_at",
+											"value": "",
+											"description": "Optional (year-month-date hours:minutes)  (y-m-d H:i)",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/user/filter/index",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"filter",
+										"index"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 07 Feb 2022 16:34:16 GMT"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "53"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"current_page\": 1,\n        \"data\": [\n            {\n                \"id\": \"9d064f93-3f53-4b45-b5ae-f62e29ed496f\",\n                \"email\": \"blue@gmail.com\",\n                \"name\": \"blue\",\n                \"email_verified_at\": \"2022-02-06T15:04:16.000000Z\",\n                \"birth_date\": null,\n                \"birth_year\": null,\n                \"phone\": null,\n                \"picture\": null,\n                \"description\": null,\n                \"providers_allowed\": [],\n                \"providers_disallowed\": [],\n                \"providers_details\": [],\n                \"groups\": {\n                    \"8876949d-eed3-4fbf-943a-04b4240e3f25\": {\n                        \"company_id\": \"8876949d-eed3-4fbf-943a-04b4240e3f25\",\n                        \"employee_id\": \"eba18307-475b-4532-9a2d-879830e09537\",\n                        \"courier_id\": null\n                    }\n                },\n                \"user_details_verified\": false,\n                \"blocked\": false,\n                \"points\": 0,\n                \"flag\": 0,\n                \"created_by\": \"9d064f93-3f53-4b45-b5ae-f62e29ed496f\",\n                \"updated_by\": null,\n                \"created_at\": \"2022-02-06T15:04:16.000000Z\",\n                \"updated_at\": \"2022-02-06T15:04:16.000000Z\"\n            }\n        ],\n        \"first_page_url\": \"https://server.courier.test.ogwugo.xyz/api/user/filter/index?page=1\",\n        \"from\": 1,\n        \"last_page\": 1,\n        \"last_page_url\": \"https://server.courier.test.ogwugo.xyz/api/user/filter/index?page=1\",\n        \"next_page_url\": null,\n        \"path\": \"https://server.courier.test.ogwugo.xyz/api/user/filter/index\",\n        \"per_page\": 25,\n        \"prev_page_url\": null,\n        \"to\": 1,\n        \"total\": 1\n    },\n    \"status\": \"success\",\n    \"status_code\": 200,\n    \"code\": \"I2JR5S\",\n    \"message\": \"Success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Search Settings",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "search",
+									"value": "140dfd27-0b83-4bad-8f44-91068902209e",
+									"description": "Required (min:3 characters) (Date Formats Supported)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/setting/search/index",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"setting",
+								"search",
+								"index"
+							]
+						},
+						"description": "Search for a user by their details"
+					},
+					"response": [
+						{
+							"name": "Search Users",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "team",
+										"value": "{{team}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "search",
+											"value": "dward@example.org",
+											"description": "Required (min:3 characters) (Date Formats Supported)",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/user/search/index",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"search",
+										"index"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 07 Feb 2022 16:36:19 GMT"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n            \"email\": \"dward@example.org\",\n            \"name\": \"Prof. Elmer Senger\",\n            \"email_verified_at\": \"2022-02-06T15:04:17.000000Z\",\n            \"birth_date\": null,\n            \"birth_year\": null,\n            \"phone\": null,\n            \"picture\": null,\n            \"description\": null,\n            \"providers_allowed\": [],\n            \"providers_disallowed\": [],\n            \"providers_details\": [],\n            \"groups\": {\n                \"84cf2a7f-e4f6-4b37-87e6-ad9b14490e12\": {\n                    \"company_id\": \"84cf2a7f-e4f6-4b37-87e6-ad9b14490e12\",\n                    \"employee_id\": \"c2beb73c-3960-4b57-8482-df92aabd20aa\",\n                    \"courier_id\": null\n                }\n            },\n            \"user_details_verified\": false,\n            \"blocked\": false,\n            \"points\": 0,\n            \"flag\": 0,\n            \"created_by\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n            \"updated_by\": null,\n            \"created_at\": \"2022-02-06T15:04:17.000000Z\",\n            \"updated_at\": \"2022-02-06T15:04:17.000000Z\"\n        }\n    ],\n    \"status\": \"success\",\n    \"status_code\": 200,\n    \"code\": \"I2JR5S\",\n    \"message\": \"Success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Show Setting",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/setting/show?user_id=140dfd27-0b83-4bad-8f44-91068902209e&properties=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"setting",
+								"show"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "140dfd27-0b83-4bad-8f44-91068902209e",
+									"description": "Required( Accepts UUID)"
+								},
+								{
+									"key": "properties",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)"
+								}
+							]
+						},
+						"description": "Show a specific user"
+					},
+					"response": [
+						{
+							"name": "Show User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "team",
+										"value": "{{team}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/user/show?user_id=0db1e04c-9432-4682-80a6-d323ed98eb14&properties=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"show"
+									],
+									"query": [
+										{
+											"key": "user_id",
+											"value": "0db1e04c-9432-4682-80a6-d323ed98eb14",
+											"description": "Required"
+										},
+										{
+											"key": "properties",
+											"value": "1",
+											"description": "Optional"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 07 Feb 2022 16:37:29 GMT"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n        \"email\": \"dward@example.org\",\n        \"name\": \"Prof. Elmer Senger\",\n        \"email_verified_at\": \"2022-02-06T15:04:17.000000Z\",\n        \"birth_date\": null,\n        \"birth_year\": null,\n        \"phone\": null,\n        \"picture\": null,\n        \"description\": null,\n        \"providers_allowed\": [],\n        \"providers_disallowed\": [],\n        \"providers_details\": [],\n        \"groups\": {\n            \"84cf2a7f-e4f6-4b37-87e6-ad9b14490e12\": {\n                \"company_id\": \"84cf2a7f-e4f6-4b37-87e6-ad9b14490e12\",\n                \"employee_id\": \"c2beb73c-3960-4b57-8482-df92aabd20aa\",\n                \"courier_id\": null\n            }\n        },\n        \"user_details_verified\": false,\n        \"blocked\": false,\n        \"points\": 0,\n        \"flag\": 0,\n        \"created_by\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n        \"updated_by\": null,\n        \"created_at\": \"2022-02-06T15:04:17.000000Z\",\n        \"updated_at\": \"2022-02-06T15:04:17.000000Z\",\n        \"profile\": {\n            \"user_id\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n            \"user_name\": \"Prof. Elmer Senger\",\n            \"user_email\": \"dward@example.org\",\n            \"ip_address_current\": \"0.0.0.0\",\n            \"ip_address_initial\": null,\n            \"job_categories\": null,\n            \"educational_qualifications\": null,\n            \"languages\": null,\n            \"phone\": null,\n            \"gender\": \"unknown\",\n            \"birth_date\": null,\n            \"birth_year\": null,\n            \"picture\": null,\n            \"description\": null,\n            \"address\": null,\n            \"city\": null,\n            \"state\": null,\n            \"country\": null,\n            \"zip\": null,\n            \"first_name\": null,\n            \"last_name\": null,\n            \"middle_name\": null,\n            \"additional_details\": null,\n            \"user_details_verified\": false,\n            \"total_actions\": 0,\n            \"total_votes\": 0,\n            \"user_rating\": 0,\n            \"user_standing\": null,\n            \"created_by\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n            \"updated_by\": null,\n            \"created_at\": \"2022-02-06T15:04:17.000000Z\",\n            \"updated_at\": \"2022-02-06T15:04:17.000000Z\"\n        },\n        \"human_verification\": null,\n        \"roles\": [\n            {\n                \"id\": 3,\n                \"name\": \"company\",\n                \"display_name\": \"Company Owner\",\n                \"description\": \"User owns company in this application\",\n                \"visibility\": \"public\",\n                \"created_at\": \"2022-02-06T15:04:15.000000Z\",\n                \"updated_at\": \"2022-02-06T15:04:15.000000Z\",\n                \"pivot\": {\n                    \"user_id\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n                    \"role_id\": 3,\n                    \"user_type\": \"App\\\\Models\\\\User\",\n                    \"team_id\": 32\n                }\n            },\n            {\n                \"id\": 6,\n                \"name\": \"employee\",\n                \"display_name\": \"Company Employee\",\n                \"description\": \"User is the employee of a company in this application\",\n                \"visibility\": \"public\",\n                \"created_at\": \"2022-02-06T15:04:15.000000Z\",\n                \"updated_at\": \"2022-02-06T15:04:15.000000Z\",\n                \"pivot\": {\n                    \"user_id\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n                    \"role_id\": 6,\n                    \"user_type\": \"App\\\\Models\\\\User\",\n                    \"team_id\": 32\n                }\n            }\n        ],\n        \"wallet\": {\n            \"user_id\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n            \"credit\": \"0.00\",\n            \"debit\": \"0.00\",\n            \"balance\": \"0.00\",\n            \"currency_code\": null,\n            \"currency_name\": null,\n            \"truth\": null,\n            \"card_details\": [],\n            \"bank_details\": [],\n            \"statement\": [],\n            \"created_by\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n            \"updated_by\": null,\n            \"created_at\": \"2022-02-06T15:04:17.000000Z\",\n            \"updated_at\": \"2022-02-06T15:04:17.000000Z\"\n        },\n        \"company\": {\n            \"id\": \"84cf2a7f-e4f6-4b37-87e6-ad9b14490e12\",\n            \"user_id\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n            \"company_email\": \"dbarrows@feeney.com\",\n            \"company_name\": \"Pacocha-Becker\",\n            \"company_email_verified_at\": null,\n            \"company_picture\": null,\n            \"company_phone\": \"893-904-8759 x575\",\n            \"company_address\": \"730 Goldner Mills\",\n            \"company_city\": \"Jacobitown\",\n            \"company_state\": \"North Dakota\",\n            \"company_country\": \"Vanuatu\",\n            \"company_zip\": \"22081\",\n            \"company_description\": \"Multi-tiered directional utilisation\",\n            \"company_deliverables\": [],\n            \"management_approved\": true,\n            \"flag\": 0,\n            \"created_by\": \"9d064f93-3f53-4b45-b5ae-f62e29ed496f\",\n            \"updated_by\": null,\n            \"created_at\": \"2022-02-06T15:04:17.000000Z\",\n            \"updated_at\": \"2022-02-06T15:04:17.000000Z\"\n        },\n        \"employee\": {\n            \"id\": \"c2beb73c-3960-4b57-8482-df92aabd20aa\",\n            \"user_id\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n            \"company_id\": \"84cf2a7f-e4f6-4b37-87e6-ad9b14490e12\",\n            \"employee_name\": \"Dr. Bartholome Schaden II\",\n            \"employee_job_title\": \"Repellat voluptatem inventore.\",\n            \"employee_job_description\": \"Multi-tiered directional paradigm\",\n            \"employee_picture\": null,\n            \"employee_location_latitude\": -42.68468,\n            \"employee_location_longitude\": -25.736437,\n            \"employee_phone\": \"456-719-5614 x183\",\n            \"employee_address\": \"8691 Murray Station Suite 462\",\n            \"employee_city\": \"New Hadley\",\n            \"employee_state\": \"Michigan\",\n            \"employee_country\": \"Saint Pierre and Miquelon\",\n            \"employee_zip\": \"15570-5888\",\n            \"resumption_date\": \"2022-02-06 15:04:17\",\n            \"termination_date\": null,\n            \"orders_assigned\": 0,\n            \"orders_unassigned\": 0,\n            \"company_approved\": true,\n            \"status\": \"active\",\n            \"flag\": 0,\n            \"created_by\": \"9d064f93-3f53-4b45-b5ae-f62e29ed496f\",\n            \"updated_by\": null,\n            \"created_at\": \"2022-02-06T15:04:17.000000Z\",\n            \"updated_at\": \"2022-02-06T15:04:17.000000Z\"\n        },\n        \"courier\": null\n    },\n    \"status\": \"success\",\n    \"status_code\": 200,\n    \"code\": \"I2JR5S\",\n    \"message\": \"Success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Edit A Setting",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "afe1c2d0-4167-4e06-b118-a2ae9183bf2f",
+									"description": "Required( Accepts UUID)",
+									"type": "text"
+								},
+								{
+									"key": "messages_before_pause",
+									"value": "30",
+									"description": "Optional",
+									"type": "text"
+								},
+								{
+									"key": "minutes_before_resume",
+									"value": "00:01:00",
+									"description": "Optional",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/setting/update",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"setting",
+								"update"
+							]
+						},
+						"description": "Edit a user submitted details"
+					},
+					"response": [
+						{
+							"name": "Edit A User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									},
+									{
+										"key": "team",
+										"value": "{{team}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_id",
+											"value": "0db1e04c-9432-4682-80a6-d323ed98eb14",
+											"description": "Required",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "0605453342",
+											"description": "Optional",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "i used to be human but now i am robot",
+											"description": "Optional",
+											"type": "text"
+										},
+										{
+											"key": "birth_date",
+											"value": "0000-04-17",
+											"description": "Optional (0000-month-date)  (0000-m-d)",
+											"type": "text"
+										},
+										{
+											"key": "birth_year",
+											"value": "1997",
+											"description": "Optional (year) (Y)",
+											"type": "text"
+										},
+										{
+											"key": "photos[]",
+											"description": "Accepts Only 'jpg','jpeg','png','gif','bmp'  ( Optional) Max:1",
+											"type": "file",
+											"src": [],
+											"disabled": true
+										},
+										{
+											"key": "portraits[]",
+											"value": "data:image/jpeg;base64,/9j/4AAQo....",
+											"description": "Accepts Only base64 'jpg','jpeg','png','gif','bmp'  ( Optional) Max:1 ",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/user/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 07 Feb 2022 16:42:37 GMT"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"status_code\": 200,\n    \"code\": \"F3YW82\",\n    \"message\": \"User details was updated\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Store A Setting",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "afe1c2d0-4167-4e06-b118-a2ae9183bf2f",
+									"description": "Required( Accepts UUID)",
+									"type": "text"
+								},
+								{
+									"key": "messages_before_pause",
+									"value": "30",
+									"description": "Optional",
+									"type": "text"
+								},
+								{
+									"key": "minutes_before_resume",
+									"value": "00:01:00",
+									"description": "Optional",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/setting/store",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"setting",
+								"store"
+							]
+						},
+						"description": "Edit a user submitted details"
+					},
+					"response": [
+						{
+							"name": "Edit A User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									},
+									{
+										"key": "team",
+										"value": "{{team}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_id",
+											"value": "0db1e04c-9432-4682-80a6-d323ed98eb14",
+											"description": "Required",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "0605453342",
+											"description": "Optional",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "i used to be human but now i am robot",
+											"description": "Optional",
+											"type": "text"
+										},
+										{
+											"key": "birth_date",
+											"value": "0000-04-17",
+											"description": "Optional (0000-month-date)  (0000-m-d)",
+											"type": "text"
+										},
+										{
+											"key": "birth_year",
+											"value": "1997",
+											"description": "Optional (year) (Y)",
+											"type": "text"
+										},
+										{
+											"key": "photos[]",
+											"description": "Accepts Only 'jpg','jpeg','png','gif','bmp'  ( Optional) Max:1",
+											"type": "file",
+											"src": [],
+											"disabled": true
+										},
+										{
+											"key": "portraits[]",
+											"value": "data:image/jpeg;base64,/9j/4AAQo....",
+											"description": "Accepts Only base64 'jpg','jpeg','png','gif','bmp'  ( Optional) Max:1 ",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/user/update",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 07 Feb 2022 16:42:37 GMT"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"status_code\": 200,\n    \"code\": \"F3YW82\",\n    \"message\": \"User details was updated\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Setting",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "afe1c2d0-4167-4e06-b118-a2ae9183bf2f",
+									"description": "Required( Accepts UUID )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/setting/delete",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"setting",
+								"delete"
+							]
+						},
+						"description": "Delete a registered user"
+					},
+					"response": [
+						{
+							"name": "Delete A User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									},
+									{
+										"key": "team",
+										"value": "{{team}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_id",
+											"value": "0db1e04c-9432-4682-80a6-d323ed98eb14",
+											"description": "Required",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/user/delete",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"delete"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 07 Feb 2022 16:44:27 GMT"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"status_code\": 200,\n    \"code\": \"F3YW82\",\n    \"message\": \"User was deleted\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Test Setting Model",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/setting/test",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"setting",
 								"test"
 							]
 						},

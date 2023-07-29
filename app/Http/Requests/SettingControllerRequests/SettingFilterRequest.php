@@ -34,7 +34,7 @@ class SettingFilterRequest extends FormRequest
         return [
             'user_id' => 'sometimes|required|uuid|max:100|min:1',
             'messages_before_pause' => 'sometimes|required|integer|min:1',
-            'minutes_before_resume' => 'sometimes|required|time',
+            'minutes_before_resume' => 'sometimes|required|date_format:H:i:s',
             'pagination' => 'sometimes|required|nullable|boolean'
         ];
     }
@@ -60,7 +60,7 @@ class SettingFilterRequest extends FormRequest
 
             'minutes_before_resume.sometimes' => 'A minutes before resuming field should be present, else entirely exclude the field',
             'minutes_before_resume.required' => 'A minutes before resuming field maybe required',
-            'minutes_before_resume.time' => 'Minutes before resuming field characters are not valid, Time string is expected',
+            'minutes_before_resume.date_format' => 'Minutes before resuming field characters are not valid, Time string is expected',
 
             'pagination.sometimes' => 'Pagination field should be present, else entirely exclude the field',
             'pagination.required' => 'Pagination field maybe required',

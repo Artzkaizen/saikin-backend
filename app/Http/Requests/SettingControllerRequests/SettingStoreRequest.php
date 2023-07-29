@@ -25,7 +25,7 @@ class SettingStoreRequest extends FormRequest
     {
         return [
             'messages_before_pause' => 'sometimes|required|integer|min:1',
-            'minutes_before_resume' => 'sometimes|required|time',
+            'minutes_before_resume' => 'sometimes|required|date_format:H:i:s',
         ];
     }
 
@@ -44,7 +44,7 @@ class SettingStoreRequest extends FormRequest
 
             'minutes_before_resume.sometimes' => 'A minutes before resuming field should be present, else entirely exclude the field',
             'minutes_before_resume.required' => 'A minutes before resuming field maybe required',
-            'minutes_before_resume.time' => 'Minutes before resuming field characters are not valid, Time string is expected',
+            'minutes_before_resume.date_format' => 'Minutes before resuming field characters are not valid, Time string is expected',
         ];
     }
 }

@@ -27,7 +27,7 @@ class BroadcastTemplateStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'account_id' => 'required|integer|min:1|exists:accounts,id,user_id,'.auth()->user()->id,
+            'account_id' => 'sometimes|required|integer|min:1|exists:accounts,id,user_id,'.auth()->user()->id,
             'title' => 'sometimes|required|string|max:50|min:1',
             'preview_phone' => 'sometimes|required|numeric|digits_between:1,25',
             'message' =>'required|string|min:1',
@@ -55,8 +55,8 @@ class BroadcastTemplateStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'account_id.required' => 'An account id is required',
-            'account_id.string'  => 'Account id characters are not valid, Integer is required',
+            'account_id.sometimes' => 'An account id should be present, else entirely exclude the field',
+            'account_id.required' => 'An account id maybe required',
             'account_id.min'  => 'Account id characters can not be less than 1',
             'account_id.exists'  => 'Account id does not exist for this user',
 

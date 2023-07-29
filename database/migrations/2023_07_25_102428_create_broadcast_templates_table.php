@@ -17,7 +17,7 @@ class CreateBroadcastTemplatesTable extends Migration
             // Identifications
             $table->uuid('id')->primary();
             $table->uuid('user_id')->index();
-            $table->uuid('account_id')->index();
+            $table->uuid('account_id')->index()->nullable();
 
             // Properties - broadcast
             $table->string('title', 50)->nullable();

@@ -124,11 +124,13 @@ class BroadcastUpdateRequest extends FormRequest
             'contact_group_end_date.max'  => 'Contact group end date field characters can not be more than 25',
             'contact_group_end_date.min'  => 'Contact group end date field characters can not be less than 1',
 
+            'contact_group_id.sometimes' => 'A contact group id field should be present, else entirely exclude the field',
             'contact_group_id.required_without' => 'A contact group id maybe required if there is no whatsapp group name',
             'contact_group_id.string'  => 'Contact group id characters are not valid, Integer is required',
             'contact_group_id.min'  => 'Contact group id characters can not be less than 1',
             'contact_group_id.exists'  => 'Contact group id does not exist for this user',
 
+            'whats_app_group_name.sometimes' => 'A whats app group name field should be present, else entirely exclude the field',
             'whats_app_group_name.required_without' => 'A whats app group name maybe required if there is no contact group id',
             'whats_app_group_name.string'  => 'Whats app group name characters are not valid, String is required',
             'whats_app_group_name.min'  => 'Whats app group name characters can not be less than 1',

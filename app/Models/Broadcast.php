@@ -21,6 +21,13 @@ class Broadcast extends Model
     protected $keyType = 'string';
 
     /**
+     * Append custom model accessors 
+     *
+     * @var array
+     */
+    protected $appends = array('queued_outgoing','paused_outgoing');
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -63,6 +70,29 @@ class Broadcast extends Model
      * @var bool
      */
     public $incrementing = false;
+
+    /**
+     * Get the broadcast's outgoing queue count.
+     *
+     * @param void
+     * @return string
+     */
+    public function getQueuedOutgoingAttribute()
+    {
+        return $this->total_outgoing - ($this->successful_outgoing + $this->failed_outgoing);
+    }
+
+    /**
+     * Get the broadcast's outgoing paused count.
+     *
+     * @param void
+     * @return string
+     */
+    public function getPausedOutgoingAttribute()
+    {
+        $total_left = $this->total_outgoing - ($this->successful_outgoing + $this->failed_outgoing);
+        return intval($total_left / $this->messages_before_pause);
+    }
 
     /**
      * Set the attribute's title.

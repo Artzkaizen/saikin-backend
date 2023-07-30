@@ -24,7 +24,7 @@ class CreateBroadcastsTable extends Migration
             $table->longText('message')->nullable();
             $table->mediumText('pictures')->nullable();
             $table->mediumText('videos')->nullable();
-            $table->string('preview_phone', 25);
+            $table->string('preview_phone', 25)->nullable();
             $table->dateTime('contact_group_start_date',0)->nullable();
             $table->dateTime('contact_group_end_date',0)->nullable();
             $table->unsignedBigInteger('contact_group_id')->nullable();

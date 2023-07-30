@@ -25,7 +25,7 @@ class Broadcast extends Model
      *
      * @var array
      */
-    protected $appends = array('queued_outgoing','paused_outgoing');
+    protected $appends = array('queued_outgoing','paused_outgoing','type_outgoing');
 
     /**
      * The attributes that are mass assignable.
@@ -92,6 +92,17 @@ class Broadcast extends Model
     {
         $total_left = $this->total_outgoing - ($this->successful_outgoing + $this->failed_outgoing);
         return intval($total_left / $this->messages_before_pause);
+    }
+
+    /**
+     * Get the broadcast's outgoing type.
+     *
+     * @param void
+     * @return string
+     */
+    public function getTypeOutgoingAttribute()
+    {
+        return $this->contact_group_id ? 'List' : 'Group';
     }
 
     /**

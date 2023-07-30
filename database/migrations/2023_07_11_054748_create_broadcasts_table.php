@@ -32,6 +32,12 @@ class CreateBroadcastsTable extends Migration
 
             // Status
             $table->string('status')->default('pending')->comment('pending, queued, delivered, canceled');
+            $table->unsignedSmallInteger('total_outgoing')->default(0);
+            $table->unsignedSmallInteger('successful_outgoing')->default(0);
+            $table->unsignedSmallInteger('failed_outgoing')->default(0);
+            $table->unsignedSmallInteger('messages_before_pause')->default(10);
+            $table->time('minutes_before_resume',0)->default('00:03:00');
+
             $table->unsignedSmallInteger('flag')->default(0);
             $table->uuid('created_by')->nullable();
             $table->uuid('updated_by')->nullable();

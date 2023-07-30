@@ -63,8 +63,8 @@ class BroadcastUpdateRequest extends FormRequest
             'message' =>'sometimes|required|string|min:1',
             'contact_group_start_date' => 'sometimes|required|date|max:25|min:1',
             'contact_group_end_date' => 'sometimes|required|date|max:25|min:1',
-            'contact_group_id' => 'sometimes|required_if:whats_app_group_name,'.null.'|integer|min:1|exists:groups,id,user_id,'.auth()->user()->id,
-            'whats_app_group_name' => 'sometimes|required_if:contact_group_id,'.null.'|string|min:1',
+            'contact_group_id' => 'sometimes|required_without:whats_app_group_name|integer|min:1|exists:groups,id,user_id,'.auth()->user()->id,
+            'whats_app_group_name' => 'sometimes|required_without:contact_group_id|string|min:1',
 
             'photos' => ['sometimes','required', 'array', 'max:9', 'filled', new Maximum(9,'base64_photos','url_photos')],
             'photos.*' => 'required_unless:photos,'.null.'|image|dimensions:min_width=200,min_height=200|mimes:jpg,jpeg,png,gif,bmp|max:1999',
@@ -124,12 +124,12 @@ class BroadcastUpdateRequest extends FormRequest
             'contact_group_end_date.max'  => 'Contact group end date field characters can not be more than 25',
             'contact_group_end_date.min'  => 'Contact group end date field characters can not be less than 1',
 
-            'contact_group_id.required_if' => 'A contact group id maybe required if there is no whatsapp group name',
+            'contact_group_id.required_without' => 'A contact group id maybe required if there is no whatsapp group name',
             'contact_group_id.string'  => 'Contact group id characters are not valid, Integer is required',
             'contact_group_id.min'  => 'Contact group id characters can not be less than 1',
             'contact_group_id.exists'  => 'Contact group id does not exist for this user',
 
-            'whats_app_group_name.required_if' => 'A whats app group name maybe required if there is no contact group id',
+            'whats_app_group_name.required_without' => 'A whats app group name maybe required if there is no contact group id',
             'whats_app_group_name.string'  => 'Whats app group name characters are not valid, String is required',
             'whats_app_group_name.min'  => 'Whats app group name characters can not be less than 1',
 

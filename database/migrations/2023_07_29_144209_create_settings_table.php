@@ -19,7 +19,7 @@ class CreateSettingsTable extends Migration
 
             // Properties - settings
             $table->unsignedSmallInteger('messages_before_pause')->default(10);
-            $table->time('minutes_before_resume',0)->default('09:00');
+            $table->time('minutes_before_resume',0)->default('00:03:00');
 
             // Status
             $table->uuid('created_by')->nullable();

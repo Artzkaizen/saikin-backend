@@ -1884,11 +1884,11 @@
 								{
 									"key": "contact_group_id",
 									"value": "11",
-									"description": "required if no whats_app_group_name ( Accepts integer value )",
+									"description": "required if no whatsapp_group_names ( Accepts integer value )",
 									"type": "text"
 								},
 								{
-									"key": "whats_app_group_name",
+									"key": "whatsapp_group_names",
 									"value": "sharp boys",
 									"description": "required if no contact_group_id ( Accepts integer value )",
 									"type": "text",
@@ -1989,11 +1989,11 @@
 								{
 									"key": "contact_group_id",
 									"value": "11",
-									"description": "required if no whats_app_group_name ( Accepts integer value )",
+									"description": "required if no whatsapp_group_names ( Accepts integer value )",
 									"type": "text"
 								},
 								{
-									"key": "whats_app_group_name",
+									"key": "whatsapp_group_names",
 									"value": "sharp boys",
 									"description": "required if no contact_group_id ( Accepts integer value )",
 									"type": "text"
@@ -2460,11 +2460,11 @@
 								{
 									"key": "contact_group_id",
 									"value": "11",
-									"description": "required if no whats_app_group_name ( Accepts integer value )",
+									"description": "required if no whatsapp_group_names ( Accepts integer value )",
 									"type": "text"
 								},
 								{
-									"key": "whats_app_group_name",
+									"key": "whatsapp_group_names",
 									"value": "sharp boys",
 									"description": "required if no contact_group_id ( Accepts integer value )",
 									"type": "text"
@@ -2564,11 +2564,11 @@
 								{
 									"key": "contact_group_id",
 									"value": "11",
-									"description": "required if no whats_app_group_name ( Accepts integer value )",
+									"description": "required if no whatsapp_group_names ( Accepts integer value )",
 									"type": "text"
 								},
 								{
-									"key": "whats_app_group_name",
+									"key": "whatsapp_group_names",
 									"value": "sharp boys",
 									"description": "required if no contact_group_id ( Accepts integer value )",
 									"type": "text"

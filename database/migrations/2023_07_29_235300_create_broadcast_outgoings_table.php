@@ -16,13 +16,18 @@ class CreateBroadcastOutgoingsTable extends Migration
         Schema::create('broadcast_outgoings', function (Blueprint $table) {
             // Identifications
             $table->id();
+            $table->uuid('user_id')->index();
+            $table->uuid('account_id')->index();
             $table->uuid('broadcast_id')->index();
-            $table->unsignedBigInteger('contact_id');
+            $table->unsignedBigInteger('contact_id')->nullable();
+            $table->string('whatsapp_group_name',100)->nullable();
 
             // Properties - broadcast outgoings
             $table->string('batch', 100)->nullable();
+            $table->longText('exception')->nullable();
 
             // Status
+            $table->string('status')->default('pending')->comment('pending, queued, delivered, canceled');
             $table->timestamps();
         });
     }

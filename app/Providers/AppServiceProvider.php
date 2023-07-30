@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Broadcast;
 use App\Models\Group;
 use App\Models\Payment;
 use App\Models\User;
+use App\Observers\BroadcastObserver;
 use App\Observers\GroupObserver;
 use App\Observers\PaymentObserver;
 use App\Observers\UserObserver;
@@ -29,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Broadcast::observe(BroadcastObserver::class);
         Group::observe(GroupObserver::class);
         Payment::observe(PaymentObserver::class);
         User::observe(UserObserver::class);

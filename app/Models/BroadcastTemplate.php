@@ -33,7 +33,7 @@ class BroadcastTemplate extends Model
         'contact_group_start_date',
         'contact_group_end_date',
         'contact_group_id',
-        'whats_app_group_name'
+        'whatsapp_group_names'
     ];
 
     /**
@@ -51,6 +51,7 @@ class BroadcastTemplate extends Model
      * @var array
      */
     protected $casts = [
+        'whatsapp_group_names' => 'array',
         'pictures' => BaseUrlArrayCast::class,
         'videos' => BaseUrlArrayCast::class,
         'created_at' => 'datetime',

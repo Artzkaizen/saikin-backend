@@ -33,7 +33,7 @@ $factory->define(BroadcastTemplate::class, function (Faker $faker) {
         'contact_group_start_date' => $faker->dateTimeBetween('-03 days', 'now'),
         'contact_group_end_date' => $faker->dateTimeBetween('now', '+03 days'),
         'contact_group_id' => $this->group->id,
-        'whats_app_group_name' => null,
+        'whatsapp_group_names' => null,
         'created_at' => now(),
         'updated_at' => now(),
     ];

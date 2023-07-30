@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Broadcast;
+use App\Models\Setting;
 use App\Helpers\Helper;
 use App\Helpers\MediaImages;
 use App\Http\Requests\BroadcastControllerRequests\BroadcastDestroyRequest;
@@ -219,12 +220,17 @@ class BroadcastController extends Controller
      */
     public function store(BroadcastStoreRequest $request)
     {
+        // Find user settings
+        $setting = Setting::find(auth()->user()->id);
+
         // Fill the broadcast model
         $broadcast = new Broadcast;
         $broadcast = $broadcast->fill($request->toArray());
 
         // Additional params
         $broadcast->user_id = auth()->user()->id;
+        $broadcast->messages_before_pause = $setting->messages_before_pause;
+        $broadcast->minutes_before_resume = $setting->minutes_before_resume;
 
         // Store new images to server or cloud service
         $stored_images = MediaImages::images($request->file('photos'))

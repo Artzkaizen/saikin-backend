@@ -9,7 +9,6 @@ return [
         'inactive' => 'inactive',
         'approved' => 'approved',
         'rejected' => 'rejected',
-        'progress' => 'progress',
         'completed' => 'completed',
         'initiated' => 'initiated',
         'refunded' => 'refunded',

@@ -28,7 +28,7 @@ class CreateBroadcastsTable extends Migration
             $table->dateTime('contact_group_start_date',0)->nullable();
             $table->dateTime('contact_group_end_date',0)->nullable();
             $table->unsignedBigInteger('contact_group_id')->nullable();
-            $table->string('whats_app_group_name', 100)->nullable();
+            $table->json('whatsapp_group_names')->nullable();
 
             // Status
             $table->string('status')->default('pending')->comment('pending, queued, delivered, canceled');
@@ -37,7 +37,6 @@ class CreateBroadcastsTable extends Migration
             $table->unsignedSmallInteger('failed_outgoing')->default(0);
             $table->unsignedSmallInteger('messages_before_pause')->default(10);
             $table->time('minutes_before_resume',0)->default('00:03:00');
-
             $table->unsignedSmallInteger('flag')->default(0);
             $table->uuid('created_by')->nullable();
             $table->uuid('updated_by')->nullable();

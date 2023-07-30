@@ -14,7 +14,7 @@ class BroadcastOutgoingTableSeeder extends Seeder
     {
         // Run broadcast factory
         if (config('app.env') === 'local') {
-            // factory(BroadcastOutgoing::class, 10)->create();
+            factory(BroadcastOutgoing::class, 10)->create();
         }
     }
 }

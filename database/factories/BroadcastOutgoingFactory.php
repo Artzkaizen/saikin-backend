@@ -25,7 +25,7 @@ $factory->define(BroadcastOutgoing::class, function (Faker $faker) {
         'user_id' => $this->broadcast->user_id,
         'account_id' => $this->broadcast->account_id,
         'broadcast_id' => $this->broadcast->id,
-        'contact_id' => $contacts->first()->id,
+        'contact_id' => $contacts[0]['id'],
         'whatsapp_group_name' => null,
         'batch' => null,
         'created_at' => now(),

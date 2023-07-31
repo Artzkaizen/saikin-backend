@@ -26,7 +26,7 @@ class GroupObserver
 
             // Update group contacts
             Group::withoutEvents(function () use ($group, $group_contacts) { 
-                Group::where('id',$group->id)->update(['contacts'=>$group_contacts->pluck('id')->toArray()]);
+                Group::where('id',$group->id)->update(['group_contacts'=>$group_contacts->pluck('id')->toArray()]);
             });
         }
     }
@@ -50,7 +50,7 @@ class GroupObserver
 
             // Update group contacts
             Group::withoutEvents(function () use ($group, $group_contacts) { 
-                Group::where('id',$group->id)->update(['contacts'=>$group_contacts->pluck('id')->toArray()]);
+                Group::where('id',$group->id)->update(['group_contacts'=>$group_contacts->pluck('id')->toArray()]);
             });
         }
     }
@@ -84,7 +84,7 @@ class GroupObserver
 
         // Update group contacts
         Group::withoutEvents(function () use ($group, $group_contacts) { 
-            Group::where('id',$group->id)->update(['contacts'=>$group_contacts->pluck('id')->toArray()]);
+            Group::where('id',$group->id)->update(['group_contacts'=>$group_contacts->pluck('id')->toArray()]);
         });
     }
 

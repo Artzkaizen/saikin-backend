@@ -17,14 +17,14 @@ class DatabaseSeeder extends Seeder
         $this->call(TeamTableSeeder::class);
         $this->call(PermissionRoleTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(SettingTableSeeder::class);
         $this->call(RoleUserTableSeeder::class);
         $this->call(ContactTableSeeder::class);
         $this->call(AccountTableSeeder::class);
-        $this->call(BroadcastTableSeeder::class);
-        $this->call(BroadcastTemplateTableSeeder::class);
         $this->call(GroupTableSeeder::class);
-        $this->call(PaymentTableSeeder::class);
-        $this->call(SettingTableSeeder::class);
+        $this->call(BroadcastTemplateTableSeeder::class);
+        $this->call(BroadcastTableSeeder::class);
         $this->call(BroadcastOutgoingTableSeeder::class);
+        $this->call(PaymentTableSeeder::class);
     }
 }

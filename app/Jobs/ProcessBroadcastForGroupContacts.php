@@ -45,17 +45,20 @@ class ProcessBroadcastForGroupContacts implements ShouldQueue
         // Find all contacts on group
         $group = Group::with('contacts')->find($this->broadcast->contact_group_id);
 
-        // Chunk the contact by defined number in user setting
-        collect($group->contacts)->chunk($this->broadcast->messages_before_pause)->map(function($chunk) {
+        // Generate batch token
+        $batch_token = uniqid();
 
-            $broadcast_outgoing = $chunk->map(function($contact) {
+        // Chunk the contact by defined number in user setting
+        collect($group->contacts)->chunk($this->broadcast->messages_before_pause)->map(function($chunk,$batch) use ($batch_token) {
+
+            $broadcast_outgoing = $chunk->map(function($contact) use ($batch_token,$batch){
 
                 return [
                     'user_id' => $this->broadcast->user_id,
                     'account_id' => $this->broadcast->account_id,
-                    'broadcast_id' => $this->broadcast->broadcast_id,
+                    'broadcast_id' => $this->broadcast->id,
                     'contact_id' => $contact->id,
-                    'batch' => $broadcast_id.'.'.$contact->id,
+                    'batch' => $batch_token.$batch,
                     'created_at' => Carbon::now()->toDateTimeString(),
                     'updated_at' => Carbon::now()->toDateTimeString(),
                 ];

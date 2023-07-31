@@ -25,7 +25,7 @@ class GroupStoreRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:50|min:1',
-            'contacts' => 'required|array|max:9|min:1',
+            'group_contacts' => 'required|array|min:1',
         ];
     }
 
@@ -42,10 +42,9 @@ class GroupStoreRequest extends FormRequest
             'title.max'  => 'Group title characters can not be more than 50',
             'title.min'  => 'Group title characters can not be less than 1',
 
-            'contacts.required' => 'Group contacts field is required',
-            'contacts.array'  => 'Group contacts field characters are not valid, Array is expected',
-            'contacts.max'  => 'Group contacts field array can not contain more than 9 items',
-            'contacts.min'  => 'Group contacts field array can not have less than 1 items',
+            'group_contacts.required' => 'Group contacts field is required',
+            'group_contacts.array'  => 'Group contacts field characters are not valid, Array is expected',
+            'group_contacts.min'  => 'Group contacts field array can not have less than 1 items',
         ];
     }
 }

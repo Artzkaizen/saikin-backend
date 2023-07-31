@@ -25,7 +25,7 @@ $factory->define(Group::class, function (Faker $faker) {
     return [
         'user_id' => $this->user->id,
         'title' => $faker->word,
-        'contacts' => $this->contacts->pluck('id')->toArray(),
+        'group_contacts' => $this->contacts->pluck('id')->toArray(),
         'created_at' => now(),
         'updated_at' => now(),
     ];

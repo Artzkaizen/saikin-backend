@@ -34,7 +34,7 @@ class GroupFilterRequest extends FormRequest
         return [
             'user_id' => 'sometimes|required|uuid|max:100|min:1',
             'title' => 'sometimes|required|string|max:50|min:1',
-            'contacts' => 'sometimes|required|array|max:9|min:1',
+            'group_contacts' => 'sometimes|required|array|max:9|min:1',
             'start_date' => 'sometimes|required|date|max:25|min:1',
             'end_date' => 'sometimes|required|date|max:25|min:1',
             'pagination' => 'sometimes|required|nullable|boolean'
@@ -61,11 +61,11 @@ class GroupFilterRequest extends FormRequest
             'title.max'  => 'Group title characters can not be more than 50',
             'title.min'  => 'Group title characters can not be less than 1',
 
-            'contacts.sometimes' => 'Group contacts field should be present, else entirely exclude the field',
-            'contacts.required' => 'Group contacts field maybe required',
-            'contacts.array'  => 'Group contacts field characters are not valid, Array is expected',
-            'contacts.max'  => 'Group contacts field array can not contain more than 9 items',
-            'contacts.min'  => 'Group contacts field array can not have less than 1 items',
+            'group_contacts.sometimes' => 'Group contacts field should be present, else entirely exclude the field',
+            'group_contacts.required' => 'Group contacts field maybe required',
+            'group_contacts.array'  => 'Group contacts field characters are not valid, Array is expected',
+            'group_contacts.max'  => 'Group contacts field array can not contain more than 9 items',
+            'group_contacts.min'  => 'Group contacts field array can not have less than 1 items',
 
             'start_date.sometimes' => 'A start date field should be present, else entirely exclude the field',
             'start_date.required' => 'A start date field maybe required',

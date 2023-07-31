@@ -15,6 +15,7 @@ class BroadcastOutgoing extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'broadcast_id',
         'account_id',
         'contact_id',

@@ -55,7 +55,7 @@ class GroupUpdateRequest extends FormRequest
         return [
             'id' => 'required|integer|min:1',
             'title' => 'sometimes|required|string|max:50|min:1',
-            'contacts' => 'sometimes|required|array|max:9|min:1',
+            'group_contacts' => 'sometimes|required|array|min:1',
         ];
     }
 
@@ -77,11 +77,10 @@ class GroupUpdateRequest extends FormRequest
             'title.max'  => 'Group title characters can not be more than 50',
             'title.min'  => 'Group title characters can not be less than 1',
 
-            'contacts.sometimes' => 'Group contacts field should be present, else entirely exclude the field',
-            'contacts.required' => 'Group contacts field maybe required',
-            'contacts.array'  => 'Group contacts field characters are not valid, Array is expected',
-            'contacts.max'  => 'Group contacts field array can not contain more than 9 items',
-            'contacts.min'  => 'Group contacts field array can not have less than 1 items',
+            'group_contacts.sometimes' => 'Group contacts field should be present, else entirely exclude the field',
+            'group_contacts.required' => 'Group contacts field maybe required',
+            'group_contacts.array'  => 'Group contacts field characters are not valid, Array is expected',
+            'group_contacts.min'  => 'Group contacts field array can not have less than 1 items',
         ];
     }
 }

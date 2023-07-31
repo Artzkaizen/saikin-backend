@@ -19,7 +19,7 @@ class Group extends Model
      */
     protected $fillable = [
         'title',
-        'contacts',
+        'group_contacts',
     ];
 
     /**
@@ -37,7 +37,7 @@ class Group extends Model
      * @var array
      */
     protected $casts = [
-        'contacts' => 'array',
+        'group_contacts' => 'array',
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];

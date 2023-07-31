@@ -89,7 +89,7 @@ class ContactController extends Controller
         $last_name = is_null($request->input('last_name'))? false : Helper::escapeForLikeColumnQuery($request->input('last_name'));
         $email = is_null($request->input('email'))? false : Helper::escapeForLikeColumnQuery($request->input('email'));
         $phone = is_null($request->input('phone'))? false : Helper::escapeForLikeColumnQuery($request->input('phone'));
-        $contact = is_null($request->input('contact'))? false : Helper::escapeForLikeColumnQuery($request->input('contact'));
+        $address = is_null($request->input('address'))? false : Helper::escapeForLikeColumnQuery($request->input('address'));
         $city = is_null($request->input('city'))? false : Helper::escapeForLikeColumnQuery($request->input('city'));
         $state = is_null($request->input('state'))? false : Helper::escapeForLikeColumnQuery($request->input('state'));
         $country = is_null($request->input('country'))? false : Helper::escapeForLikeColumnQuery($request->input('country'));
@@ -113,8 +113,8 @@ class ContactController extends Controller
             return $query->where('email', 'like', '%'.$email.'%');
         })->when($phone, function ($query, $phone) {
             return $query->where('phone', 'like', '%'.$phone.'%');
-        })->when($contact, function ($query, $contact) {
-            return $query->where('contact', 'like', '%'.$contact.'%');
+        })->when($address, function ($query, $address) {
+            return $query->where('address', 'like', '%'.$address.'%');
         })->when($city, function ($query, $city) {
             return $query->where('city', 'like', '%'.$city.'%');
         })->when($state, function ($query, $state) {

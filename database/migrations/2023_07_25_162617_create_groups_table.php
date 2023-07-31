@@ -20,7 +20,7 @@ class CreateGroupsTable extends Migration
 
             // Properties - group
             $table->string('title',50)->nullable();
-            $table->json('contacts')->nullable();
+            $table->json('group_contacts')->nullable();
 
             // Status
             $table->uuid('created_by')->nullable();

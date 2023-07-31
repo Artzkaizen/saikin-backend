@@ -15,18 +15,18 @@ class GroupObserver
      */
     public function created(Group $group)
     {
-        if (!empty($group->contacts)) {
+        if (!empty($group->group_contacts)) {
 
             // Check if the given contacts are valid
-            $contacts = $group->contacts ?? [];
-            $contacts = Contact::where('user_id',$group->user_id)->whereIn('id', $contacts)->get();
+            $group_contacts = $group->group_contacts ?? [];
+            $group_contacts = Contact::where('user_id',$group->user_id)->whereIn('id', $group_contacts)->get();
 
             // Sync valid group contacts
-            $group->contacts()->sync($contacts);
+            $group->contacts()->sync($group_contacts);
 
             // Update group contacts
-            Group::withoutEvents(function () use ($group, $contacts) { 
-                Group::where('id',$group->id)->update(['contacts'=>$contacts->pluck('id')->toArray()]);
+            Group::withoutEvents(function () use ($group, $group_contacts) { 
+                Group::where('id',$group->id)->update(['contacts'=>$group_contacts->pluck('id')->toArray()]);
             });
         }
     }
@@ -39,18 +39,18 @@ class GroupObserver
      */
     public function updated(Group $group)
     {
-        if ($group->wasChanged('contacts')) {
+        if ($group->wasChanged('group_contacts')) {
 
             // Check if the given contacts are valid
-            $contacts = $group->contacts ?? [];
-            $contacts = Contact::where('user_id',$group->user_id)->whereIn('id', $contacts)->get();
+            $group_contacts = $group->group_contacts ?? [];
+            $group_contacts = Contact::where('user_id',$group->user_id)->whereIn('id', $group_contacts)->get();
 
             // Sync valid group contacts
-            $group->contacts()->sync($contacts);
+            $group->contacts()->sync($group_contacts);
 
             // Update group contacts
-            Group::withoutEvents(function () use ($group, $contacts) { 
-                Group::where('id',$group->id)->update(['contacts'=>$contacts->pluck('id')->toArray()]);
+            Group::withoutEvents(function () use ($group, $group_contacts) { 
+                Group::where('id',$group->id)->update(['contacts'=>$group_contacts->pluck('id')->toArray()]);
             });
         }
     }
@@ -76,15 +76,15 @@ class GroupObserver
     public function restored(Group $group)
     {
         // Check if the previous contacts are still valid
-        $contacts = $group->contacts ?? [];
-        $contacts = Contact::where('user_id',$group->user_id)->whereIn('id', $contacts)->get();
+        $group_contacts = $group->group_contacts ?? [];
+        $group_contacts = Contact::where('user_id',$group->user_id)->whereIn('id', $group_contacts)->get();
 
         // Attach valid contacts to the group
-        $group->contacts()->attach($contacts);
+        $group->contacts()->attach($group_contacts);
 
         // Update group contacts
-        Group::withoutEvents(function () use ($group, $contacts) { 
-            Group::where('id',$group->id)->update(['contacts'=>$contacts->pluck('id')->toArray()]);
+        Group::withoutEvents(function () use ($group, $group_contacts) { 
+            Group::where('id',$group->id)->update(['contacts'=>$group_contacts->pluck('id')->toArray()]);
         });
     }
 

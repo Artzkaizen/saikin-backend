@@ -40,7 +40,7 @@ class BroadcastTemplateController extends Controller
         if ($request->input('properties')){
 
             // Get all broadcasts with all their relations
-            $broadcasts = BroadcastTemplate::with([
+            $broadcast_templates = BroadcastTemplate::with([
                 'user',
                 'account',
             ])->orderBy('created_at', 'desc')
@@ -50,7 +50,7 @@ class BroadcastTemplateController extends Controller
         } elseif ($request->input('deleted')){
 
             // Get all deleted broadcasts with all their relations
-            $broadcasts = BroadcastTemplate::onlyTrashed()->with([
+            $broadcast_templates = BroadcastTemplate::onlyTrashed()->with([
                 'user',
                 'account',
             ])->orderBy('created_at', 'desc')
@@ -60,16 +60,16 @@ class BroadcastTemplateController extends Controller
         } else {
 
             // Get all broadcasts with out their relations
-            $broadcasts = BroadcastTemplate::orderBy('created_at', 'desc')
+            $broadcast_templates = BroadcastTemplate::orderBy('created_at', 'desc')
             ->take(1000)
             ->paginate(25);
         }
 
         // Return success
-        if ($broadcasts) {
+        if ($broadcast_templates) {
 
-            if (count($broadcasts) > 0) {
-                return $this->success($broadcasts);
+            if (count($broadcast_templates) > 0) {
+                return $this->success($broadcast_templates);
             } else {
                return $this->noContent('No broadcast was found');
             }
@@ -98,7 +98,7 @@ class BroadcastTemplateController extends Controller
         $pagination = is_null($request->input('pagination'))? true : (boolean) $request->input('pagination');
 
         // Build search query
-        $broadcasts = BroadcastTemplate::when($user_id, function ($query, $user_id) {
+        $broadcast_templates = BroadcastTemplate::when($user_id, function ($query, $user_id) {
             return $query->where('user_id', $user_id);
 
         })->when($account_id, function ($query, $account_id) {
@@ -122,28 +122,28 @@ class BroadcastTemplateController extends Controller
         });
 
         // Check if the builder has any where clause
-        if (count($broadcasts->getQuery()->wheres) < 1){
+        if (count($broadcast_templates->getQuery()->wheres) < 1){
             // Return failure
             return $this->requestConflict('No value to filter by');
         }
 
         // Execute search query
-        $broadcasts = $broadcasts->orderBy('created_at', 'desc');
+        $broadcast_templates = $broadcast_templates->orderBy('created_at', 'desc');
 
         // Execute with pagination required
         if ($pagination) {
-            $broadcasts = $broadcasts->take(1000)->paginate(25);
+            $broadcast_templates = $broadcast_templates->take(1000)->paginate(25);
         }
 
         // Execute without pagination required
         if (!$pagination) {
-            $broadcasts = $broadcasts->take(1000)->get();
+            $broadcast_templates = $broadcast_templates->take(1000)->get();
         }
 
         // Return success
-        if ($broadcasts) {
-            if (count($broadcasts) > 0) {
-                return $this->success($broadcasts);
+        if ($broadcast_templates) {
+            if (count($broadcast_templates) > 0) {
+                return $this->success($broadcast_templates);
             } else {
                return $this->noContent('No broadcast was found for this range');
             }
@@ -166,7 +166,7 @@ class BroadcastTemplateController extends Controller
         $search_date = is_null($request->input('search'))? false : Helper::stringToCarbonDate($request->input('search'));
 
         // Build search query
-        $broadcasts = BroadcastTemplate::when($search_string, function ($query) use ($request, $search_string, $search_date) {
+        $broadcast_templates = BroadcastTemplate::when($search_string, function ($query) use ($request, $search_string, $search_date) {
 
             return $query->when($request->input('user_id'), function($query) use ($request) {
 
@@ -188,18 +188,18 @@ class BroadcastTemplateController extends Controller
         });
 
         // Check if the builder has any where clause
-        if (count($broadcasts->getQuery()->wheres) < 1){
+        if (count($broadcast_templates->getQuery()->wheres) < 1){
             // Return failure
             return $this->requestConflict('No value to filter by');
         }
 
         // Execute search query
-        $broadcasts = $broadcasts->orderBy('created_at', 'desc')->limit(10)->get();
+        $broadcast_templates = $broadcast_templates->orderBy('created_at', 'desc')->limit(10)->get();
 
         // Return success
-        if ($broadcasts) {
-            if (count($broadcasts) > 0) {
-                return $this->success($broadcasts);
+        if ($broadcast_templates) {
+            if (count($broadcast_templates) > 0) {
+                return $this->success($broadcast_templates);
             } else {
                return $this->noContent('No broadcast was found for this range');
             }
@@ -218,11 +218,11 @@ class BroadcastTemplateController extends Controller
     public function store(BroadcastTemplateStoreRequest $request)
     {
         // Fill the broadcast model
-        $broadcast = new BroadcastTemplate;
-        $broadcast = $broadcast->fill($request->toArray());
+        $broadcast_template = new BroadcastTemplate;
+        $broadcast_template = $broadcast_template->fill($request->toArray());
 
         // Additional params
-        $broadcast->user_id = auth()->user()->id;
+        $broadcast_template->user_id = auth()->user()->id;
 
         // Store new images to server or cloud service
         $stored_images = MediaImages::images($request->file('photos'))
@@ -231,11 +231,11 @@ class BroadcastTemplateController extends Controller
         ->path('public/images/broadcast')->limit(9)->store()->pluck('image_url');
 
         // Add images to model
-        $broadcast->pictures = $stored_images->isNotEmpty() ? $stored_images : $broadcast->pictures;
+        $broadcast_template->pictures = $stored_images->isNotEmpty() ? $stored_images : $broadcast_template->pictures;
 
         // Return success
-        if ($broadcast->save()) {
-            return $this->entityCreated($broadcast,'broadcast was saved');
+        if ($broadcast_template->save()) {
+            return $this->entityCreated($broadcast_template,'broadcast was saved');
         } else {
             // Return failure
             return $this->unavailableService();
@@ -251,16 +251,16 @@ class BroadcastTemplateController extends Controller
     public function show(BroadcastTemplateShowRequest $request)
     {
         // Use broadcast model passed in from request authorization
-        $broadcast = $request->broadcast;
+        $broadcast_template = $request->broadcast_template;
 
         // Return success
-        if ($broadcast) {
+        if ($broadcast_template) {
 
             if ($request->input('properties')) {
-                $broadcast = $broadcast->load('user','account');
+                $broadcast_template = $broadcast_template->load('user','account');
             }
 
-            return $this->success($broadcast);
+            return $this->success($broadcast_template);
         } else {
             // Return Failure
             return $this->notFound();
@@ -276,14 +276,14 @@ class BroadcastTemplateController extends Controller
     public function me(BroadcastTemplateMeRequest $request)
     {
         // Get a user broadcasts
-        $broadcasts = BroadcastTemplate::where('user_id', auth()->user()->id)
+        $broadcast_templates = BroadcastTemplate::where('user_id', auth()->user()->id)
         ->orderBy('created_at', 'desc')
         ->take(1000)
         ->paginate(25);
 
         // Return success
-        if ($broadcasts) {
-            return $this->success($broadcasts);
+        if ($broadcast_templates) {
+            return $this->success($broadcast_templates);
         } else {
             // Return Failure
             return $this->notFound();
@@ -299,25 +299,25 @@ class BroadcastTemplateController extends Controller
     public function update(BroadcastTemplateUpdateRequest $request)
     {
         // Use broadcast model passed in from request authorization
-        $broadcast = $request->broadcast;
+        $broadcast_template = $request->broadcast_template;
 
-        if ($broadcast) {
+        if ($broadcast_template) {
 
             // Fill requestor input
-            $broadcast->fill($request->except('user_id','account_id'));
+            $broadcast_template->fill($request->except('user_id','account_id'));
 
             // Store new images to server or cloud service
             $stored_images = MediaImages::images($request->file('photos'))
             ->base64Images($request->input('base64_photos'))
             ->imageUrls($request->input('url_photos'))
-            ->path('public/images/broadcast')->limit(9)->replace($broadcast->pictures)->pluck('image_url');
+            ->path('public/images/broadcast')->limit(9)->replace($broadcast_template->pictures)->pluck('image_url');
 
             // Add images to model
-            $broadcast->pictures = $stored_images->isNotEmpty() ? $stored_images : $broadcast->pictures;
+            $broadcast_template->pictures = $stored_images->isNotEmpty() ? $stored_images : $broadcast_template->pictures;
 
             // Update broadcast
-            if ($broadcast->update()) {
-                return $this->actionSuccess('BroadcastTemplate was updated');
+            if ($broadcast_template->update()) {
+                return $this->actionSuccess('Broadcast template was updated');
             } else {
                 return $this->unavailableService();
             }
@@ -337,13 +337,13 @@ class BroadcastTemplateController extends Controller
     public function destroy(BroadcastTemplateDestroyRequest $request)
     {
         // Use broadcast model passed in from request authorization
-        $broadcast = $request->broadcast;
+        $broadcast_template = $request->broadcast_template;
 
-        if ($broadcast) {
+        if ($broadcast_template) {
 
             // Delete broadcast
-            if ($broadcast->delete()) {
-                return $this->actionSuccess('BroadcastTemplate was deleted');
+            if ($broadcast_template->delete()) {
+                return $this->actionSuccess('Broadcast template was deleted');
             } else {
                 return $this->unavailableService();
             }

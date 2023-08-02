@@ -74,7 +74,7 @@ class Group extends Model
     }
 
     /**
-     * Establishes a one to many relationship with contacts table
+     * Establishes a belongs to many relationship with contacts table
      */
     public function contacts()
     {

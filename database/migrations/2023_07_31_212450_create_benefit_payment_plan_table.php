@@ -16,6 +16,7 @@ class CreateBenefitPaymentPlanTable extends Migration
         Schema::create('benefit_payment_plan', function (Blueprint $table) {
             $table->unsignedBigInteger('benefit_id');
             $table->unsignedBigInteger('payment_plan_id');
+            $table->unsignedSmallInteger('value');
 
             $table->foreign('benefit_id')->references('id')->on('benefits')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('payment_plan_id')->references('id')->on('payment_plans')->onUpdate('cascade')->onDelete('cascade');

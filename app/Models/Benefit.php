@@ -50,11 +50,11 @@ class Benefit extends Model
     }
 
     /**
-     * Establishes a belongs to many relationship with users table
+     * Establishes a belongs to many relationship with accounts table
      */
-    public function user()
+    public function accounts()
     {
-        return $this->belongsToMany(User::class, PaymentPlan::class);
+        return $this->belongsToMany(Account::class, PaymentPlan::class);
     }
 
     /**

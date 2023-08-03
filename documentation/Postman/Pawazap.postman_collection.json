@@ -1827,7 +1827,7 @@
 							"formdata": [
 								{
 									"key": "account_id",
-									"value": "31",
+									"value": "41",
 									"description": "required( Accepts integer value )",
 									"type": "text"
 								},
@@ -1873,26 +1873,53 @@
 									"key": "contact_group_start_date",
 									"value": "2023-07-12",
 									"description": "Optional (year-month-date)  (y-m-d)",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "contact_group_end_date",
 									"value": "2022-12-30",
 									"description": "Optional (year-month-date)  (y-m-d)",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "contact_group_id",
-									"value": "11",
-									"description": "required if no whatsapp_group_names ( Accepts integer value )",
+									"value": "41",
+									"description": "required if no whats_app_group_name ( Accepts integer value )",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "whatsapp_group_names[]",
+									"value": "sharp boys",
+									"description": "required if no contact_group_id ( Accepts integer value )",
 									"type": "text"
 								},
 								{
-									"key": "whatsapp_group_names",
-									"value": "sharp boys",
-									"description": "required if no contact_group_id ( Accepts integer value )",
-									"type": "text",
-									"disabled": true
+									"key": "whatsapp_group_names[]",
+									"value": "men them",
+									"type": "text"
+								},
+								{
+									"key": "whatsapp_group_names[]",
+									"value": "oduduwa united",
+									"type": "text"
+								},
+								{
+									"key": "whatsapp_group_names[]",
+									"value": "pdp",
+									"type": "text"
+								},
+								{
+									"key": "whatsapp_group_names[]",
+									"value": "apc",
+									"type": "text"
+								},
+								{
+									"key": "whatsapp_group_names[]",
+									"value": "obidents",
+									"type": "text"
 								}
 							]
 						},
@@ -1905,6 +1932,74 @@
 								"api",
 								"broadcast",
 								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Preview Broadcasts",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "account_id",
+									"value": "41",
+									"description": "required( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "preview_phone",
+									"value": "09033445567",
+									"description": "optional( Accepts numeric value )",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "lekki",
+									"description": "required( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "photos[]",
+									"description": "Accepts Only 'jpg','jpeg','png','gif','bmp' (Optional) Max:9",
+									"type": "file",
+									"src": "/Users/orion/Pictures/icons/color-palette.png"
+								},
+								{
+									"key": "base64_photos[]",
+									"value": "data:image/jpeg;base64,/9j/4AAQo....",
+									"description": "Accepts Only 'jpg','jpeg','png','gif','bmp' (Optional) Max:9",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "url_photos[]",
+									"value": "https://image.com/small.png",
+									"description": "Accepts Only Url (Optional) Max:1",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/broadcast/preview",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"broadcast",
+								"preview"
 							]
 						}
 					},
@@ -1989,11 +2084,11 @@
 								{
 									"key": "contact_group_id",
 									"value": "11",
-									"description": "required if no whatsapp_group_names ( Accepts integer value )",
+									"description": "required if no whats_app_group_name ( Accepts integer value )",
 									"type": "text"
 								},
 								{
-									"key": "whatsapp_group_names",
+									"key": "whatsapp_group_names[]",
 									"value": "sharp boys",
 									"description": "required if no contact_group_id ( Accepts integer value )",
 									"type": "text"
@@ -2460,11 +2555,11 @@
 								{
 									"key": "contact_group_id",
 									"value": "11",
-									"description": "required if no whatsapp_group_names ( Accepts integer value )",
+									"description": "required if no whats_app_group_name ( Accepts integer value )",
 									"type": "text"
 								},
 								{
-									"key": "whatsapp_group_names",
+									"key": "whatsapp_group_names[]",
 									"value": "sharp boys",
 									"description": "required if no contact_group_id ( Accepts integer value )",
 									"type": "text"
@@ -2501,13 +2596,13 @@
 							"formdata": [
 								{
 									"key": "id",
-									"value": "04bada96-341e-4bb7-88a1-efafb76147b8",
+									"value": "ee884fb6-63da-48b8-8624-b57bd358ca6b",
 									"description": "Required( Accepts UUID)",
 									"type": "text"
 								},
 								{
 									"key": "account_id",
-									"value": "1",
+									"value": "41",
 									"description": "required( Accepts integer value )",
 									"type": "text"
 								},
@@ -2564,25 +2659,26 @@
 								{
 									"key": "contact_group_id",
 									"value": "11",
-									"description": "required if no whatsapp_group_names ( Accepts integer value )",
-									"type": "text"
+									"description": "required if no whats_app_group_name ( Accepts integer value )",
+									"type": "text",
+									"disabled": true
 								},
 								{
-									"key": "whatsapp_group_names",
-									"value": "sharp boys",
+									"key": "whatsapp_group_names[]",
+									"value": "agbado boys",
 									"description": "required if no contact_group_id ( Accepts integer value )",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/broadcast/update",
+							"raw": "{{url}}/api/broadcast-template/update",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"broadcast",
+								"broadcast-template",
 								"update"
 							]
 						}
@@ -3391,13 +3487,13 @@
 									"type": "text"
 								},
 								{
-									"key": "contacts[]",
+									"key": "group_contacts[]",
 									"value": "3",
 									"description": "optional( Accepts contact id )",
 									"type": "text"
 								},
 								{
-									"key": "contacts[]",
+									"key": "group_contacts[]",
 									"value": "54",
 									"description": "optional( Accepts contact id )",
 									"type": "text"
@@ -3458,21 +3554,76 @@
 									"type": "text"
 								},
 								{
-									"key": "contacts[]",
-									"value": "3",
+									"key": "group_contacts[]",
+									"value": "264",
 									"description": "optional( Accepts contact id )",
 									"type": "text"
 								},
 								{
-									"key": "contacts[]",
-									"value": "54",
+									"key": "group_contacts[]",
+									"value": "263",
 									"description": "optional( Accepts contact id )",
 									"type": "text"
 								},
 								{
-									"key": "contacts[]",
-									"value": "12",
+									"key": "group_contacts[]",
+									"value": "262",
 									"description": "optional( Accepts contact id )",
+									"type": "text"
+								},
+								{
+									"key": "group_contacts[]",
+									"value": "261",
+									"type": "text"
+								},
+								{
+									"key": "group_contacts[]",
+									"value": "260",
+									"type": "text"
+								},
+								{
+									"key": "group_contacts[]",
+									"value": "259",
+									"type": "text"
+								},
+								{
+									"key": "group_contacts[]",
+									"value": "258",
+									"type": "text"
+								},
+								{
+									"key": "group_contacts[]",
+									"value": "257",
+									"type": "text"
+								},
+								{
+									"key": "group_contacts[]",
+									"value": "256",
+									"type": "text"
+								},
+								{
+									"key": "group_contacts[]",
+									"value": "255",
+									"type": "text"
+								},
+								{
+									"key": "group_contacts[]",
+									"value": "254",
+									"type": "text"
+								},
+								{
+									"key": "group_contacts[]",
+									"value": "253",
+									"type": "text"
+								},
+								{
+									"key": "group_contacts[]",
+									"value": "252",
+									"type": "text"
+								},
+								{
+									"key": "group_contacts[]",
+									"value": "251",
 									"type": "text"
 								}
 							]
@@ -3512,19 +3663,19 @@
 									"type": "text"
 								},
 								{
-									"key": "contacts[]",
+									"key": "group_contacts[]",
 									"value": "3",
 									"description": "optional( Accepts contact id )",
 									"type": "text"
 								},
 								{
-									"key": "contacts[]",
+									"key": "group_contacts[]",
 									"value": "54",
 									"description": "optional( Accepts contact id )",
 									"type": "text"
 								},
 								{
-									"key": "contacts[]",
+									"key": "group_contacts[]",
 									"value": "12",
 									"description": "optional( Accepts contact id )",
 									"type": "text"
@@ -4416,6 +4567,690 @@
 									"key": "reference",
 									"value": "2d7d32ad-789a-43f7-9fb5-1d36374c7b17"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment Plans",
+			"item": [
+				{
+					"name": "Get all Payment Plans",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/payment-plan/index?properties=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"payment-plan",
+								"index"
+							],
+							"query": [
+								{
+									"key": "properties",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)"
+								},
+								{
+									"key": "deleted",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Payment Plans",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "search",
+									"value": "34",
+									"description": "Required (min:3 characters) (Date Formats Supported)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/payment-plan/search/index",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"payment-plan",
+								"search",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter Payment Plans",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "4xtra Cool",
+									"description": "Optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "level",
+									"value": "3",
+									"description": "Optional( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "7000",
+									"description": "Optional( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "discount",
+									"value": "1",
+									"description": "Optional( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "currency",
+									"value": "ngn",
+									"description": "Optional( Accepts string value )",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "start_date",
+									"value": "2022-10-11",
+									"description": "Optional (year-month-date)  (y-m-d)",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "end_date",
+									"value": "2022-12-23",
+									"description": "Optional (year-month-date)  (y-m-d)",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "pageination",
+									"value": "1",
+									"description": "Optional( Accepts integer value )",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "payment_plan_benefits[5]['value']",
+									"value": "400",
+									"description": "Optional( Accepts integer value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/payment-plan/filter/index",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"payment-plan",
+								"filter",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store a Payment Plans",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "4xtra Cool",
+									"description": "Required( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "level",
+									"value": "3",
+									"description": "Optional( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "7000",
+									"description": "Required( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "currency",
+									"value": "ngn",
+									"description": "Optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "discount",
+									"value": "1",
+									"description": "Optional( Accepts Integer value )",
+									"type": "text"
+								},
+								{
+									"key": "payment_plan_benefits[3]['value']",
+									"value": "400",
+									"description": "Optional( Accepts integer value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/payment-plan/store",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"payment-plan",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Payment Plan",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "2",
+									"description": "Optional( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "4xtra Cool",
+									"description": "Required( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "level",
+									"value": "3",
+									"description": "Optional( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "7000",
+									"description": "Optional( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "currency",
+									"value": "ngn",
+									"description": "Optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "discount",
+									"value": "1",
+									"description": "Optional( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "payment_plan_benefits[3]['value']",
+									"value": "400",
+									"description": "Optional( Accepts integer value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/payment-plan/update",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"payment-plan",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show a Payment Plan",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/payment-plan/show?id=1&properties=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"payment-plan",
+								"show"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Required( Accepts Integer value )"
+								},
+								{
+									"key": "properties",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Payment Plan",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Required( Accepts Integer value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/payment-plan/delete",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"payment-plan",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Payment Plan Model",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/payment-plan/test",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"payment-plan",
+								"test"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Public Payment Plans",
+			"item": [
+				{
+					"name": "Get all Public Payment Plans",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/public/payment-plan/index?properties=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"payment-plan",
+								"index"
+							],
+							"query": [
+								{
+									"key": "properties",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)"
+								},
+								{
+									"key": "deleted",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Public Payment Plans",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "search",
+									"value": "34",
+									"description": "Required (min:3 characters) (Date Formats Supported)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/public/payment-plan/search/index",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"payment-plan",
+								"search",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter Public Payment Plans",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "4xtra Cool",
+									"description": "Optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "level",
+									"value": "3",
+									"description": "Optional( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "7000",
+									"description": "Optional( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "discount",
+									"value": "1",
+									"description": "Optional( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "currency",
+									"value": "ngn",
+									"description": "Optional( Accepts string value )",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "start_date",
+									"value": "2022-10-11",
+									"description": "Optional (year-month-date)  (y-m-d)",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "end_date",
+									"value": "2022-12-23",
+									"description": "Optional (year-month-date)  (y-m-d)",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "pageination",
+									"value": "1",
+									"description": "Optional( Accepts integer value )",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "payment_plan_benefits[5]['value']",
+									"value": "400",
+									"description": "Optional( Accepts integer value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/public/payment-plan/filter/index",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"payment-plan",
+								"filter",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show a Public Payment Plan",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/public/payment-plan/show?id=1&properties=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"payment-plan",
+								"show"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Required( Accepts Integer value )"
+								},
+								{
+									"key": "properties",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pay For A Public Payment Plan Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Required( Accepts Integer value )",
+									"type": "text"
+								},
+								{
+									"key": "account_id",
+									"value": "1",
+									"description": "Required( Accepts Integer value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/public/payment-plan/pay",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"payment-plan",
+								"pay"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Public Payment Plan Model",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/public/payment-plan/test",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"public",
+								"payment-plan",
+								"test"
 							]
 						}
 					},
@@ -8614,6 +9449,116 @@
 									"value": "1",
 									"description": "Acceptes Only boolean('1','0') (Optional)"
 								}
+							]
+						},
+						"description": "Show a specific user"
+					},
+					"response": [
+						{
+							"name": "Show User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "team",
+										"value": "{{team}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/user/show?user_id=0db1e04c-9432-4682-80a6-d323ed98eb14&properties=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"show"
+									],
+									"query": [
+										{
+											"key": "user_id",
+											"value": "0db1e04c-9432-4682-80a6-d323ed98eb14",
+											"description": "Required"
+										},
+										{
+											"key": "properties",
+											"value": "1",
+											"description": "Optional"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 07 Feb 2022 16:37:29 GMT"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n        \"email\": \"dward@example.org\",\n        \"name\": \"Prof. Elmer Senger\",\n        \"email_verified_at\": \"2022-02-06T15:04:17.000000Z\",\n        \"birth_date\": null,\n        \"birth_year\": null,\n        \"phone\": null,\n        \"picture\": null,\n        \"description\": null,\n        \"providers_allowed\": [],\n        \"providers_disallowed\": [],\n        \"providers_details\": [],\n        \"groups\": {\n            \"84cf2a7f-e4f6-4b37-87e6-ad9b14490e12\": {\n                \"company_id\": \"84cf2a7f-e4f6-4b37-87e6-ad9b14490e12\",\n                \"employee_id\": \"c2beb73c-3960-4b57-8482-df92aabd20aa\",\n                \"courier_id\": null\n            }\n        },\n        \"user_details_verified\": false,\n        \"blocked\": false,\n        \"points\": 0,\n        \"flag\": 0,\n        \"created_by\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n        \"updated_by\": null,\n        \"created_at\": \"2022-02-06T15:04:17.000000Z\",\n        \"updated_at\": \"2022-02-06T15:04:17.000000Z\",\n        \"profile\": {\n            \"user_id\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n            \"user_name\": \"Prof. Elmer Senger\",\n            \"user_email\": \"dward@example.org\",\n            \"ip_address_current\": \"0.0.0.0\",\n            \"ip_address_initial\": null,\n            \"job_categories\": null,\n            \"educational_qualifications\": null,\n            \"languages\": null,\n            \"phone\": null,\n            \"gender\": \"unknown\",\n            \"birth_date\": null,\n            \"birth_year\": null,\n            \"picture\": null,\n            \"description\": null,\n            \"address\": null,\n            \"city\": null,\n            \"state\": null,\n            \"country\": null,\n            \"zip\": null,\n            \"first_name\": null,\n            \"last_name\": null,\n            \"middle_name\": null,\n            \"additional_details\": null,\n            \"user_details_verified\": false,\n            \"total_actions\": 0,\n            \"total_votes\": 0,\n            \"user_rating\": 0,\n            \"user_standing\": null,\n            \"created_by\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n            \"updated_by\": null,\n            \"created_at\": \"2022-02-06T15:04:17.000000Z\",\n            \"updated_at\": \"2022-02-06T15:04:17.000000Z\"\n        },\n        \"human_verification\": null,\n        \"roles\": [\n            {\n                \"id\": 3,\n                \"name\": \"company\",\n                \"display_name\": \"Company Owner\",\n                \"description\": \"User owns company in this application\",\n                \"visibility\": \"public\",\n                \"created_at\": \"2022-02-06T15:04:15.000000Z\",\n                \"updated_at\": \"2022-02-06T15:04:15.000000Z\",\n                \"pivot\": {\n                    \"user_id\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n                    \"role_id\": 3,\n                    \"user_type\": \"App\\\\Models\\\\User\",\n                    \"team_id\": 32\n                }\n            },\n            {\n                \"id\": 6,\n                \"name\": \"employee\",\n                \"display_name\": \"Company Employee\",\n                \"description\": \"User is the employee of a company in this application\",\n                \"visibility\": \"public\",\n                \"created_at\": \"2022-02-06T15:04:15.000000Z\",\n                \"updated_at\": \"2022-02-06T15:04:15.000000Z\",\n                \"pivot\": {\n                    \"user_id\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n                    \"role_id\": 6,\n                    \"user_type\": \"App\\\\Models\\\\User\",\n                    \"team_id\": 32\n                }\n            }\n        ],\n        \"wallet\": {\n            \"user_id\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n            \"credit\": \"0.00\",\n            \"debit\": \"0.00\",\n            \"balance\": \"0.00\",\n            \"currency_code\": null,\n            \"currency_name\": null,\n            \"truth\": null,\n            \"card_details\": [],\n            \"bank_details\": [],\n            \"statement\": [],\n            \"created_by\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n            \"updated_by\": null,\n            \"created_at\": \"2022-02-06T15:04:17.000000Z\",\n            \"updated_at\": \"2022-02-06T15:04:17.000000Z\"\n        },\n        \"company\": {\n            \"id\": \"84cf2a7f-e4f6-4b37-87e6-ad9b14490e12\",\n            \"user_id\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n            \"company_email\": \"dbarrows@feeney.com\",\n            \"company_name\": \"Pacocha-Becker\",\n            \"company_email_verified_at\": null,\n            \"company_picture\": null,\n            \"company_phone\": \"893-904-8759 x575\",\n            \"company_address\": \"730 Goldner Mills\",\n            \"company_city\": \"Jacobitown\",\n            \"company_state\": \"North Dakota\",\n            \"company_country\": \"Vanuatu\",\n            \"company_zip\": \"22081\",\n            \"company_description\": \"Multi-tiered directional utilisation\",\n            \"company_deliverables\": [],\n            \"management_approved\": true,\n            \"flag\": 0,\n            \"created_by\": \"9d064f93-3f53-4b45-b5ae-f62e29ed496f\",\n            \"updated_by\": null,\n            \"created_at\": \"2022-02-06T15:04:17.000000Z\",\n            \"updated_at\": \"2022-02-06T15:04:17.000000Z\"\n        },\n        \"employee\": {\n            \"id\": \"c2beb73c-3960-4b57-8482-df92aabd20aa\",\n            \"user_id\": \"0db1e04c-9432-4682-80a6-d323ed98eb14\",\n            \"company_id\": \"84cf2a7f-e4f6-4b37-87e6-ad9b14490e12\",\n            \"employee_name\": \"Dr. Bartholome Schaden II\",\n            \"employee_job_title\": \"Repellat voluptatem inventore.\",\n            \"employee_job_description\": \"Multi-tiered directional paradigm\",\n            \"employee_picture\": null,\n            \"employee_location_latitude\": -42.68468,\n            \"employee_location_longitude\": -25.736437,\n            \"employee_phone\": \"456-719-5614 x183\",\n            \"employee_address\": \"8691 Murray Station Suite 462\",\n            \"employee_city\": \"New Hadley\",\n            \"employee_state\": \"Michigan\",\n            \"employee_country\": \"Saint Pierre and Miquelon\",\n            \"employee_zip\": \"15570-5888\",\n            \"resumption_date\": \"2022-02-06 15:04:17\",\n            \"termination_date\": null,\n            \"orders_assigned\": 0,\n            \"orders_unassigned\": 0,\n            \"company_approved\": true,\n            \"status\": \"active\",\n            \"flag\": 0,\n            \"created_by\": \"9d064f93-3f53-4b45-b5ae-f62e29ed496f\",\n            \"updated_by\": null,\n            \"created_at\": \"2022-02-06T15:04:17.000000Z\",\n            \"updated_at\": \"2022-02-06T15:04:17.000000Z\"\n        },\n        \"courier\": null\n    },\n    \"status\": \"success\",\n    \"status_code\": 200,\n    \"code\": \"I2JR5S\",\n    \"message\": \"Success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Show My Setting",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/setting/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"setting",
+								"me"
 							]
 						},
 						"description": "Show a specific user"

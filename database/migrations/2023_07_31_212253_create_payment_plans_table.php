@@ -21,6 +21,9 @@ class CreatePaymentPlansTable extends Migration
             $table->string('name');
             $table->unsignedSmallInteger('level')->nullable();
             $table->json('payment_plan_benefits')->nullable();
+            $table->double('amount', 10, 2)->default(0);
+            $table->double('discount', 10, 2)->default(0);
+            $table->string('currency', 4)->nullable();
             $table->string('visibility', 24)->default('public');
 
             // Status

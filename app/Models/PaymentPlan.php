@@ -18,6 +18,9 @@ class PaymentPlan extends Model
         'name',
         'level',
         'payment_plan_benefits',
+        'amount',
+        'discount',
+        'currency',
     ];
 
     /**
@@ -36,6 +39,8 @@ class PaymentPlan extends Model
      */
     protected $casts = [
         'payment_plan_benefits' => 'array',
+        'amount' => 'double',
+        'discount' => 'double',
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];

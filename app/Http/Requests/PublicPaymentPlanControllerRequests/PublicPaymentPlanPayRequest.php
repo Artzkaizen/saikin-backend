@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\PublicPaymentPlanPayControllerRequests;
+namespace App\Http\Requests\PublicPaymentPlanControllerRequests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PublicPaymentPlanShowRequest extends FormRequest
+class PublicPaymentPlanPayRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

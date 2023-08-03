@@ -384,13 +384,13 @@ class AccountController extends Controller
     {
         // Use account model passed in from request authorization
         $account = $request->account;
+        $path = 'public/images/screenshots/';
+        $file_name = auth()->user()->id.$account->id.'.png';
 
         // Return success
-        if ($account) {
+        if ($account && Storage::exists($path.$file_name)) {
 
-            $path = 'public/images/screenshots/';
-            $file_name = auth()->user()->id.$account->id.'.png';
-            return Storage::download( $path.$file_name);
+            return Storage::download($path.$file_name);
 
         } else {
 

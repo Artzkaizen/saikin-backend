@@ -50,6 +50,28 @@ class Benefit extends Model
     }
 
     /**
+     * Scope a query to only include benefit of a given type.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsPublic($query)
+    {
+        return $query->where('visibility', config('constants.visibility.public'));
+    }
+
+    /**
+     * Scope a query to only include benefit of a given type.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsPrivate($query)
+    {
+        return $query->where('visibility', config('constants.visibility.private'));
+    }
+
+    /**
      * Establishes a belongs to many relationship with accounts table
      */
     public function accounts()

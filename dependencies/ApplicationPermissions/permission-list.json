@@ -228,6 +228,53 @@
             "description":"Delete a specific payment"
         }
     ],
+    "PaymentPlanController":[
+        {
+            "name":"index_payment_plan",
+            "display_name":"View all payment plans",
+            "description":"See all available payment plans"
+        },
+        {
+            "name":"filter_index_payment_plan",
+            "display_name":"Filter payment plans",
+            "description":"Filter through all available payment plans"
+        },
+        {
+            "name":"search_index_payment_plan",
+            "display_name":"Search payment plans",
+            "description":"Search through all available payment plans"
+        },
+        {
+            "name":"show_payment_plan",
+            "display_name":"View payment plan",
+            "description":"See a specific payment plan"
+        },
+        {
+            "name":"store_payment_plan",
+            "display_name":"Create payment plan",
+            "description":"Create a payment plan"
+        },
+        {
+            "name":"unapprove_payment_plan_as_management",
+            "display_name":"Unapprove payment plan by management",
+            "description":"Unapprove a specific payment plan in a business as management"
+        },
+        {
+            "name":"approve_payment_plan_as_management",
+            "display_name":"Approve payment plan by management",
+            "description":"Approve a specific payment plan for a business as management"
+        },
+        {
+            "name":"update_payment_plan",
+            "display_name":"Edit a payment plan",
+            "description":"Edit the details of a specific payment plan"
+        },
+        {
+            "name":"delete_payment_plan",
+            "display_name":"Delete payment plan",
+            "description":"Delete a specific payment plan"
+        }
+    ],
     "PermissionController":[
         {
             "name":"index_permission",

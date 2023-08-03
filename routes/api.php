@@ -161,6 +161,32 @@ Route::group(['middleware' => ['api'], 'prefix' => 'permission'], function ($rou
     Route::get('test', 'PermissionController@test');
 });
 
+Route::group(['middleware' => ['api'], 'prefix' => 'payment-plan'], function ($router) {
+
+    // Payment Plan Routes
+    Route::get('index', 'PaymentPlanController@index');
+    Route::post('filter/index', 'PaymentPlanController@filterIndex');
+    Route::post('search/index', 'PaymentPlanController@searchIndex');
+    Route::post('store', 'PaymentPlanController@store');
+    Route::get('show', 'PaymentPlanController@show');
+    Route::post('update', 'PaymentPlanController@update');
+    Route::post('approve/management', 'PaymentPlanController@approveByManagement');
+    Route::post('unapprove/management', 'PaymentPlanController@unapproveByManagement');
+    Route::post('delete', 'PaymentPlanController@destroy');
+    Route::get('test', 'PaymentPlanController@test');
+});
+
+Route::group(['middleware' => ['api'], 'prefix' => 'public/payment-plan'], function ($router) {
+
+    // Public Payment Plan Routes
+    Route::get('index', 'PaymentPlanController@index');
+    Route::post('filter/index', 'PaymentPlanController@filterIndex');
+    Route::post('search/index', 'PaymentPlanController@searchIndex');
+    Route::get('show', 'PaymentPlanController@show');
+    Route::post('pay', 'PaymentPlanController@pay');
+    Route::get('test', 'PaymentPlanController@test');
+});
+
 Route::group(['middleware' => ['api'], 'prefix' => 'role'], function ($router) {
 
     // Role Routes

@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\PaymentPlan;
+use App\Models\Payment;
 use App\Helpers\Helper;
-use App\Http\Requests\PaymentPlanControllerRequests\PaymentPlanDestroyRequest;
-use App\Http\Requests\PaymentPlanControllerRequests\PaymentPlanIndexRequest;
-use App\Http\Requests\PaymentPlanControllerRequests\PaymentPlanFilterRequest;
-use App\Http\Requests\PaymentPlanControllerRequests\PaymentPlanSearchRequest;
-use App\Http\Requests\PaymentPlanControllerRequests\PaymentPlanShowRequest;
-use App\Http\Requests\PaymentPlanControllerRequests\PaymentPlanStoreRequest;
-use App\Http\Requests\PaymentPlanControllerRequests\PaymentPlanUpdateRequest;
-use App\Http\Requests\PaymentPlanControllerRequests\PaymentPlanApproveByManagementRequest;
-use App\Http\Requests\PaymentPlanControllerRequests\PaymentPlanUnapproveByManagementRequest;
+use App\Http\Requests\PublicPaymentPlanControllerRequests\PublicPaymentPlanIndexRequest;
+use App\Http\Requests\PublicPaymentPlanControllerRequests\PublicPaymentPlanFilterRequest;
+use App\Http\Requests\PublicPaymentPlanControllerRequests\PublicPaymentPlanSearchRequest;
+use App\Http\Requests\PublicPaymentPlanControllerRequests\PublicPaymentPlanShowRequest;
+use App\Http\Requests\PublicPaymentPlanControllerRequests\PublicPaymentPlanPayRequest;
 use Illuminate\Http\Request;
 
-class PaymentPlanController extends Controller
+class PublicPaymentPlanController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,8 +22,8 @@ class PaymentPlanController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api');
-        $this->middleware('team:api');
+        $this->middleware('auth:api')->except('index','filterIndex','searchIndex','show');
+        $this->middleware('team:api')->except('index','filterIndex','searchIndex','show','pay');
     }
 
     /**
@@ -34,32 +32,22 @@ class PaymentPlanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(PaymentPlanIndexRequest $request)
+    public function index(PublicPaymentPlanIndexRequest $request)
     {
         if ($request->input('properties')){
 
             // Get all payment plan with all their relations
-            $payment_plans = PaymentPlan::with([
-                'benefits',
-                'accounts'
-            ])->orderBy('created_at', 'desc')
-            ->take(1000)
-            ->paginate(25);
-
-        } elseif ($request->input('deleted')){
-
-            // Get all deleted payment plan with all their relations
-            $payment_plans = PaymentPlan::onlyTrashed()->with([
-                'benefits',
-                'accounts'
-            ])->orderBy('created_at', 'desc')
+            $payment_plans = PaymentPlan::with(['benefits'])
+            ->isPublic()
+            ->orderBy('level', 'asc')
             ->take(1000)
             ->paginate(25);
 
         } else {
 
             // Get all payment plan with out their relations
-            $payment_plans = PaymentPlan::orderBy('created_at', 'desc')
+            $payment_plans = PaymentPlan::isPublic()
+            ->orderBy('level', 'asc')
             ->take(1000)
             ->paginate(25);
         }
@@ -70,7 +58,7 @@ class PaymentPlanController extends Controller
             if (count($payment_plans) > 0) {
                 return $this->success($payment_plans);
             } else {
-               return $this->noContent('PaymentPlans were not found');
+               return $this->noContent('Payment plans were not found');
             }
 
         } else {
@@ -85,7 +73,7 @@ class PaymentPlanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function filterIndex(PaymentPlanFilterRequest $request)
+    public function filterIndex(PublicPaymentPlanFilterRequest $request)
     {
         $name = is_null($request->input('name'))? false : Helper::escapeForLikeColumnQuery($request->input('name'));
         $level = is_null($request->input('level'))? false : Helper::escapeForLikeColumnQuery($request->input('level'));
@@ -139,7 +127,7 @@ class PaymentPlanController extends Controller
         }
 
         // Execute search query
-        $payment_plans = $payment_plans->orderBy('created_at', 'desc');
+        $payment_plans = $payment_plans->isPublic()->orderBy('level', 'asc');
 
         // Execute with pagination required
         if ($pagination) {
@@ -171,7 +159,7 @@ class PaymentPlanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function searchIndex(PaymentPlanSearchRequest $request)
+    public function searchIndex(PublicPaymentPlanSearchRequest $request)
     {
         $search_string = is_null($request->input('search'))? false : Helper::escapeForLikeColumnQuery($request->input('search'));
         $search_date = is_null($request->input('search'))? false : Helper::stringToCarbonDate($request->input('search'));
@@ -194,7 +182,7 @@ class PaymentPlanController extends Controller
         }
 
         // Execute search query
-        $payment_plans = $payment_plans->orderBy('created_at', 'desc')->limit(10)->get();
+        $payment_plans = $payment_plans->isPublic()->orderBy('level', 'asc')->limit(10)->get();
 
         // Return success
         if ($payment_plans) {
@@ -210,42 +198,21 @@ class PaymentPlanController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function store(PaymentPlanStoreRequest $request)
-    {
-        // Fill the payment plan model
-        $payment_plan = new PaymentPlan;
-        $payment_plan = $payment_plan->fill($request->toArray());
-
-        // Return success
-        if ($payment_plan->save()) {
-            return $this->entityCreated($payment_plan,'Payment plan was saved');
-        } else {
-            // Return failure
-            return $this->unavailableService();
-        }
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(PaymentPlanShowRequest $request)
+    public function show(PublicPaymentPlanShowRequest $request)
     {
-        // Use payment plan model passed in from request authorization
-        $payment_plan = $request->payment_plan;
+        // Get a single payment plan
+        $payment_plan = PaymentPlan::isPublic()->find($request->input('id'));
 
         // Return success
         if ($payment_plan) {
 
             if ($request->input('properties')) {
-                $payment_plan = $payment_plan->load('benefits','accounts');
+                $payment_plan = $payment_plan->load('benefits');
             }
 
             return $this->success($payment_plan);
@@ -261,100 +228,24 @@ class PaymentPlanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(PaymentPlanUpdateRequest $request)
+    public function pay(PublicPaymentPlanPayRequest $request)
     {
-        // Use payment plan model passed in from request authorization
-        $payment_plan = $request->payment_plan;
+        // Get a single payment plan
+        $payment_plan = PaymentPlan::isPublic()->find($request->input('id'));
 
         if ($payment_plan) {
 
-            // Fill requestor input
-            $payment_plan->fill($request->toArray());
+            // Create a payment
+            $payment = new Payment;
+            $payment->user_id = auth()->user()->id;
+            $payment->account_id = $request->input('account_id');
+            $payment->type = config('constants.payment.type.standard');
+            $payment->currency = $payment_plan->currency;
+            $payment->amount = $payment_plan->amount;
 
             // Update payment plan
-            if ($payment_plan->update()) {
-                return $this->actionSuccess('Payment plan was updated');
-            } else {
-                return $this->unavailableService();
-            }
-        } else {
-            // Return failure
-            return $this->notFound();
-        }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function unapproveByManagement(PaymentPlanUnapproveByManagementRequest $request)
-    {
-        // Find the supplied payment plan
-        $payment_plan = PaymentPlan::find($request->input('id'));
-
-        if ($payment_plan) {
-
-            // Fill requestor input
-            $payment_plan->visibility = config('constants.visibility.private');
-
-            // Update payment plan
-            if ($payment_plan->update()) {
-                return $this->actionSuccess('Payment plan was unapproved');
-            } else {
-                return $this->unavailableService();
-            }
-        } else {
-            // Return failure
-            return $this->notFound();
-        }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function approveByManagement(PaymentPlanApproveByManagementRequest $request)
-    {
-        // Find the supplied payment plan
-        $payment_plan = PaymentPlan::find($request->input('id'));
-
-        if ($payment_plan) {
-
-            // Fill requestor input
-            $payment_plan->visibility = config('constants.visibility.public');
-
-            // Update payment plan
-            if ($payment_plan->update()) {
-                return $this->actionSuccess('Payment plan was approved');
-            } else {
-                return $this->unavailableService();
-            }
-        } else {
-            // Return failure
-            return $this->notFound();
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy(PaymentPlanDestroyRequest $request)
-    {
-        // Use payment plan model passed in from request authorization
-        $payment_plan = $request->payment_plan;
-
-        if ($payment_plan) {
-
-            // Delete payment plan
-            if ($payment_plan->delete()) {
-                return $this->actionSuccess('Payment plan was deleted');
+            if ( $payment->save()) {
+                return $this->entityCreated($payment,'Payment was created');
             } else {
                 return $this->unavailableService();
             }

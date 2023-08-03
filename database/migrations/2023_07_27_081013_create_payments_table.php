@@ -18,6 +18,7 @@ class CreatePaymentsTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('user_id')->nullable()->index();
             $table->string('pfm')->unique()->index();
+            $table->unsignedBigInteger('account_id')->nullable();
 
             // Properties - payment
             $table->string('type', 50)->default('standard')->comment('standard, collect');

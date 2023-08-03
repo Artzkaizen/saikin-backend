@@ -67,6 +67,7 @@ Route::group(['middleware' => ['api'], 'prefix' => 'broadcast'], function ($rout
     Route::get('show', 'BroadcastController@show');
     Route::get('me', 'BroadcastController@me');
     Route::post('update', 'BroadcastController@update');
+    Route::post('preview', 'BroadcastController@preview');
     Route::get('placeholder/index', 'BroadcastController@placeHolderIndex');
     Route::post('placeholder/update', 'BroadcastController@placeHoldersUpdate');
     Route::post('delete', 'BroadcastController@destroy');

@@ -14,8 +14,10 @@ use App\Http\Requests\BroadcastControllerRequests\BroadcastSearchRequest;
 use App\Http\Requests\BroadcastControllerRequests\BroadcastStoreRequest;
 use App\Http\Requests\BroadcastControllerRequests\BroadcastShowRequest;
 use App\Http\Requests\BroadcastControllerRequests\BroadcastUpdateRequest;
+use App\Http\Requests\BroadcastControllerRequests\BroadcastPreviewRequest;
 use App\Http\Requests\BroadcastControllerRequests\BroadcastPlaceHolderIndexRequest;
 use App\Http\Requests\BroadcastControllerRequests\BroadcastPlaceHolderUpdateRequest;
+use App\Jobs\ProcessBroadcastForPreview;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -338,6 +340,44 @@ class BroadcastController extends Controller
         } else {
             // Return failure
             return $this->notFound();
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function preview(BroadcastPreviewRequest $request)
+    {
+        // Find user settings
+        $setting = Setting::find(auth()->user()->id);
+
+        // Fill the broadcast model
+        $broadcast = new Broadcast;
+        $broadcast = $broadcast->fill($request->toArray());
+
+        // Additional params
+        $broadcast->user_id = auth()->user()->id;
+        $broadcast->messages_before_pause = $setting->messages_before_pause;
+        $broadcast->minutes_before_resume = $setting->minutes_before_resume;
+
+        // Store new images to server or cloud service
+        $stored_images = MediaImages::images($request->file('photos'))
+        ->base64Images($request->input('base64_photos'))
+        ->imageUrls($request->input('url_photos'))
+        ->path('public/images/broadcast')->limit(9)->store()->pluck('image_url');
+
+        // Add images to model
+        $broadcast->pictures = $stored_images->isNotEmpty() ? $stored_images : $broadcast->pictures;
+
+        // Return success
+        if (ProcessBroadcastForPreview::dispatch($broadcast)) {
+            return $this->entityCreated($broadcast,'broadcast preview was sent');
+        } else {
+            // Return failure
+            return $this->unavailableService();
         }
     }
 

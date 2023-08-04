@@ -22,6 +22,14 @@ class PermissionRoleTableSeeder extends Seeder
             "update_account",
             "delete_account",
 
+            "index_benefit",
+            "store_benefit",
+            "show_benefit",
+            "update_benefit",
+            "assign_benefit",
+            "retract_benefit",
+            "delete_benefit",
+
             "index_broadcast",
             "filter_index_broadcast",
             "search_index_broadcast",

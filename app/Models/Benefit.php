@@ -82,7 +82,7 @@ class Benefit extends Model
     /**
      * Establishes a belongs to many relationship with Payment plans table
      */
-    public function paymentPlan()
+    public function paymentPlans()
     {
         return $this->belongsToMany(PaymentPlan::class);
     }

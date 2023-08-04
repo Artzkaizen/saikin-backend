@@ -58,6 +58,19 @@ Route::group(['middleware' => ['api'], 'prefix' => 'auth'], function ($router) {
     Route::get('socialite/test', 'SocialiteController@test');
 });
 
+Route::group(['middleware' => ['api'], 'prefix' => 'benefit'], function ($router) {
+
+    // Benefit Routes
+    Route::get('index', 'BenefitController@index');
+    Route::post('store', 'BenefitController@store');
+    Route::get('show', 'BenefitController@show');
+    Route::post('update', 'BenefitController@update');
+    Route::post('assign', 'BenefitController@assign');
+    Route::post('retract', 'BenefitController@retract');
+    Route::post('delete', 'BenefitController@destroy');
+    Route::get('test', 'BenefitController@test');
+});
+
 Route::group(['middleware' => ['api'], 'prefix' => 'broadcast'], function ($router) {
 
     // Broadcast Routes

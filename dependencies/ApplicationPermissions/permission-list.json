@@ -31,6 +31,43 @@
             "description":"Delete a specific account"
         }
     ],
+    "BenefitController":[
+        {
+            "name":"index_benefit",
+            "display_name":"View all benefits",
+            "description":"See all available benefits"
+        },
+        {
+            "name":"store_benefit",
+            "display_name":"Create benefit",
+            "description":"Create a benefit"
+        },
+        {
+            "name":"show_benefit",
+            "display_name":"View benefit",
+            "description":"See a specific benefit"
+        },
+        {
+            "name":"update_benefit",
+            "display_name":"Edit a benefit",
+            "description":"Edit the details of a specific benefit"
+        },
+        {
+            "name":"assign_benefit",
+            "display_name":"Assign benefit",
+            "description":"Assign a specific benefit to a payment plan"
+        },
+        {
+            "name":"retract_benefit",
+            "display_name":"Retract benefit",
+            "description":"Retract a specific benefit from a payment plan"
+        },
+        {
+            "name":"delete_benefit",
+            "display_name":"Delete benefit",
+            "description":"Delete a specific benefit"
+        }
+    ],
     "BroadcastController":[
         {
             "name":"index_broadcast",

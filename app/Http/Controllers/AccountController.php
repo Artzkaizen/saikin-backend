@@ -260,7 +260,7 @@ class AccountController extends Controller
     public function me(AccountMeRequest $request)
     {
         // Get a single user account
-        $accounts = Account::when($request->input('properties'),function ($query) { return $query->with('user'); })
+        $accounts = Account::when($request->input('properties'),function ($query) { return $query->with('user','browser'); })
         ->where('user_id',auth()->user()->id)
         ->get();
 
@@ -332,6 +332,8 @@ class AccountController extends Controller
             return $this->notFound();
         }
 
+        dispatch(function () use ($account, $user_id) {
+
             // Dispatch
             if (!$account->browser) {
 
@@ -370,6 +372,8 @@ class AccountController extends Controller
                 // Save browser
                 $browser->save();
             }
+
+        })->onQueue('linkWhatsAppQRCode');
 
         // Return success
         return $this->actionSuccess('Browser was created');

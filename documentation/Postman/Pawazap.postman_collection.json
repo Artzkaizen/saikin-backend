@@ -392,7 +392,7 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "{{url}}/api/account/poll-wa-qr-code?id=21",
+							"raw": "{{url}}/api/account/poll-wa-qr-code?id=51",
 							"host": [
 								"{{url}}"
 							],
@@ -404,7 +404,46 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "21",
+									"value": "51",
+									"description": "Required( Accepts an integer value )"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Link an Account With WhatsApp Via Phone Number",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}/api/account/link-wa-phone-number?id=51",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"account",
+								"link-wa-phone-number"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "51",
 									"description": "Required( Accepts an integer value )"
 								}
 							]

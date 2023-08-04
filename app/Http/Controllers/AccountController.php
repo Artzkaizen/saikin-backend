@@ -17,6 +17,7 @@ use App\Http\Requests\AccountControllerRequests\AccountStoreRequest;
 use App\Http\Requests\AccountControllerRequests\AccountUpdateRequest;
 use App\Http\Requests\AccountControllerRequests\AccountLinkWhatsAppQRCodeRequest;
 use App\Http\Requests\AccountControllerRequests\AccountPollWhatsAppQRCodeRequest;
+use App\Http\Requests\AccountControllerRequests\AccountLinkWhatsAppPhoneNumberRequest;
 use App\Http\Requests\AccountControllerRequests\AccountFetchWhatsAppGroupsRequest;
 use App\Whatsapp\WhatsAppLogin;
 use Illuminate\Http\Request;
@@ -397,6 +398,66 @@ class AccountController extends Controller
             // Return Failure
             return $this->notFound();
         }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function linkWhatsAppPhoneNumber(AccountLinkWhatsAppPhoneNumberRequest $request)
+    {
+        // Use account model passed in from request authorization
+        $account = $request->account;
+        $user_id = auth()->user()->id;
+
+        if (!$account) {
+            // Return failure
+            return $this->notFound();
+        }
+
+        // Dispatch
+        if (!$account->browser) {
+
+            // Deploy browser
+            $unique_identifier = $user_id.$account->id;
+            $WhatsAppLogin = new WhatsAppLogin();
+            $WhatsAppLogin = $WhatsAppLogin->openBrowserSession()->LoginWithPhoneNumber($unique_identifier,$account->phone);
+
+            // Fill the user browser model
+            $browser = new Browser;
+
+            // Additional params
+            $browser->user_id = $user_id;
+            $browser->account_id = $account->id;
+            $browser->session_id = $WhatsAppLogin->getBrowserSessionId();
+            $browser->browser_instance = $WhatsAppLogin->getBrowserInstance();
+
+            // Save browser
+            $browser->save();
+        }
+
+        if ($account->browser) {
+
+            // Deploy browser
+            $unique_identifier = $user_id.$account->id;
+            $WhatsAppLogin = new WhatsAppLogin();
+            $WhatsAppLogin = $WhatsAppLogin->continueBrowserSession($account->browser->session_id)->LoginWithPhoneNumber($unique_identifier,$account->phone);
+
+            // Fill the user browser model
+            $browser = Browser::find($account->browser->id);
+
+            // Additional params
+            $browser->session_id = $WhatsAppLogin->getBrowserSessionId();
+            $browser->browser_instance = $WhatsAppLogin->getBrowserInstance();
+
+            // Save browser
+            $browser->save();
+        }
+
+        // Return success
+        return $this->entityCreated($WhatsAppLogin->login_with_phone_number_code,'Browser was created');
     }
 
     /**

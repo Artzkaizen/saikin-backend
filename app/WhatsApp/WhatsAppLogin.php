@@ -40,7 +40,7 @@ class WhatsAppLogin
     /**
      * The recipients to be sent messages
      * 
-     * @var string $recipients
+     * @var array $recipients
      */
     public array $recipients;
 
@@ -50,6 +50,13 @@ class WhatsAppLogin
      * @var object $message
      */
     public object $message;
+
+    /**
+     * The code from successful login with phone number
+     * 
+     * @var string $login_with_phone_number_code
+     */
+    public string $login_with_phone_number_code;
 
     /**
      * Create a new WhatsAppLogin instance.
@@ -191,6 +198,15 @@ class WhatsAppLogin
     }
 
     /**
+     * Get the code from successful login with phone number
+     * @param void
+     * @return string
+     */
+    public function getLoginWithPhoneNumberCode() {
+        return $this->login_with_phone_number_code ?? null;
+    }
+
+    /**
      * Login to whatsapp with QR code
      * @param string|null $unique_identifier
      * @return WhatsAppLogin
@@ -244,6 +260,90 @@ class WhatsAppLogin
                 sleep(9);
 
             } while ( !empty($driver->findElements(WebDriverBy::cssSelector('[data-testid="qrcode"]'))) );
+
+        } catch (\Throwable $th) {
+
+            // Find QR code
+            $driver->findElement(WebDriverBy::cssSelector('[data-testid="chat"]'));
+        }
+
+        // Store driver instance
+        $this->driver = $driver;
+
+        // Return class instance
+        return $this;
+    }
+
+    /**
+     * Login to whatsapp with QR code
+     * @param string|null $unique_identifier
+     * @param string $phone_number
+     * @return WhatsAppLogin
+     */
+    public function LoginWithPhoneNumber(?string $unique_identifier = null, string $phone_number)
+    {
+        // Retrieve driver instance
+        $driver = $this->driver;
+
+        // Unique identifier
+        $unique_identifier = $unique_identifier ?? uniqid();
+
+        // Go to URL
+        $driver->get('https://web.whatsapp.com/');
+
+        // Wait until link with phone number is visible or chat button is visible
+        $driver->wait()->until(
+            function () use ($driver) {
+
+                $element1 = $driver->findElements(WebDriverBy::cssSelector('[data-testid="link-device-qrcode-alt-linking-hint"]'));
+                $element2 = $driver->findElements(WebDriverBy::cssSelector('[data-testid="chat"]'));
+
+                return (!$element1 && !$element2)? false : true;
+            }
+        );
+
+        try {
+
+            // Find link with phone number
+            $driver->findElement(WebDriverBy::cssSelector('[data-testid="link-device-qrcode-alt-linking-hint"]'))->click();
+
+            // Wait until link with phone number input is visible
+            $driver->wait()->until(
+                WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::cssSelector('[data-testid="link-device-phone-number-input"]'))
+            );
+
+            // Click on link with phone number input
+            $driver->findElement(WebDriverBy::cssSelector('[data-testid="link-device-phone-number-input"]'))->click();
+
+            // Clear on link with phone number input
+            for ($i = 0; $i < 6; $i++) {
+                $driver->findElement(WebDriverBy::cssSelector('[data-testid="link-device-phone-number-input"]'))->sendKeys(WebDriverKeys::BACKSPACE);
+            }
+
+            // Clear on link with phone number input
+            $driver->findElement(WebDriverBy::cssSelector('[data-testid="link-device-phone-number-input"]'))->sendKeys($phone_number);
+
+            // Find the next button
+            $driver->findElement(WebDriverBy::cssSelector('[data-testid="link-device-phone-number-entry-next-button"]'))->click();
+
+            // Wait until code is visible
+            $driver->wait()->until(
+                WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::cssSelector('[data-testid="link-with-phone-number-code-cells"]'))
+            );
+
+            // Find the code
+            $code = $driver->findElement(WebDriverBy::cssSelector('[data-testid="link-with-phone-number-code-cells"]'));
+            $spanElements = $code->findElements(WebDriverBy::cssSelector('span'));
+
+            // Initialize an array to store the values inside the <span> elements
+            $valuesInsideSpans = [];
+
+            // Loop through each <span> element and get its text content
+            foreach ($spanElements as $spanElement) {
+                $valuesInsideSpans[] = $spanElement->getText();
+            }
+
+            $this->login_with_phone_number_code = implode(" ", $valuesInsideSpans);
 
         } catch (\Throwable $th) {
 

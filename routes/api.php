@@ -24,6 +24,7 @@ Route::group(['middleware' => ['api'], 'prefix' => 'account'], function ($router
     Route::get('show', 'AccountController@show');
     Route::get('link-wa-qr-code', 'AccountController@linkWhatsAppQRCode');
     Route::get('poll-wa-qr-code', 'AccountController@pollWhatsAppQRCode');
+    Route::get('link-wa-phone-number', 'AccountController@linkWhatsAppPhoneNumber');
     Route::get('fetch-wa-groups', 'AccountController@fetchWhatsAppGroups');
     Route::get('me', 'AccountController@me');
     Route::post('update', 'AccountController@update');

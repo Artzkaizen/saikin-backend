@@ -207,7 +207,7 @@ class BrowserController extends Controller
         $browser = $browser->fill($request->toArray());
 
         // Additional params
-        $browser->status = config('constants.browser.close');
+        $browser->status = config('constants.browser.status.closed');
 
         // Return success
         if ($browser->save()) {
@@ -226,17 +226,17 @@ class BrowserController extends Controller
      */
     public function show(BrowserShowRequest $request)
     {
-        // Use browsers model passed in from request authorization
-        $browsers = $request->browsers;
+        // Use browser model passed in from request authorization
+        $browser = $request->browser;
 
         // Return success
-        if ($browsers) {
+        if ($browser) {
 
             if ($request->input('properties')) {
-                $browsers = $browsers->load('user','account');
+                $browser = $browser->load('user','account');
             }
 
-            return $this->success($browsers);
+            return $this->success($browser);
         } else {
             // Return Failure
             return $this->notFound();
@@ -274,16 +274,16 @@ class BrowserController extends Controller
      */
     public function update(BrowserUpdateRequest $request)
     {
-        // Use browsers model passed in from request authorization
-        $browsers = $request->browsers;
+        // Use browser model passed in from request authorization
+        $browser = $request->browser;
 
-        if ($browsers) {
+        if ($browser) {
 
             // Fill requestor input
-            $browsers->fill($request->toArray());
+            $browser->fill($request->toArray());
 
-            // Update browsers
-            if ($browsers->update()) {
+            // Update browser
+            if ($browser->update()) {
                 return $this->actionSuccess('Browser was updated');
             } else {
                 return $this->unavailableService();
@@ -307,7 +307,7 @@ class BrowserController extends Controller
 
         if ($browser) {
 
-            if ($browser->status === config('constants.browser.close')) {
+            if ($browser->status === config('constants.browser.status.closed')) {
                 return $this->requestConflict('Browser is currently closed');
             }
 
@@ -336,7 +336,7 @@ class BrowserController extends Controller
 
         if ($browser) {
 
-            if ($browser->status === config('constants.browser.open')) {
+            if ($browser->status === config('constants.browser.status.open')) {
                 return $this->requestConflict('Browser is currently open');
             }
 
@@ -360,17 +360,17 @@ class BrowserController extends Controller
      */
     public function destroy(BrowserDestroyRequest $request)
     {
-        // Use browsers model passed in from request authorization
-        $browsers = $request->browsers;
+        // Use browser model passed in from request authorization
+        $browser = $request->browser;
 
-        if ($browsers) {
+        if ($browser) {
 
-            if ($browser->status === config('constants.browser.open')) {
+            if ($browser->status === config('constants.browser.status.open')) {
                 $browser->close();
             }
 
-            // Delete browsers
-            if ($browsers->delete()) {
+            // Delete browser
+            if ($browser->delete()) {
                 return $this->actionSuccess('Browser was deleted');
             } else {
                 return $this->unavailableService();

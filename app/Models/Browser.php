@@ -89,7 +89,7 @@ class Browser extends Model
      */
     public function open()
     {
-        $this->status = config('constants.browser.open');
+        $this->status = config('constants.browser.status.open');
         return $this->save();
     }
 
@@ -101,7 +101,7 @@ class Browser extends Model
      */
     public function close()
     {
-        $this->status = config('constants.browser.close');
+        $this->status = config('constants.browser.status.closed');
         return $this->save();
     }
 }

@@ -1731,6 +1731,258 @@
 			"description": "View and control cache content"
 		},
 		{
+			"name": "Benefits",
+			"item": [
+				{
+					"name": "Get all Benefits",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/benefit/index?properties=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"benefit",
+								"index"
+							],
+							"query": [
+								{
+									"key": "properties",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)"
+								},
+								{
+									"key": "deleted",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store Benefit",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "dump",
+									"description": "required( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "display_name",
+									"value": "dump contacts",
+									"description": "required( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "dump all contacts",
+									"description": "required( Accepts string value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/benefit/store",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"benefit",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Benefit",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "benefit_id",
+									"value": "79",
+									"description": "required( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "dump-all",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "display_name",
+									"value": "dump all contacts",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "dump all contacts desc",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/benefit/update",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"benefit",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show a Benefit",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}/api/benefit/show?benefit_id=79",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"benefit",
+								"show"
+							],
+							"query": [
+								{
+									"key": "benefit_id",
+									"value": "79",
+									"description": "Required( Accepts an integer value )"
+								},
+								{
+									"key": "properties",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Benefit",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "benefit_id",
+									"value": "16",
+									"description": "Required( Accepts an integer value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/benefit/delete",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"benefit",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Benefit Model",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/benefit/test",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"benefit",
+								"test"
+							]
+						},
+						"description": "Test if the user sms notification model is responsive"
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Broadcasts",
 			"item": [
 				{
@@ -2899,6 +3151,451 @@
 							"path": [
 								"api",
 								"broadcast-template",
+								"test"
+							]
+						},
+						"description": "Test if the user sms notification model is responsive"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Browsers",
+			"item": [
+				{
+					"name": "Get all Browser",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/browser/index?properties=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"browser",
+								"index"
+							],
+							"query": [
+								{
+									"key": "properties",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)"
+								},
+								{
+									"key": "deleted",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter Browser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "dece6b44-e6fe-4eb5-a910-946c650b964d",
+									"description": "optional( Accepts UUID value )",
+									"type": "text"
+								},
+								{
+									"key": "account_id",
+									"value": "34",
+									"description": "optional( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "session_id",
+									"value": "09033445567",
+									"description": "optional( Accepts numeric value )",
+									"type": "text"
+								},
+								{
+									"key": "pagination",
+									"value": "1",
+									"description": "optional( Accepts integer value )",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/browser/filter/index",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"browser",
+								"filter",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store Browser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "5c0f8b7a-77a6-467f-b294-1bf7c5cfcd24",
+									"description": "required( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "account_id",
+									"value": "51",
+									"description": "required( Accepts intger value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/browser/store",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"browser",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Browser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "required( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "5c0f8b7a-77a6-467f-b294-1bf7c5cfcd24",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "account_id",
+									"value": "51",
+									"description": "optional( Accepts integer value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/browser/update",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"browser",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Browser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "search",
+									"value": "5c0f8b7a-77a6-467f-b294-1bf7c5cfcd24",
+									"description": "Required (min:3 characters) (Date Formats Supported)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/browser/search/index",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"browser",
+								"search",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show a Browser",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}/api/browser/show?id=1&properties=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"browser",
+								"show"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Required( Accepts an integer value )"
+								},
+								{
+									"key": "properties",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Close a Browser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "required( Accepts integer value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/browser/close/management",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"browser",
+								"close",
+								"management"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Open a Browser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "required( Accepts integer value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/browser/open/management",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"browser",
+								"open",
+								"management"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Browser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Required( Accepts an integer value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/browser/delete",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"browser",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show my Browser",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}/api/browser/me?properties=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"browser",
+								"me"
+							],
+							"query": [
+								{
+									"key": "properties",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Browser Model",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/browser/test",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"browser",
 								"test"
 							]
 						},

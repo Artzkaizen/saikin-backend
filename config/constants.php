@@ -70,5 +70,12 @@ return [
             'success' => 'success',
             'failure' => 'failure',
         ]
+    ],
+    'browser'=>[
+        'status'=>[
+            'open'=>'open',
+            'idle'=>'idle',
+            'closed'=>'closed'
+        ]
     ]
 ];

@@ -102,6 +102,22 @@ Route::group(['middleware' => ['api'], 'prefix' => 'broadcast-template'], functi
     Route::get('test', 'BroadcastTemplateController@test');
 });
 
+Route::group(['middleware' => ['api'], 'prefix' => 'browser'], function ($router) {
+
+    // Browser Routes
+    Route::get('index', 'BrowserController@index');
+    Route::post('filter/index', 'BrowserController@filterIndex');
+    Route::post('search/index', 'BrowserController@searchIndex');
+    Route::post('store', 'BrowserController@store');
+    Route::get('me', 'BrowserController@me');
+    Route::get('show', 'BrowserController@show');
+    Route::post('update', 'BrowserController@update');
+    Route::post('open/management', 'BrowserController@openByManagement');
+    Route::post('close/management', 'BrowserController@closeByManagement');
+    Route::post('delete', 'BrowserController@destroy');
+    Route::get('test', 'BrowserController@test');
+});
+
 Route::group(['middleware' => ['api'], 'prefix' => 'cache'], function ($router) {
 
     // Cache Routes

@@ -80,4 +80,28 @@ class Browser extends Model
     {
         return $this->belongsTo(Account::class);
     }
+
+    /**
+     * Open the browser
+     * 
+     * @param void
+     * @return bool
+     */
+    public function open()
+    {
+        $this->status = config('constants.browser.open');
+        return $this->save();
+    }
+
+    /**
+     * Close the browser
+     * 
+     * @param void
+     * @return bool
+     */
+    public function close()
+    {
+        $this->status = config('constants.browser.close');
+        return $this->save();
+    }
 }

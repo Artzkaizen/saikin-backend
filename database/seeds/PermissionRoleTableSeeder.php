@@ -46,6 +46,16 @@ class PermissionRoleTableSeeder extends Seeder
             "update_broadcast_template",
             "delete_broadcast_template",
 
+            "index_browser",
+            "filter_index_browser",
+            "search_index_browser",
+            "store_browser",
+            "show_browser",
+            "update_browser",
+            "close_browser_as_management",
+            "open_browser_as_management",
+            "delete_browser",
+
             "index_cache",
             "clear_cache",
 

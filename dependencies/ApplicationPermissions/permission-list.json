@@ -142,6 +142,53 @@
             "description":"Delete a specific broadcast template"
         }
     ],
+    "BrowserController":[
+        {
+            "name":"index_browser",
+            "display_name":"View all browsers",
+            "description":"See all available browsers"
+        },
+        {
+            "name":"filter_index_browser",
+            "display_name":"Filter browsers",
+            "description":"Filter through all available browsers"
+        },
+        {
+            "name":"search_index_browser",
+            "display_name":"Search browsers",
+            "description":"Search through all available browsers"
+        },
+        {
+            "name":"store_browser",
+            "display_name":"Create browser",
+            "description":"Create a browser"
+        },
+        {
+            "name":"show_browser",
+            "display_name":"View browser",
+            "description":"See a specific browser"
+        },
+        {
+            "name":"update_browser",
+            "display_name":"Edit a browser",
+            "description":"Edit the details of a specific browser"
+        },
+        {
+            "name":"close_browser_as_management",
+            "display_name":"Close a browser",
+            "description":"Close a specific browser"
+        },
+        {
+            "name":"open_browser_as_management",
+            "display_name":"Open a browser",
+            "description":"Open a specific browser"
+        },
+        {
+            "name":"delete_browser",
+            "display_name":"Delete browser",
+            "description":"Delete a specific browser"
+        }
+    ],
     "CacheController":[
         {
             "name":"index_cache",

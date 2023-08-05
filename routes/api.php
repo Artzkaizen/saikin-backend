@@ -209,12 +209,12 @@ Route::group(['middleware' => ['api'], 'prefix' => 'payment-plan'], function ($r
 Route::group(['middleware' => ['api'], 'prefix' => 'public/payment-plan'], function ($router) {
 
     // Public Payment Plan Routes
-    Route::get('index', 'PaymentPlanController@index');
-    Route::post('filter/index', 'PaymentPlanController@filterIndex');
-    Route::post('search/index', 'PaymentPlanController@searchIndex');
-    Route::get('show', 'PaymentPlanController@show');
-    Route::post('pay', 'PaymentPlanController@pay');
-    Route::get('test', 'PaymentPlanController@test');
+    Route::get('index', 'PublicPaymentPlanController@index');
+    Route::post('filter/index', 'PublicPaymentPlanController@filterIndex');
+    Route::post('search/index', 'PublicPaymentPlanController@searchIndex');
+    Route::get('show', 'PublicPaymentPlanController@show');
+    Route::post('pay', 'PublicPaymentPlanController@pay');
+    Route::get('test', 'PublicPaymentPlanController@test');
 });
 
 Route::group(['middleware' => ['api'], 'prefix' => 'role'], function ($router) {

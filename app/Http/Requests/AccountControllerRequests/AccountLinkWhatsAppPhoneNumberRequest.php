@@ -46,6 +46,7 @@ class AccountLinkWhatsAppPhoneNumberRequest extends FormRequest
     {
         return [
             'id' => 'required|integer|min:1',
+            'phone' => 'sometimes|required|numeric|digits_between:1,25',
         ];
     }
 
@@ -60,6 +61,11 @@ class AccountLinkWhatsAppPhoneNumberRequest extends FormRequest
             'id.required' => 'An id is required',
             'id.integer'  => 'Id characters are not valid, Integer is expected',
             'id.min'  => 'Id can not be less than 1',
+
+            'phone.sometimes' => 'A phone number should be present, else entirely exclude the field',
+            'phone.required' => 'A phone number maybe required',
+            'phone.numeric' => 'Phone number characters are not valid',
+            'phone.digits_between' => 'A phone number can not have more than 25 characters or less than 1',
         ];
     }
 }

@@ -415,10 +415,10 @@ class AccountController extends Controller
         // Use account model passed in from request authorization
         $account = $request->account;
         $user_id = auth()->user()->id;
+        $phone_number = $request->input('phone') ? '+'.$request->input('phone') : '+'.$account->phone;
 
-        if (!$account) {
-            // Return failure
-            return $this->notFound();
+        if (!$request->input('phone') && !$account->phone) {
+            return $this->unavailableService('phone number is not valid');
         }
 
         // Dispatch
@@ -427,7 +427,7 @@ class AccountController extends Controller
             // Deploy browser
             $unique_identifier = $user_id.$account->id;
             $WhatsAppLogin = new WhatsAppLogin();
-            $WhatsAppLogin = $WhatsAppLogin->openBrowserSession()->LoginWithPhoneNumber($unique_identifier,$account->phone);
+            $WhatsAppLogin = $WhatsAppLogin->openBrowserSession()->LoginWithPhoneNumber($unique_identifier,$phone_number);
 
             // Fill the user browser model
             $browser = new Browser;
@@ -447,7 +447,7 @@ class AccountController extends Controller
             // Deploy browser
             $unique_identifier = $user_id.$account->id;
             $WhatsAppLogin = new WhatsAppLogin();
-            $WhatsAppLogin = $WhatsAppLogin->continueBrowserSession($account->browser->session_id)->LoginWithPhoneNumber($unique_identifier,$account->phone);
+            $WhatsAppLogin = $WhatsAppLogin->continueBrowserSession($account->browser->session_id)->LoginWithPhoneNumber($unique_identifier,$phone_number);
 
             // Fill the user browser model
             $browser = Browser::find($account->browser->id);

@@ -19,7 +19,7 @@ use App\Http\Requests\AccountControllerRequests\AccountLinkWhatsAppQRCodeRequest
 use App\Http\Requests\AccountControllerRequests\AccountPollWhatsAppQRCodeRequest;
 use App\Http\Requests\AccountControllerRequests\AccountLinkWhatsAppPhoneNumberRequest;
 use App\Http\Requests\AccountControllerRequests\AccountFetchWhatsAppGroupsRequest;
-use App\Whatsapp\WhatsAppLogin;
+use App\WhatsApp\WhatsAppLogin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 

@@ -17,17 +17,17 @@ class CreateEmbeddedFormsTable extends Migration
             // Identification
             $table->id();
             $table->uuid('user_id')->index();
+            $table->unsignedBigInteger('group_id')->index();
 
             // Properties - embedded form
             $table->string('title',100);
-            $table->unsignedBigInteger('group_id');
             $table->string('custom_short_url',255)->nullable();
             $table->mediumText('description')->nullable();
             $table->json('input_fields')->nullable();
             $table->string('form_header_text', 255)->nullable();
-            $table->mediumText('form_header_image', 255)->nullable();
+            $table->mediumText('form_header_images', 255)->nullable();
             $table->string('form_footer_text', 255)->nullable();
-            $table->mediumText('form_footer_image', 255)->nullable();
+            $table->mediumText('form_footer_images', 255)->nullable();
             $table->string('form_background_color',20)->nullable();
             $table->string('form_width',30)->nullable()->comment('small,normal,large');
             $table->string('form_border_radius',10)->nullable();

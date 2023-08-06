@@ -24,9 +24,9 @@ class EmbeddedForm extends Model
         'description',
         'input_fields',
         'form_header_text',
-        'form_header_image',
+        'form_header_images',
         'form_footer_text',
-        'form_footer_image',
+        'form_footer_images',
         'form_background_color',
         'form_width',
         'form_border_radius',
@@ -57,8 +57,8 @@ class EmbeddedForm extends Model
      */
     protected $casts = [
         'input_fields' => 'array',
-        'form_header_image' => BaseUrlArrayCast::class,
-        'form_footer_image' => BaseUrlArrayCast::class,
+        'form_header_images' => BaseUrlArrayCast::class,
+        'form_footer_images' => BaseUrlArrayCast::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];

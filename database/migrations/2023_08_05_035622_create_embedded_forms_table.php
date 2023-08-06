@@ -21,7 +21,7 @@ class CreateEmbeddedFormsTable extends Migration
 
             // Properties - embedded form
             $table->string('title',100);
-            $table->string('custom_short_url',255)->nullable();
+            $table->string('custom_short_url',100)->nullable();
             $table->mediumText('description')->nullable();
             $table->json('input_fields')->nullable();
             $table->string('form_header_text', 255)->nullable();

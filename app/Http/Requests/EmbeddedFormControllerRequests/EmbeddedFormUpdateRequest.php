@@ -56,7 +56,7 @@ class EmbeddedFormUpdateRequest extends FormRequest
             'id' => 'required|integer|min:1',
             'group_id' => 'sometimes|required|integer|min:1',
             'title' => 'sometimes|required|string|max:100',
-            'custom_short_url' => 'sometimes|required|url|max:255',
+            'custom_short_url' => 'sometimes|required|url|max:100',
             'description' => 'sometimes|required|string|max:16777215',
 
             'input_fields' => 'required|array',

@@ -19,7 +19,7 @@ class CreateEmbeddedFormsTable extends Migration
             $table->uuid('user_id')->index();
 
             // Properties - embedded form
-            $table->string('name',100);
+            $table->string('title',100);
             $table->unsignedBigInteger('group_id');
             $table->string('custom_short_url',255)->nullable();
             $table->mediumText('description')->nullable();

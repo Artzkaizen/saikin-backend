@@ -40,7 +40,10 @@ class ContactController extends Controller
             // Get all contacts with all their relations
             $contacts = Contact::with([
                 'user',
-            ])->orderBy('created_at', 'desc')
+            ])->when($request->input('user_id'), function ($query) use ($request) {
+                return $query->where('user_id', $request->input('user_id'));
+
+            })->orderBy('created_at', 'desc')
             ->take(1000)
             ->paginate(25);
 
@@ -49,14 +52,20 @@ class ContactController extends Controller
             // Get all deleted contacts with all their relations
             $contacts = Contact::onlyTrashed()->with([
                 'user',
-            ])->orderBy('created_at', 'desc')
+            ])->when($request->input('user_id'), function ($query) use ($request) {
+                return $query->where('user_id', $request->input('user_id'));
+
+            })->orderBy('created_at', 'desc')
             ->take(1000)
             ->paginate(25);
 
         } else {
 
             // Get all contacts with out their relations
-            $contacts = Contact::orderBy('created_at', 'desc')
+            $contacts = Contact::when($request->input('user_id'), function ($query) use ($request) {
+                return $query->where('user_id', $request->input('user_id'));
+
+            })->orderBy('created_at', 'desc')
             ->take(1000)
             ->paginate(25);
         }

@@ -20,7 +20,7 @@ $factory->define(EmbeddedForm::class, function (Faker $faker) {
 
     return [
         'user_id' => $this->group->user_id,
-        'name' => $faker->unique()->word,
+        'title' => $faker->unique()->word,
         'group_id' => $this->group->id,
 
         'custom_short_url' => $faker->url(),

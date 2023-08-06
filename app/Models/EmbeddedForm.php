@@ -104,7 +104,7 @@ class EmbeddedForm extends Model
     /**
      * Establishes a belongs to relationship with groups table
      */
-    public function groups()
+    public function group()
     {
         return $this->belongsTo(Group::class);
     }

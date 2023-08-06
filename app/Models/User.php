@@ -219,4 +219,36 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Browser::class);
     }
+
+    /**
+     * Establishes a one to many relationship with broadcasts table
+     */
+    public function broadcasts()
+    {
+        return $this->hasMany(Broadcast::class);
+    }
+
+    /**
+     * Establishes a one to many relationship with contacts table
+     */
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
+    }
+
+    /**
+     * Establishes a one to many relationship with groups table
+     */
+    public function groups()
+    {
+        return $this->hasMany(Group::class);
+    }
+
+    /**
+     * Establishes a one to many relationship with embedded forms table
+     */
+    public function embeddedForms()
+    {
+        return $this->hasMany(EmbeddedForm::class);
+    }
 }

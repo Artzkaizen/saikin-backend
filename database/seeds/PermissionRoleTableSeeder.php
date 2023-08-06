@@ -62,9 +62,18 @@ class PermissionRoleTableSeeder extends Seeder
             "index_contact",
             "filter_index_contact",
             "search_index_contact",
+            "store_contact",
             "show_contact",
             "update_contact",
             "delete_contact",
+
+            "index_embedded_form",
+            "filter_index_embedded_form",
+            "search_index_embedded_form",
+            "store_embedded_form",
+            "show_embedded_form",
+            "update_embedded_form",
+            "delete_embedded_form",
 
             "index_group",
             "filter_index_group",
@@ -107,6 +116,9 @@ class PermissionRoleTableSeeder extends Seeder
             "assign_role",
             "retract_role",
             "delete_role",
+
+            "general_statistics",
+            "user_statistics",
 
             "index_setting",
             "filter_index_setting",

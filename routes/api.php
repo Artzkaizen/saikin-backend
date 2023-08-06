@@ -244,6 +244,13 @@ Route::group(['middleware' => ['api'], 'prefix' => 'role'], function ($router) {
     Route::get('test', 'RoleController@test');
 });
 
+Route::group(['middleware' => ['api'], 'prefix' => 'stats'], function ($router) {
+
+    // Statistics Routes
+    Route::post('general', 'StatisticsController@general');
+    Route::post('user', 'StatisticsController@user');
+});
+
 Route::group(['middleware' => ['api'], 'prefix' => 'setting'], function ($router) {
 
     // Setting Routes

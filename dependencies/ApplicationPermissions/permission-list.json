@@ -238,6 +238,43 @@
             "description":"Delete a specific contact"
         }
     ],
+    "EmbeddedFormController":[
+        {
+            "name":"index_embedded_form",
+            "display_name":"View all embedded forms",
+            "description":"See all available embedded forms"
+        },
+        {
+            "name":"filter_index_embedded_form",
+            "display_name":"Filter embedded forms",
+            "description":"Filter through all available embedded forms"
+        },
+        {
+            "name":"search_index_embedded_form",
+            "display_name":"Search embedded forms",
+            "description":"Search through all available embedded forms"
+        },
+        {
+            "name":"store_embedded_form",
+            "display_name":"Create embedded form",
+            "description":"Create an embedded form"
+        },
+        {
+            "name":"show_embedded_form",
+            "display_name":"View embedded form",
+            "description":"See a specific embedded form"
+        },
+        {
+            "name":"update_embedded_form",
+            "display_name":"Edit an embedded form",
+            "description":"Edit the details of a specific embedded form"
+        },
+        {
+            "name":"delete_embedded_form",
+            "display_name":"Delete embedded form",
+            "description":"Delete a specific embedded form"
+        }
+    ],
     "GroupController":[
         {
             "name":"index_group",
@@ -432,6 +469,18 @@
             "display_name":"Delete role",
             "description":"Delete a specific role"
         }
+    ],
+    "StatisticsController":[
+        {
+            "name":"general_statistics",
+            "display_name":"View general statistics",
+            "description":"See all general statistics of application"
+        },
+        {
+            "name":"user_statistics",
+            "display_name":"View user statistics",
+            "description":"See all statistics of a user"
+        }  
     ],
     "SettingController":[
         {

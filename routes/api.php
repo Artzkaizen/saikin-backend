@@ -140,6 +140,20 @@ Route::group(['middleware' => ['api'], 'prefix' => 'contact'], function ($router
     Route::get('test', 'ContactController@test');
 });
 
+Route::group(['middleware' => ['api'], 'prefix' => 'embedded-form'], function ($router) {
+
+    // Embedded Form Routes
+    Route::get('index', 'EmbeddedFormController@index');
+    Route::post('filter/index', 'EmbeddedFormController@filterIndex');
+    Route::post('search/index', 'EmbeddedFormController@searchIndex');
+    Route::post('store', 'EmbeddedFormController@store');
+    Route::get('show', 'EmbeddedFormController@show');
+    Route::get('me', 'EmbeddedFormController@me');
+    Route::post('update', 'EmbeddedFormController@update');
+    Route::post('delete', 'EmbeddedFormController@destroy');
+    Route::get('test', 'EmbeddedFormController@test');
+});
+
 Route::group(['middleware' => ['api'], 'prefix' => 'group'], function ($router) {
 
     // Group Routes

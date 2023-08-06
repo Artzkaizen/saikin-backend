@@ -26,7 +26,7 @@ class ContactFilterRequest extends FormRequest
             return true;
         }
 
-        return auth()->user()? $this->merge(['user_id' => auth()->user()->user_id]) : false;
+        return auth()->user()? $this->merge(['user_id' => auth()->user()->id]) : false;
     }
 
     /**

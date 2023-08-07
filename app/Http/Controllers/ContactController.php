@@ -12,7 +12,10 @@ use App\Http\Requests\ContactControllerRequests\ContactSearchRequest;
 use App\Http\Requests\ContactControllerRequests\ContactShowRequest;
 use App\Http\Requests\ContactControllerRequests\ContactStoreRequest;
 use App\Http\Requests\ContactControllerRequests\ContactUpdateRequest;
+use App\Http\Requests\ContactControllerRequests\SocialiteGoogleCallBackRequest;
 use Illuminate\Http\Request;
+use Google\Client;
+use Google\Service\PeopleService;
 use Socialite;
 
 class ContactController extends Controller
@@ -24,7 +27,7 @@ class ContactController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api')->except('redirectToGoogleProvider','handleGoogleProviderCallback');
         // $this->middleware('team:api');
     }
 
@@ -394,28 +397,21 @@ class ContactController extends Controller
             $refreshToken = $user->refreshToken; // not always provided
             $expiresIn = $user->expiresIn;
 
-            // All Providers
-            $provider = [
-                'user_id' => $user->getId(),
-                'user_nickname' => $user->getNickname(),
-                'user_name' => $user->getName(),
-                'user_email' => $user->getEmail(),
-                'user_avatar' => $user->getAvatar(),
-                'status' => config('constants.status.active'),
-                'provider_name' => config('constants.socialite.google')
-            ];
-
         } catch (\Throwable $th) {
             return $this->unavailableService($th->getMessage());
         }
 
-        // Check if user has an email
-        if ($provider['user_email']) {
+        $client = new Client();
+        $client->setAccessToken($user->token);
 
-            
-        } else {
-            return $this->requestConflict('Your social account has no email');
-        }
+        $peopleService = new PeopleService($client);
+        $connections = $peopleService->people_connections->listPeopleConnections('people/me', [
+            'personFields' => 'names,emailAddresses,phoneNumbers',
+        ]);
+
+        $contacts = $connections->getConnections();
+
+        return $this->success($contacts,'User contact was retrieved');
     }
 
     /**

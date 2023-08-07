@@ -137,6 +137,8 @@ Route::group(['middleware' => ['api'], 'prefix' => 'contact'], function ($router
     Route::get('me', 'ContactController@me');
     Route::post('update', 'ContactController@update');
     Route::post('delete', 'ContactController@destroy');
+    Route::get('socialite/google', 'ContactController@redirectToGoogleProvider');
+    Route::get('socialite/google/callback', 'ContactController@handleGoogleProviderCallback');
     Route::get('test', 'ContactController@test');
 });
 

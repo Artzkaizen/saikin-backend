@@ -18,10 +18,11 @@ class CreateEmbeddedFormsTable extends Migration
             $table->id();
             $table->uuid('user_id')->index();
             $table->unsignedBigInteger('group_id')->index();
+            $table->string('form_url',100)->unique()->index();
 
             // Properties - embedded form
             $table->string('title',100);
-            $table->string('custom_short_url',100)->nullable();
+            $table->string('custom_url',100)->nullable();
             $table->mediumText('description')->nullable();
             $table->json('input_fields')->nullable();
             $table->string('form_header_text', 255)->nullable();
@@ -38,7 +39,7 @@ class CreateEmbeddedFormsTable extends Migration
             $table->string('submit_button_text_after',100)->nullable();
             $table->string('thank_you_message',255)->nullable();
             $table->string('thank_you_message_url',255)->nullable();
-            $table->string('facebook_pix_cel_code',100)->nullable();
+            $table->string('facebook_pixel_code',100)->nullable();
             $table->unsignedTinyInteger('auto_responder_id')->nullable();
 
             // Status

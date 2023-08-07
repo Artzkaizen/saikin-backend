@@ -6,6 +6,7 @@ use App\Casts\BaseUrlArrayCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class EmbeddedForm extends Model
 {
@@ -20,7 +21,7 @@ class EmbeddedForm extends Model
     protected $fillable = [
         'name',
         'group_id',
-        'custom_short_url',
+        'custom_url',
         'description',
         'input_fields',
         'form_header_text',
@@ -37,7 +38,7 @@ class EmbeddedForm extends Model
         'submit_button_text_after',
         'thank_you_message',
         'thank_you_message_url',
-        'facebook_pix_cel_code',
+        'facebook_pixel_code',
         'auto_responder_id',
     ];
 
@@ -77,9 +78,15 @@ class EmbeddedForm extends Model
      */
     public static function boot()
     {
+        function random() {
+            $string = Str::random(10);
+            return EmbeddedForm::firstWhere('form_url', $string) ? random() : $string;
+        };
+
         parent::boot();
 
         self::creating(function ($model) {
+            $model->form_url = random();
             $model->created_by = auth()->user()->id;
         });
 

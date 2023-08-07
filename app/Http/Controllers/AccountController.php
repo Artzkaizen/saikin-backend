@@ -373,7 +373,7 @@ class AccountController extends Controller
                 $browser->save();
             }
 
-        })->onQueue('linkWhatsAppQRCode');
+        })->onQueue('linkWhatsAppQRCode')->afterResponse();
 
         // Return success
         return $this->actionSuccess('Browser was created');

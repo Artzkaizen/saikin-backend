@@ -67,8 +67,8 @@ class Contact extends Model
         parent::boot();
 
         self::creating(function ($model) {
-            $model->created_by = auth()->user()->id;
-        });
+            $model->created_by = auth()->user()? auth()->user()->id : null;
+        }); 
 
         self::updating(function ($model) {
             $model->updated_by = auth()->user()->id;

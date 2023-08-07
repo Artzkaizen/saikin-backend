@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Models\Contact;
+use App\Models\User;
 use App\Http\Requests\ContactControllerRequests\ContactDestroyRequest;
 use App\Http\Requests\ContactControllerRequests\ContactFilterRequest;
 use App\Http\Requests\ContactControllerRequests\ContactIndexRequest;
@@ -13,6 +14,7 @@ use App\Http\Requests\ContactControllerRequests\ContactShowRequest;
 use App\Http\Requests\ContactControllerRequests\ContactStoreRequest;
 use App\Http\Requests\ContactControllerRequests\ContactUpdateRequest;
 use App\Http\Requests\ContactControllerRequests\SocialiteGoogleCallBackRequest;
+use App\Jobs\ProcessContactImportForGoogle;
 use Illuminate\Http\Request;
 use Google\Client;
 use Google\Service\PeopleService;
@@ -392,26 +394,26 @@ class ContactController extends Controller
                 $user = Socialite::driver(config('constants.socialite.google'))->userFromToken($request->input('token'));
             }
 
-            // OAuth Two Providers
-            $token = $user->token;
-            $refreshToken = $user->refreshToken; // not always provided
-            $expiresIn = $user->expiresIn;
+            // Find user
+            $registered_user = User::where('email',$user->getEmail())->first() ?? auth()->user();
+            $registered_user = User::first();
+
+            // Use google client to access contacts
+            $client = new Client();
+            $client->setAccessToken($user->token);
+            $peopleService = new PeopleService($client);
+            $connections = $peopleService->people_connections->listPeopleConnections('people/me', ['personFields' => 'names,emailAddresses,phoneNumbers']);
+            $contacts = $connections->getConnections();
+
+            // dispatch
+            ProcessContactImportForGoogle::dispatchIf($registered_user, $registered_user, $contacts);
+
+            // Return success
+            return $this->actionSuccess('User contact was retrieved');
 
         } catch (\Throwable $th) {
             return $this->unavailableService($th->getMessage());
         }
-
-        $client = new Client();
-        $client->setAccessToken($user->token);
-
-        $peopleService = new PeopleService($client);
-        $connections = $peopleService->people_connections->listPeopleConnections('people/me', [
-            'personFields' => 'names,emailAddresses,phoneNumbers',
-        ]);
-
-        $contacts = $connections->getConnections();
-
-        return $this->success($contacts,'User contact was retrieved');
     }
 
     /**

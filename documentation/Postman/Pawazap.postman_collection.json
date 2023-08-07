@@ -92,6 +92,12 @@
 									"value": "1",
 									"description": "Optional( Accepts \"1\" or \"0\" value )",
 									"type": "text"
+								},
+								{
+									"key": "pagination",
+									"value": "1",
+									"description": "optional( Accepts integer value )",
+									"type": "text"
 								}
 							]
 						},
@@ -159,7 +165,7 @@
 								{
 									"key": "url_photos[]",
 									"value": "https://image.com/small.png",
-									"description": "Accepts Only Url (Optional) Max:8",
+									"description": "Accepts Only Url (Optional) Max:1",
 									"type": "text",
 									"disabled": true
 								}
@@ -233,7 +239,7 @@
 								{
 									"key": "url_photos[]",
 									"value": "https://image.com/small.png",
-									"description": "Accepts Only Url (Optional) Max:8",
+									"description": "Accepts Only Url (Optional) Max:1",
 									"type": "text",
 									"disabled": true
 								}
@@ -431,7 +437,7 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "{{url}}/api/account/link-wa-phone-number?id=51",
+							"raw": "{{url}}/api/account/link-wa-phone-number?id=51&phone=2349033445567",
 							"host": [
 								"{{url}}"
 							],
@@ -445,6 +451,10 @@
 									"key": "id",
 									"value": "51",
 									"description": "Required( Accepts an integer value )"
+								},
+								{
+									"key": "phone",
+									"value": "2349033445567"
 								}
 							]
 						}
@@ -2084,6 +2094,12 @@
 									"description": "optional (year-month-date)  (y-m-d)",
 									"type": "text",
 									"disabled": true
+								},
+								{
+									"key": "pagination",
+									"value": "1",
+									"description": "optional( Accepts integer value )",
+									"type": "text"
 								}
 							]
 						},
@@ -2755,6 +2771,12 @@
 									"description": "optional (year-month-date)  (y-m-d)",
 									"type": "text",
 									"disabled": true
+								},
+								{
+									"key": "pagination",
+									"value": "1",
+									"description": "optional( Accepts integer value )",
+									"type": "text"
 								}
 							]
 						},
@@ -4594,6 +4616,805 @@
 							"path": [
 								"api",
 								"group",
+								"test"
+							]
+						},
+						"description": "Test if the user sms notification model is responsive"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Embedded Form",
+			"item": [
+				{
+					"name": "Get all Embedded Form",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/embedded-form/index?properties=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"embedded-form",
+								"index"
+							],
+							"query": [
+								{
+									"key": "properties",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)"
+								},
+								{
+									"key": "deleted",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter Embedded Form",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "7560bfff-db7c-4b78-95c5-18ca17866ec4",
+									"description": "optional( Accepts UUID value )",
+									"type": "text"
+								},
+								{
+									"key": "group_id",
+									"value": "1",
+									"description": "optional( Accepts integer value )",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "hello",
+									"description": "optional( Accepts string value )",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "start_date",
+									"value": "2023-07-12",
+									"description": "optional (year-month-date)  (y-m-d)",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "end_date",
+									"value": "2022-12-30",
+									"description": "optional (year-month-date)  (y-m-d)",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "pagination",
+									"value": "1",
+									"description": "optional( Accepts integer value )",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/embedded-form/filter/index",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"embedded-form",
+								"filter",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store Embedded Form",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "group_id",
+									"value": "1",
+									"description": "required( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Cake Lovers Form",
+									"description": "required( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "custom_short_url",
+									"value": "https://website.com/code",
+									"description": "required( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "This is a description",
+									"description": "required( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[first_name][is_required]",
+									"value": "1",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[first_name][is_shown]",
+									"value": "1",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[last_name][is_required]",
+									"value": "0",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[last_name][is_shown]",
+									"value": "0",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[whatsapp_number][is_required]",
+									"value": "1",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[whatsapp_number][is_shown]",
+									"value": "1",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[email_address][is_required]",
+									"value": "1",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[email_address][is_shown]",
+									"value": "1",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[house_address][is_required]",
+									"value": "1",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[house_address][is_shown]",
+									"value": "1",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[custom][is_required]",
+									"value": "0",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[custom][is_shown]",
+									"value": "0",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "form_header_text",
+									"value": "i am the header",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "form_header_photos[]",
+									"description": "Accepts Only 'jpg','jpeg','png','gif','bmp'  (Optional) Max:1",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "form_header_base64_photos[]",
+									"value": "data:image/jpeg;base64,/9j/4AAQo....",
+									"description": "Accepts Only 'jpg','jpeg','png','gif','bmp'  (Optional) Max:1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "form_header_url_photos[]",
+									"value": "https://image.com/small.png",
+									"description": "Accepts Only Url (Optional) Max:1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "form_footer_text",
+									"value": "i am the footer",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "form_footer_photos[]",
+									"description": "Accepts Only 'jpg','jpeg','png','gif','bmp'  (Optional) Max:1",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								},
+								{
+									"key": "form_footer_base64_photos[]",
+									"value": "data:image/jpeg;base64,/9j/4AAQo....",
+									"description": "Accepts Only 'jpg','jpeg','png','gif','bmp'  (Optional) Max:1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "form_footer_url_photos[]",
+									"value": "https://image.com/small.png",
+									"description": "Accepts Only Url (Optional) Max:1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "form_background_color",
+									"value": "#32a852",
+									"description": "required( Accepts HEX value )",
+									"type": "text"
+								},
+								{
+									"key": "form_width",
+									"value": "large",
+									"description": "required( Accepts \"small\",  \"normal\", \"large\" value )",
+									"type": "text"
+								},
+								{
+									"key": "form_border_radius",
+									"value": "5",
+									"description": "optional( Accepts integer value ) Min:1 Max:10",
+									"type": "text"
+								},
+								{
+									"key": "submit_button_color",
+									"value": "#3240a8",
+									"description": "required( Accepts HEX value )",
+									"type": "text"
+								},
+								{
+									"key": "submit_button_text",
+									"value": "submit this",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "submit_button_text_color",
+									"value": "#f2f3fa",
+									"description": "required( Accepts HEX value )",
+									"type": "text"
+								},
+								{
+									"key": "submit_button_text_before",
+									"value": "i am the before submiting text",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "submit_button_text_after",
+									"value": "i am the after submiting text",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "thank_you_message",
+									"value": "thanks",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "thank_you_message_url",
+									"value": "https://thank-you-page/redirect",
+									"description": "optional( Accepts url value )",
+									"type": "text"
+								},
+								{
+									"key": "facebook_pixel_code",
+									"value": "588eyy38w3",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "auto_responder_id",
+									"value": "3",
+									"description": "optional( Accepts integer value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/embedded-form/store",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"embedded-form",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an Embedded Form",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "optional( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "group_id",
+									"value": "1",
+									"description": "required( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Cake Lovers Form",
+									"description": "required( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "custom_short_url",
+									"value": "https://website.com/code",
+									"description": "required( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "This is a description",
+									"description": "required( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[first_name][is_required]",
+									"value": "1",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[first_name][is_shown]",
+									"value": "1",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[last_name][is_required]",
+									"value": "0",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[last_name][is_shown]",
+									"value": "0",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[whatsapp_number][is_required]",
+									"value": "1",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[whatsapp_number][is_shown]",
+									"value": "1",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[email_address][is_required]",
+									"value": "1",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[email_address][is_shown]",
+									"value": "1",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[house_address][is_required]",
+									"value": "1",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[house_address][is_shown]",
+									"value": "1",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[custom][is_required]",
+									"value": "0",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "input_fields[custom][is_shown]",
+									"value": "0",
+									"description": "required 1 or 0",
+									"type": "text"
+								},
+								{
+									"key": "form_header_text",
+									"value": "i am the header",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "form_header_photos[]",
+									"description": "Accepts Only 'jpg','jpeg','png','gif','bmp'  (Optional) Max:1",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "form_header_base64_photos[]",
+									"value": "data:image/jpeg;base64,/9j/4AAQo....",
+									"description": "Accepts Only 'jpg','jpeg','png','gif','bmp'  (Optional) Max:1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "form_header_url_photos[]",
+									"value": "https://image.com/small.png",
+									"description": "Accepts Only Url (Optional) Max:1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "form_footer_text",
+									"value": "i am the footer",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "form_footer_photos[]",
+									"description": "Accepts Only 'jpg','jpeg','png','gif','bmp'  (Optional) Max:1",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								},
+								{
+									"key": "form_footer_base64_photos[]",
+									"value": "data:image/jpeg;base64,/9j/4AAQo....",
+									"description": "Accepts Only 'jpg','jpeg','png','gif','bmp'  (Optional) Max:1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "form_footer_url_photos[]",
+									"value": "https://image.com/small.png",
+									"description": "Accepts Only Url (Optional) Max:1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "form_background_color",
+									"value": "#32a852",
+									"description": "required( Accepts HEX value )",
+									"type": "text"
+								},
+								{
+									"key": "form_width",
+									"value": "large",
+									"description": "required( Accepts \"small\",  \"normal\", \"large\" value )",
+									"type": "text"
+								},
+								{
+									"key": "form_border_radius",
+									"value": "5",
+									"description": "optional( Accepts integer value ) Min:1 Max:10",
+									"type": "text"
+								},
+								{
+									"key": "submit_button_color",
+									"value": "#3240a8",
+									"description": "required( Accepts HEX value )",
+									"type": "text"
+								},
+								{
+									"key": "submit_button_text",
+									"value": "submit this",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "submit_button_text_color",
+									"value": "#f2f3fa",
+									"description": "required( Accepts HEX value )",
+									"type": "text"
+								},
+								{
+									"key": "submit_button_text_before",
+									"value": "i am the before submiting text",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "submit_button_text_after",
+									"value": "i am the after submiting text",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "thank_you_message",
+									"value": "thanks",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "thank_you_message_url",
+									"value": "https://thank-you-page/redirect",
+									"description": "optional( Accepts url value )",
+									"type": "text"
+								},
+								{
+									"key": "facebook_pixel_code",
+									"value": "588eyy38w3",
+									"description": "optional( Accepts string value )",
+									"type": "text"
+								},
+								{
+									"key": "auto_responder_id",
+									"value": "3",
+									"description": "optional( Accepts integer value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/embedded-form/update",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"embedded-form",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Embedded Form",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "search",
+									"value": "john",
+									"description": "Required (min:3 characters) (Date Formats Supported)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/embedded-form/search/index",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"embedded-form",
+								"search",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show an Embedded Form",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}/api/embedded-form/show?id=1&properties=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"embedded-form",
+								"show"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Required( Accepts an integer value )"
+								},
+								{
+									"key": "properties",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an Embedded Form",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "Required( Accepts an integer value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/embedded-form/delete",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"embedded-form",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show my Embedded Form",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}/api/embedded-form/me?properties=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"embedded-form",
+								"me"
+							],
+							"query": [
+								{
+									"key": "properties",
+									"value": "1",
+									"description": "Acceptes Only boolean('1','0') (Optional)"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Embedded Form Model",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/embedded-form/test",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"embedded-form",
 								"test"
 							]
 						},
@@ -7961,6 +8782,101 @@
 							""
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "Statistics",
+			"item": [
+				{
+					"name": "General Statics",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "start_date",
+									"value": "2023-07-12",
+									"description": "optional (year-month-date)  (y-m-d)",
+									"type": "text"
+								},
+								{
+									"key": "end_date",
+									"value": "2023-08-06",
+									"description": "optional( Accepts integer value )",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/stats/general",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"stats",
+								"general"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Statics",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "team",
+								"value": "{{team}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "start_date",
+									"value": "2023-07-12",
+									"description": "optional (year-month-date)  (y-m-d)",
+									"type": "text"
+								},
+								{
+									"key": "end_date",
+									"value": "2023-08-06",
+									"description": "optional( Accepts integer value )",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "7560bfff-db7c-4b78-95c5-18ca17866ec4",
+									"description": "Required( Accepts UUID)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/stats/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"stats",
+								"user"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

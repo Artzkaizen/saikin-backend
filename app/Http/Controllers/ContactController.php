@@ -13,6 +13,7 @@ use App\Http\Requests\ContactControllerRequests\ContactShowRequest;
 use App\Http\Requests\ContactControllerRequests\ContactStoreRequest;
 use App\Http\Requests\ContactControllerRequests\ContactUpdateRequest;
 use Illuminate\Http\Request;
+use Socialite;
 
 class ContactController extends Controller
 {
@@ -358,6 +359,62 @@ class ContactController extends Controller
         } else {
             // Return failure
             return $this->notFound();
+        }
+    }
+
+    /**
+     * Redirect the user to the Google authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToGoogleProvider()
+    {
+        return Socialite::driver(config('constants.socialite.google'))->stateless()->redirect()->getTargetUrl();
+    }
+
+    /**
+     * Obtain the user information from Google.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleGoogleProviderCallback(SocialiteGoogleCallBackRequest $request)
+    {
+        try {
+
+            if ($request->input('code')) {
+                $user = Socialite::driver(config('constants.socialite.google'))->stateless()->user();
+            }
+
+            if ($request->input('token')) {
+                $user = Socialite::driver(config('constants.socialite.google'))->userFromToken($request->input('token'));
+            }
+
+            // OAuth Two Providers
+            $token = $user->token;
+            $refreshToken = $user->refreshToken; // not always provided
+            $expiresIn = $user->expiresIn;
+
+            // All Providers
+            $provider = [
+                'user_id' => $user->getId(),
+                'user_nickname' => $user->getNickname(),
+                'user_name' => $user->getName(),
+                'user_email' => $user->getEmail(),
+                'user_avatar' => $user->getAvatar(),
+                'status' => config('constants.status.active'),
+                'provider_name' => config('constants.socialite.google')
+            ];
+
+        } catch (\Throwable $th) {
+            return $this->unavailableService($th->getMessage());
+        }
+
+        // Check if user has an email
+        if ($provider['user_email']) {
+
+            
+        } else {
+            return $this->requestConflict('Your social account has no email');
         }
     }
 

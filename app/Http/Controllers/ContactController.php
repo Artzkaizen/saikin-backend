@@ -395,8 +395,7 @@ class ContactController extends Controller
             }
 
             // Find user
-            $registered_user = User::where('email',$user->getEmail())->first() ?? auth()->user();
-            $registered_user = User::first();
+            $registered_user = auth()->user()? User::where('email',auth()->user()->id)->first() : User::where('email',$user->getEmail())->first();
 
             // Use google client to access contacts
             $client = new Client();

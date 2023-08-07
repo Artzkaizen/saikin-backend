@@ -32,7 +32,7 @@ class ProcessContactImportForGoogle implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param App\Model\User|object
+     * @param App\Model\User
      * @param array $contacts
      * @return void
      */

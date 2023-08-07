@@ -8,11 +8,11 @@ use App\Models\Contact;
 use App\Models\EmbeddedForm;
 use App\Models\Group;
 use App\Models\User;
-use App\Models\PaymentPlan;
 use App\Http\Requests\StatisticsControllerRequests\StatisticsGeneralRequest;
 use App\Http\Requests\StatisticsControllerRequests\StatisticsUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class StatisticsController extends Controller
 {
@@ -79,6 +79,14 @@ class StatisticsController extends Controller
 
         });
 
+        $account_payment_plan = DB::table('account_payment_plan')->when($start_date, function ($query, $start_date) {
+            return $query->whereDate('created_at', '>=', $start_date);
+
+        })->when($end_date, function ($query, $end_date) {
+            return $query->whereDate('created_at', '<=', $end_date);
+
+        });
+
         // Perform statistics calculation
         $stats = new \stdClass();
 
@@ -87,6 +95,7 @@ class StatisticsController extends Controller
         $stats->embedded_forms = $embedded_form->count();
         $stats->groups = $group->count();
         $stats->users = $user->count();
+        $stats->account_payment_plans = $account_payment_plan->count();
 
         // Return success
         return $this->success($stats);

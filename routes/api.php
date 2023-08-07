@@ -231,6 +231,14 @@ Route::group(['middleware' => ['api'], 'prefix' => 'public/payment-plan'], funct
     Route::get('test', 'PublicPaymentPlanController@test');
 });
 
+Route::group(['middleware' => ['api'], 'prefix' => 'public/embedded-form'], function ($router) {
+
+    // Public Embedded Form Routes
+    Route::get('form-url', 'PublicEmbeddedFormController@formUrl');
+    Route::get('custom-url', 'PublicEmbeddedFormController@customUrl');
+    Route::get('test', 'PublicEmbeddedFormController@test');
+});
+
 Route::group(['middleware' => ['api'], 'prefix' => 'role'], function ($router) {
 
     // Role Routes

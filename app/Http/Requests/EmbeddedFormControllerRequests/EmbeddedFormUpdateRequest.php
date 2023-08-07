@@ -3,6 +3,9 @@
 namespace App\Http\Requests\EmbeddedFormControllerRequests;
 
 use App\Models\EmbeddedForm;
+use App\Rules\Maximum;
+use App\Rules\Base64Image;
+use App\Rules\UrlImage;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

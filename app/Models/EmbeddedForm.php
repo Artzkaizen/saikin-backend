@@ -19,7 +19,7 @@ class EmbeddedForm extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'title',
         'group_id',
         'custom_url',
         'description',

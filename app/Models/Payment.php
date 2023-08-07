@@ -83,7 +83,7 @@ class Payment extends Model
 
         self::creating(function ($model) {
             $model->id = (string) Str::uuid();
-            $model->pfm = Str::random(15);
+            $model->pfm = $model->generatePFM();
             $model->created_by = auth()->user()->id;
         });
 
@@ -95,6 +95,18 @@ class Payment extends Model
             $model->deleted_by = auth()->user()->id;
             $model->save();
         });
+    }
+
+    /**
+     * Generate a unique pfm code
+     * 
+     * @param void
+     * @return string
+     */
+    public function generatePFM()
+    {
+        $string = Str::random(10);
+        return $this->where('pfm', $string)->exists() ? $this->generatePFM() : $string;
     }
 
     /**

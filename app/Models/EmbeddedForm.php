@@ -78,15 +78,10 @@ class EmbeddedForm extends Model
      */
     public static function boot()
     {
-        function random() {
-            $string = Str::random(10);
-            return EmbeddedForm::firstWhere('form_url', $string) ? random() : $string;
-        };
-
         parent::boot();
 
         self::creating(function ($model) {
-            $model->form_url = random();
+            $model->form_url = $model->generateFormUrl();
             $model->created_by = auth()->user()->id;
         });
 
@@ -98,6 +93,18 @@ class EmbeddedForm extends Model
             $model->deleted_by = auth()->user()->id;
             $model->save();
         });
+    }
+
+    /**
+     * Generate a unique form url
+     * 
+     * @param void
+     * @return string
+     */
+    public function generateFormUrl()
+    {
+        $string = Str::random(10);
+        return $this->where('form_url', $string)->exists() ? $this->generateFormUrl() : $string;
     }
 
     /**

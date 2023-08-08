@@ -104,7 +104,7 @@ class EmbeddedFormController extends Controller
 
         // Build search query
         $embedded_form = EmbeddedForm::when($user_id, function ($query, $user_id) {
-            return $query->where('user_id', 'like', '%'.$user_id.'%');
+            return $query->where('user_id', $user_id);
         })->when($group_id, function ($query, $group_id) {
             return $query->where('group_id', 'like', '%'.$group_id.'%');
         })->when($title, function ($query, $title) {
@@ -159,10 +159,18 @@ class EmbeddedFormController extends Controller
         $search_string = is_null($request->input('search'))? false : Helper::escapeForLikeColumnQuery($request->input('search'));
 
         // Build search query
-        $embedded_form = EmbeddedForm::when($search_string, function ($query, $search_string) {
-            return $query->where('user_id', 'like', '%'.$search_string.'%')
-            ->orWhere('group_id', 'like', '%'.$search_string.'%')
-            ->orWhere('title', 'like', '%'.$search_string.'%');
+        $embedded_form = EmbeddedForm::when($search_string, function ($query) use ($request, $search_string) {
+
+            return $query->when($request->input('user_id'), function($query) use ($request) {
+
+                return $query->where('user_id', $request->input('user_id'));
+
+            })->where(function ($query) use ($search_string) {
+
+                return $query->where('user_id', 'like', '%'.$search_string.'%')
+                ->orWhere('group_id', 'like', '%'.$search_string.'%')
+                ->orWhere('title', 'like', '%'.$search_string.'%');
+            });
         });
 
         // Check if the builder has any where clause

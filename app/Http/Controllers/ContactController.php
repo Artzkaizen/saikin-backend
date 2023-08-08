@@ -118,7 +118,7 @@ class ContactController extends Controller
 
         // Build search query
         $contacts = Contact::when($user_id, function ($query, $user_id) {
-            return $query->where('user_id', 'like', '%'.$user_id.'%');
+            return $query->where('user_id', $user_id);
         })->when($title, function ($query, $title) {
             return $query->where('title', 'like', '%'.$title.'%');
         })->when($first_name, function ($query, $first_name) {
@@ -193,20 +193,28 @@ class ContactController extends Controller
         $search_string = is_null($request->input('search'))? false : Helper::escapeForLikeColumnQuery($request->input('search'));
 
         // Build search query
-        $contacts = Contact::when($search_string, function ($query, $search_string) {
-            return $query->where('user_id', 'like', '%'.$search_string.'%')
-            ->orWhere('title', 'like', '%'.$search_string.'%')
-            ->orWhere('first_name', 'like', '%'.$search_string.'%')
-            ->orWhere('last_name', 'like', '%'.$search_string.'%')
-            ->orWhere('email', 'like', '%'.$search_string.'%')
-            ->orWhere('phone', 'like', '%'.$search_string.'%')
-            ->orWhere('address', 'like', '%'.$search_string.'%')
-            ->orWhere('city', 'like', '%'.$search_string.'%')
-            ->orWhere('state', 'like', '%'.$search_string.'%')
-            ->orWhere('country', 'like', '%'.$search_string.'%')
-            ->orWhere('zip', 'like', '%'.$search_string.'%')
-            ->orWhere('latitude', 'like', '%'.$search_string.'%')
-            ->orWhere('longitude', 'like', '%'.$search_string.'%');
+        $contacts = Contact::when($search_string, function ($query) use ($request, $search_string) {
+
+            return $query->when($request->input('user_id'), function($query) use ($request) {
+
+                return $query->where('user_id', $request->input('user_id'));
+
+            })->where(function ($query) use ($search_string) {
+
+                return $query->where('user_id', 'like', '%'.$search_string.'%')
+                ->orWhere('title', 'like', '%'.$search_string.'%')
+                ->orWhere('first_name', 'like', '%'.$search_string.'%')
+                ->orWhere('last_name', 'like', '%'.$search_string.'%')
+                ->orWhere('email', 'like', '%'.$search_string.'%')
+                ->orWhere('phone', 'like', '%'.$search_string.'%')
+                ->orWhere('address', 'like', '%'.$search_string.'%')
+                ->orWhere('city', 'like', '%'.$search_string.'%')
+                ->orWhere('state', 'like', '%'.$search_string.'%')
+                ->orWhere('country', 'like', '%'.$search_string.'%')
+                ->orWhere('zip', 'like', '%'.$search_string.'%')
+                ->orWhere('latitude', 'like', '%'.$search_string.'%')
+                ->orWhere('longitude', 'like', '%'.$search_string.'%');
+            });
         });
 
         // Check if the builder has any where clause

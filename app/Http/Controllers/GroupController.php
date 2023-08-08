@@ -82,7 +82,7 @@ class GroupController extends Controller
     {
         $user_id = is_null($request->input('user_id'))? false : Helper::escapeForLikeColumnQuery($request->input('user_id'));
         $title = is_null($request->input('title'))? false : Helper::escapeForLikeColumnQuery($request->input('title'));
-        $contacts = is_null($request->input('contacts'))? false : $request->input('contacts');
+        $group_contacts = is_null($request->input('group_contacts'))? false : $request->input('group_contacts');
         $start_date = is_null($request->input('start_date'))? false : Helper::stringToCarbonDate($request->input('start_date'));
         $end_date = is_null($request->input('end_date'))? false : Helper::stringToCarbonDate($request->input('end_date'));
         $pagination = is_null($request->input('pagination'))? true : (boolean) $request->input('pagination');
@@ -97,7 +97,7 @@ class GroupController extends Controller
         })->when($contacts, function ($query, $contacts) {
 
             foreach($contacts as $contact) {
-                $query->whereJsonContains('contacts', $contact);
+                $query->whereJsonContains('group_contacts', $contact);
             }
             return $query;
 
@@ -163,7 +163,7 @@ class GroupController extends Controller
 
                 return $query->where('id', 'like', '%'.$search_string.'%')
                 ->orWhere('title', 'like', '%'.$search_string.'%')
-                ->orWhereJsonContains('contacts', $search_string)
+                ->orWhereJsonContains('group_contacts', $search_string)
                 ->when($search_date, function ($query, $search_date) {
                     return $query->orWhere('created_at', '=', $search_date);
                 });

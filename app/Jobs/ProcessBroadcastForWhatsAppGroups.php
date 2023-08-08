@@ -12,6 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class ProcessBroadcastForWhatsAppGroups implements ShouldQueue
 {
@@ -53,6 +54,7 @@ class ProcessBroadcastForWhatsAppGroups implements ShouldQueue
                     'user_id' => $this->broadcast->user_id,
                     'account_id' => $this->broadcast->account_id,
                     'broadcast_id' => $this->broadcast->id,
+                    'reference' => (string) Str::uuid(),
                     'whatsapp_group_name' => $whatsapp_group_name,
                     'batch' => $batch_token.$batch,
                     'created_at' => Carbon::now()->toDateTimeString(),
@@ -64,7 +66,8 @@ class ProcessBroadcastForWhatsAppGroups implements ShouldQueue
             DB::table((new BroadcastOutgoing)->getTable())->insert($broadcast_outgoing->toArray());
 
             // Dispatch messenger
-            // ProcessPodcast::dispatch($podcast)->delay(now()->addMinutes(10));
+            $minutes_before_resume = Carbon::parse($this->broadcast->minutes_before_resume)->minute;
+            ProcessBroadcastOutgoing::dispatch($broadcast_outgoing)->delay(now()->addMinutes($minutes_before_resume));
         });
     }
 

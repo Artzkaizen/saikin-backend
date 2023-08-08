@@ -21,6 +21,7 @@ class CreateBroadcastOutgoingsTable extends Migration
             $table->uuid('broadcast_id')->index();
             $table->unsignedBigInteger('contact_id')->nullable();
             $table->string('whatsapp_group_name',100)->nullable();
+            $table->uuid('reference')->index()->nullable();
 
             // Properties - broadcast outgoings
             $table->string('batch', 100)->nullable();

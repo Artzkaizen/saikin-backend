@@ -50,7 +50,7 @@ class PaymentPlanTableSeeder extends Seeder
 
         // Run payment plan factory
         if (config('app.env') === 'local') {
-            factory(PaymentPlan::class, 10)->create();
+            // factory(PaymentPlan::class, 10)->create();
         }
     }
 }
